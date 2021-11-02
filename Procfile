@@ -1,0 +1,1 @@
+web: cd api && gunicorn h14ku:app
