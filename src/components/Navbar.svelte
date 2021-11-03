@@ -88,6 +88,3 @@
     </ul>
   </nav>
 {/if}
-
-<style>
-</style>
