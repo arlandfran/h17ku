@@ -19,6 +19,7 @@
     "postcss": "^8.2.8",
     "postcss-import": "^14.0.0",
     "svelte": "^3.35.0",
+    "svelte-match-media": "^1.2.1",
     "svelte-preprocess": "^4.7.0",
     "tailwindcss": "^2.2.19",
     "vite": "^2.0.5"
