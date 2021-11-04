@@ -1,5 +1,7 @@
 <script>
-  import { slide } from "svelte/transition";
+  import ThemeToggler from "../components/ThemeToggle.svelte";
+  import Hamburger from "../components/Hamburger.svelte";
+  import { fade, slide } from "svelte/transition";
   import { media } from "svelte-match-media";
 
   let showMenu = false;
@@ -9,60 +11,27 @@
     { link: "Register", href: "./register" },
   ];
 
-  function menuClickHandler() {
-    showMenu = !showMenu;
-  }
-
   $: if ($media.desktop) {
     showMenu = false;
   }
 </script>
 
 <header
-  class="flex flex-col justify-center items-end p-4 w-full max-w-7xl min-h-16"
+  class="flex flex-col justify-center items-end p-4 w-full max-w-7xl min-h-16 dark:text-white"
 >
   <div class="flex gap-4 items-center">
-    <!-- Theme toggler -->
-    <button class="p-2">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        class="w-6 h-6"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-      >
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
-        />
-      </svg>
-    </button>
+    <ThemeToggler />
 
-    <!-- Hamburger -->
-    <button class="p-2 md:hidden" on:click={menuClickHandler}>
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        class="w-6 h-6"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-      >
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          d="M4 6h16M4 12h16M4 18h16"
-        />
-      </svg>
-    </button>
+    <Hamburger bind:showMenu />
 
     <nav class="hidden md:block">
       <ul class="flex gap-2">
         {#each navLinks as { link, href }}
           <li>
-            <a class="p-2" {href}>{link}</a>
+            <a
+              class="p-2 rounded-sm focus:outline-none focus:ring-2 focus:ring-black dark:ring-white"
+              {href}>{link}</a
+            >
           </li>
         {/each}
       </ul>
@@ -74,10 +43,13 @@
       class="flex justify-end pt-4 w-full max-w-7xl text-right"
       transition:slide={{ duration: 200 }}
     >
-      <ul class="flex flex-col gap-4">
+      <ul class="flex flex-col gap-4" in:fade>
         {#each navLinks as { link, href }}
           <li>
-            <a class="p-2" {href}>{link}</a>
+            <a
+              class="p-2 rounded-sm focus:outline-none focus:ring-2 focus:ring-black dark:ring-white"
+              {href}>{link}</a
+            >
           </li>
         {/each}
       </ul>
