@@ -1,6 +1,13 @@
+const colors = require("tailwindcss/colors");
+
 module.exports = {
   darkMode: "class",
   theme: {
+    colors: {
+      white: colors.white,
+      black: colors.black,
+      gray: colors.trueGray,
+    },
     deliciousHamburgers: {
       size: "28px",
       color: "#000",
