@@ -7,6 +7,8 @@ module.exports = {
       white: colors.white,
       black: colors.black,
       gray: colors.trueGray,
+      red: colors.red,
+      green: colors.emerald,
     },
     deliciousHamburgers: {
       size: "28px",
@@ -14,6 +16,12 @@ module.exports = {
       colorLight: "#fff8f4",
       padding: "0px",
       animationSpeed: 1.5,
+    },
+  },
+  variants: {
+    extend: {
+      cursor: ["disabled"],
+      textDecoration: ["disabled"],
     },
   },
   plugins: [require("tailwindcss-delicious-hamburgers")],
