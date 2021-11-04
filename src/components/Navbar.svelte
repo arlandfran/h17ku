@@ -1,7 +1,7 @@
 <script>
   import ThemeToggler from "../components/ThemeToggle.svelte";
   import Hamburger from "../components/Hamburger.svelte";
-  import { slide } from "svelte/transition";
+  import { fade, slide } from "svelte/transition";
   import { media } from "svelte-match-media";
 
   let showMenu = false;
@@ -40,7 +40,7 @@
       class="flex justify-end pt-4 w-full max-w-7xl text-right"
       transition:slide={{ duration: 200 }}
     >
-      <ul class="flex flex-col gap-4">
+      <ul class="flex flex-col gap-4" in:fade>
         {#each navLinks as { link, href }}
           <li>
             <a class="p-2" {href}>{link}</a>

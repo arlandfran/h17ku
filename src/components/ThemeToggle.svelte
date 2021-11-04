@@ -1,4 +1,6 @@
-<button class="p-2">
+<button
+  class="p-2 focus:outline-none focus:ring-2 focus:ring-black hover:bg-gray-300"
+>
   <svg
     xmlns="http://www.w3.org/2000/svg"
     class="w-6 h-6"
@@ -14,3 +16,9 @@
     />
   </svg>
 </button>
+
+<style>
+  button {
+    transition: background 0.2s ease-in-out;
+  }
+</style>
