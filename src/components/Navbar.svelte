@@ -7,8 +7,8 @@
   let showMenu = false;
 
   const navLinks = [
-    { link: "Log in", href: "./login" },
-    { link: "Register", href: "./register" },
+    { link: "log in", href: "./login" },
+    { link: "register", href: "./register" },
   ];
 
   $: if ($media.desktop) {
