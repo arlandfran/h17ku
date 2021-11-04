@@ -1,4 +1,5 @@
 module.exports = {
+  darkMode: "class",
   theme: {
     deliciousHamburgers: {
       size: "28px",

@@ -17,7 +17,7 @@
 </script>
 
 <header
-  class="flex flex-col justify-center items-end p-4 w-full max-w-7xl min-h-16"
+  class="flex flex-col justify-center items-end p-4 w-full max-w-7xl min-h-16 dark:text-white"
 >
   <div class="flex gap-4 items-center">
     <ThemeToggler />
@@ -28,7 +28,10 @@
       <ul class="flex gap-2">
         {#each navLinks as { link, href }}
           <li>
-            <a class="p-2" {href}>{link}</a>
+            <a
+              class="p-2 rounded-sm focus:outline-none focus:ring-2 focus:ring-black dark:ring-white"
+              {href}>{link}</a
+            >
           </li>
         {/each}
       </ul>
@@ -43,7 +46,10 @@
       <ul class="flex flex-col gap-4" in:fade>
         {#each navLinks as { link, href }}
           <li>
-            <a class="p-2" {href}>{link}</a>
+            <a
+              class="p-2 rounded-sm focus:outline-none focus:ring-2 focus:ring-black dark:ring-white"
+              {href}>{link}</a
+            >
           </li>
         {/each}
       </ul>
