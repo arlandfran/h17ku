@@ -1,1 +1,1 @@
-<h1 class="text-4xl font-bold">Log in</h1>
+<h1 class="text-4xl font-bold dark:text-white">Log in</h1>

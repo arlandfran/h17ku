@@ -1,1 +1,1 @@
-<h1 class="text-4xl font-bold">Register</h1>
+<h1 class="text-4xl font-bold dark:text-white">Register</h1>
