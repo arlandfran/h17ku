@@ -1,10 +1,10 @@
 import os
-import time
 import json
 import pymongo
 from bson import json_util
 from dotenv import load_dotenv
-from flask import Flask
+from flask import Flask, request, Response
+from werkzeug.security import generate_password_hash
 
 load_dotenv()
 
@@ -24,15 +24,42 @@ def index():
     return app.send_static_file("index.html")
 
 
-@app.route("/api/time")
-def get_current_time():
-    """Return current time in seconds"""
-    return {"time": time.time()}
+@app.post("/api/auth/register")
+def register():
+    """
+    Handle user registration
+    """
+    if request.method == "POST":
+        data = request.get_json()
 
+        # check if email or user already exists
+        existing_email = db.users.find_one({"email": data["email"]})
+        existing_user = db.users.find_one({"username": data["username"].lower()})
 
-@app.route("/api/users")
-def get_all_users():
-    """Return all documents in users collection"""
-    users = db.users
-    data = parse_json(users.find())
-    return {"users": data}
+        if existing_email:
+            return Response(
+                json.dumps({"error": "email already exists"}),
+                status=409,
+                mimetype="application/json",
+            )
+
+        if existing_user:
+            return Response(
+                json.dumps({"error": "username already exists"}),
+                status=409,
+                mimetype="application/json",
+            )
+
+        new_user = {
+            "email": data["email"],
+            "username": data["username"],
+            "password": generate_password_hash(data["password"]),
+        }
+
+        db.users.insert_one(new_user)
+
+        return Response(
+            json.dumps({"message": "new user created"}),
+            status=201,
+            mimetype="application/json",
+        )

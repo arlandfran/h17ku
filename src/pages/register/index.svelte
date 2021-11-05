@@ -32,10 +32,21 @@
         .strict(true)
         .required("confirm password is a required field"),
     }),
-    onSubmit: (values) => {
+    onSubmit: async (values) => {
       if (values.password === values.password2) {
         passwordsMatch = true;
-        alert(JSON.stringify(values));
+
+        const postRequest = await fetch("/api/auth/register", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(values),
+        });
+
+        const res = postRequest.status;
+
+        console.log(res);
       } else {
         passwordsMatch = false;
       }
