@@ -48,7 +48,7 @@
         const res = await postRequest.json();
 
         if (postRequest.status === 201) {
-          $goto("../login");
+          $goto("../login", { newUser: true });
         } else if (postRequest.status === 409) {
           if (res.type === "email") {
             $errors.email = res.error;
