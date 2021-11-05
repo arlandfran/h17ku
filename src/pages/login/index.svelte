@@ -14,7 +14,6 @@
     reversed: true,
     intro: { y: 64 },
     theme: {
-      "--toastWidth": "100%",
       "--toastMinHeight": "2rem",
       "--toastPadding": "0 0.5rem",
       "--toastBackground": "#48BB78",
@@ -30,8 +29,8 @@
 <style>
   :root {
     --toastContainerTop: auto;
-    --toastContainerRight: 1rem;
+    --toastContainerRight: auto;
     --toastContainerBottom: 1rem;
-    --toastContainerLeft: 1rem;
+    --toastContainerLeft: calc(50vw - 8rem);
   }
 </style>
