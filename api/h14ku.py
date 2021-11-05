@@ -38,14 +38,14 @@ def register():
 
         if existing_email:
             return Response(
-                json.dumps({"error": "email already exists"}),
+                json.dumps({"error": "email already exists", "type": "email"}),
                 status=409,
                 mimetype="application/json",
             )
 
         if existing_user:
             return Response(
-                json.dumps({"error": "username already exists"}),
+                json.dumps({"error": "username already exists", "type": "username"}),
                 status=409,
                 mimetype="application/json",
             )

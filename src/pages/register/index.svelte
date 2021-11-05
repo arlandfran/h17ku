@@ -1,4 +1,5 @@
 <script>
+  import { goto } from "@roxi/routify";
   import { createForm } from "svelte-forms-lib";
   import * as yup from "yup";
 
@@ -44,9 +45,17 @@
           body: JSON.stringify(values),
         });
 
-        const res = postRequest.status;
+        const res = await postRequest.json();
 
-        console.log(res);
+        if (postRequest.status === 201) {
+          $goto("../login");
+        } else if (postRequest.status === 409) {
+          if (res.type === "email") {
+            $errors.email = res.error;
+          } else if (res.type === "username") {
+            $errors.username = res.error;
+          }
+        }
       } else {
         passwordsMatch = false;
       }
