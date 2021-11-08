@@ -2,7 +2,7 @@
   "name": "routify-starter",
   "private": true,
   "scripts": {
-    "api": "cd api && venv/bin/flask run --no-debugger",
+    "api": "venv/bin/flask run --no-debugger",
     "dev": "run-p dev:*",
     "dev:routify": "routify",
     "dev:vite": "vite",
