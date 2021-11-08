@@ -18,9 +18,12 @@ def parse_json(data):
     return json.loads(json_util.dumps(data))
 
 
-@app.route("/")
-def index():
-    """Serve build bundle"""
+@app.route("/", defaults={"path": ""})
+@app.route("/<string:path>")
+def catch_all(path):
+    """
+    Catch all routes manually and serve index.html from dist.
+    """
     return app.send_static_file("index.html")
 
 
