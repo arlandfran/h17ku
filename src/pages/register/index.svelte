@@ -37,7 +37,7 @@
       if (values.password === values.password2) {
         passwordsMatch = true;
 
-        const postRequest = await fetch("/api/auth/register", {
+        const response = await fetch("/api/auth/register", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -45,15 +45,15 @@
           body: JSON.stringify(values),
         });
 
-        const res = await postRequest.json();
+        const result = await response.json();
 
-        if (postRequest.status === 201) {
+        if (response.status === 201) {
           $goto("../login", { newUser: true });
-        } else if (postRequest.status === 409) {
-          if (res.type === "email") {
-            $errors.email = res.error;
-          } else if (res.type === "username") {
-            $errors.username = res.error;
+        } else if (response.status === 409) {
+          if (result.type === "email") {
+            $errors.email = result.error;
+          } else if (result.type === "username") {
+            $errors.username = result.error;
           }
         }
       } else {
