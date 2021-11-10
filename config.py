@@ -10,6 +10,7 @@ class Config:
     FLASK_ENV = "development"
     DEBUG = False
     TESTING = False
+    SECRET_KEY = os.getenv("SECRET_KEY")
 
 
 class DevConfig(Config):
