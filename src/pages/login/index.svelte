@@ -1,5 +1,5 @@
 <script>
-  import { params } from "@roxi/routify";
+  import { params, goto } from "@roxi/routify";
   import { onMount } from "svelte";
   import { createForm } from "svelte-forms-lib";
   import { SvelteToast as Toast, toast } from "@zerodevx/svelte-toast";
@@ -21,7 +21,23 @@
       password: yup.string().required(),
     }),
     onSubmit: async (values) => {
-      console.log(JSON.stringify(values));
+      const response = await fetch("/api/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(values),
+      });
+
+      const result = await response.json();
+
+      if (response.status === 200) {
+        $goto("/");
+      } else if (response.status === 401) {
+        $errors.password = result.error;
+      } else if (response.status === 404) {
+        $errors.email = result.error;
+      }
     },
   });
 

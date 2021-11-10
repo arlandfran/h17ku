@@ -1,5 +1,5 @@
 from flask import Blueprint, request
-from werkzeug.security import generate_password_hash
+from werkzeug.security import check_password_hash, generate_password_hash
 from app import mongo
 
 auth_bp = Blueprint("auth_bp", __name__, url_prefix="/auth")
@@ -24,3 +24,18 @@ def register():
         }
         mongo.db.users.insert_one(new_user)
         return {"message": "new user created"}, 201
+
+
+@auth_bp.post("/login")
+def login():
+    """Handle user login"""
+    if request.method == "POST":
+        data = request.get_json()
+        email = mongo.db.users.find_one({"email": data["email"]})
+        if email:
+            if check_password_hash(email["password"], data["password"]):
+                return {"message": "login successful"}, 200
+            else:
+                return {"error": "incorrect password"}, 401
+        else:
+            return {"error": "email not found"}, 404
