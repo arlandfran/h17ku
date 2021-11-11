@@ -1,9 +1,12 @@
 from flask import Flask, render_template
 from flask_pymongo import PyMongo
+from flask_login import LoginManager
+from flask_wtf.csrf import CSRFProtect
 from config import config
 
-
 mongo = PyMongo()
+login_manager = LoginManager()
+login_manager.session_protection = "strong"
 
 
 def create_app(config_name="dev"):
@@ -20,6 +23,8 @@ def create_app(config_name="dev"):
     app.register_blueprint(api_bp)
 
     mongo.init_app(app)
+    login_manager.init_app(app)
+    csrf = CSRFProtect(app)
 
     @app.route("/", defaults={"path": ""})
     @app.route("/<path:path>")
