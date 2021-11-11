@@ -3,6 +3,8 @@
   import { createForm } from "svelte-forms-lib";
   import * as yup from "yup";
 
+  const csrf = document.getElementsByName("csrf-token")[0].content;
+
   let passwordsMatch;
 
   const { form, errors, isValid, handleChange, handleSubmit } = createForm({
@@ -41,7 +43,9 @@
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            "X-CSRFToken": csrf,
           },
+          credentials: "same-origin",
           body: JSON.stringify(values),
         });
 

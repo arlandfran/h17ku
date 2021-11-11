@@ -7,10 +7,12 @@ load_dotenv()
 class Config:
     """Base configuration class."""
 
-    FLASK_ENV = "development"
     DEBUG = False
     TESTING = False
     SECRET_KEY = os.getenv("SECRET_KEY")
+    SESSION_COOKIE_HTTPONLY = True
+    REMEMBER_COOKIE_HTTPONLY = True
+    SESSION_COOKIE_SAMESITE = "Strict"
 
 
 class DevConfig(Config):
@@ -22,8 +24,9 @@ class TestConfig(Config):
 
 
 class ProdConfig(Config):
-    FLASK_ENV = "production"
     MONGO_URI = os.getenv("MONGO_PROD_URI")
+    SESSION_COOKIE_SECURE = True
+    REMEMBER_COOKIE_SECURE = True
 
 
 config = {

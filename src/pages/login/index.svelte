@@ -5,6 +5,8 @@
   import { SvelteToast as Toast, toast } from "@zerodevx/svelte-toast";
   import * as yup from "yup";
 
+  const csrf = document.getElementsByName("csrf-token")[0].content;
+
   onMount(() => {
     if ($params.newUser) {
       toast.push("new account created!", options);
@@ -25,17 +27,19 @@
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          "X-CSRFToken": csrf,
         },
+        credentials: "same-origin",
         body: JSON.stringify(values),
       });
 
       const result = await response.json();
 
-      if (response.status === 200) {
+      if (result.login) {
         $goto("/");
-      } else if (response.status === 401) {
+      } else if (!result.login && response.status === 401) {
         $errors.password = result.error;
-      } else if (response.status === 404) {
+      } else if (!result.login && response.status === 404) {
         $errors.email = result.error;
       }
     },
