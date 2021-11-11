@@ -2,27 +2,34 @@
   "name": "routify-starter",
   "private": true,
   "scripts": {
-    "api": "cd api && venv/bin/flask run --no-debugger",
+    "api": "venv/bin/flask run --no-debugger",
     "dev": "run-p dev:*",
     "dev:routify": "routify",
     "dev:vite": "vite",
     "preview": "vite preview",
     "build": "run-s build:*",
     "build:routify": "routify -b",
-    "build:vite": "vite build"
+    "build:vite": "vite build",
+    "build:flask": "node scripts/makeFlaskRenderable.js"
   },
   "devDependencies": {
     "@roxi/routify": "^2.18.3",
     "@sveltejs/vite-plugin-svelte": "^1.0.0-next.5",
+    "@zerodevx/svelte-toast": "^0.6.2",
     "autoprefixer": "^10.2.5",
     "npm-run-all": "^4.1.5",
     "postcss": "^8.2.8",
     "postcss-import": "^14.0.0",
+    "replace-in-file": "^6.3.2",
     "svelte": "^3.35.0",
+    "svelte-forms-lib": "^1.10.7",
     "svelte-match-media": "^1.2.1",
     "svelte-preprocess": "^4.7.0",
     "tailwindcss": "^2.2.19",
     "tailwindcss-delicious-hamburgers": "^1.0.2",
     "vite": "^2.0.5"
+  },
+  "dependencies": {
+    "yup": "^0.32.11"
   }
 }

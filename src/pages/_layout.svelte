@@ -5,6 +5,6 @@
 
 <Navbar />
 
-<main class="flex justify-center">
+<main class="flex flex-col items-center p-4">
   <slot />
 </main>
