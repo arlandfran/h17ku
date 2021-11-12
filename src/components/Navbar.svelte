@@ -20,8 +20,11 @@
     fetch("/api/auth/logout", {
       credentials: "same-origin",
     })
-      .then(() => {
-        $isAuthenticated = false;
+      .then((response) => response.json())
+      .then((result) => {
+        if (result.logout) {
+          $isAuthenticated = false;
+        }
       })
       .catch((err) => {
         console.log(err);
