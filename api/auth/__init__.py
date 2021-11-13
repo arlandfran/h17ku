@@ -16,16 +16,16 @@ def register():
     email_exists = mongo.db.users.find_one({"email": data["email"]})
     user_exists = mongo.db.users.find_one({"username": data["username"].lower()})
     if email_exists:
-        return {"error": "email already exists", "type": "email"}, 409
+        return {"msg": "email already exists", "errorField": "email"}, 409
     if user_exists:
-        return {"error": "username already exists", "type": "username"}, 409
+        return {"msg": "username already exists", "errorField": "username"}, 409
     new_user = {
         "email": data["email"],
         "username": data["username"].lower(),
         "pwd_hash": generate_password_hash(data["password"]),
     }
     mongo.db.users.insert_one(new_user)
-    return {"message": "new user created"}, 201
+    return {"msg": "new user created"}, 201
 
 
 @auth_bp.post("/login")
@@ -38,14 +38,13 @@ def login():
             user_obj = User(
                 email=data["email"],
                 username=email_exists["username"],
-                pwd_hash=email_exists["pwd_hash"],
             )
             login_user(user_obj)
             return {"login": True}, 200
         else:
-            return {"login": False, "error": "incorrect password"}, 401
+            return {"login": False, "msg": "incorrect password"}, 401
     else:
-        return {"login": False, "error": "email not found"}, 404
+        return {"login": False, "msg": "email not found"}, 404
 
 
 @auth_bp.get("/session")

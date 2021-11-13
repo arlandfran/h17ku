@@ -38,9 +38,9 @@
       if (result.login) {
         $goto("/");
       } else if (!result.login && response.status === 401) {
-        $errors.password = result.error;
+        $errors.password = result.msg;
       } else if (!result.login && response.status === 404) {
-        $errors.email = result.error;
+        $errors.email = result.msg;
       }
     },
   });

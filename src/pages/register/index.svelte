@@ -54,10 +54,10 @@
         if (response.status === 201) {
           $goto("../login", { newUser: true });
         } else if (response.status === 409) {
-          if (result.type === "email") {
-            $errors.email = result.error;
-          } else if (result.type === "username") {
-            $errors.username = result.error;
+          if (result.errorField === "email") {
+            $errors.email = result.msg;
+          } else if (result.errorField === "username") {
+            $errors.username = result.msg;
           }
         }
       } else {
