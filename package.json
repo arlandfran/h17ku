@@ -6,6 +6,7 @@
     "dev": "run-p dev:*",
     "dev:routify": "routify",
     "dev:vite": "vite",
+    "test": "venv/bin/pytest",
     "preview": "vite preview",
     "build": "run-s build:*",
     "build:routify": "routify -b",
