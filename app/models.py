@@ -3,10 +3,9 @@ from app import login_manager, mongo
 
 
 class User(UserMixin):
-    def __init__(self, email, username, pwd_hash):
+    def __init__(self, email, username):
         self.email = email
         self.username = username
-        self.pwd_hash = pwd_hash
 
     def get_id(self):
         return self.username
@@ -19,7 +18,6 @@ def load_user(username):
         user = User(
             email=username_exists["email"],
             username=username,
-            pwd_hash=username_exists["pwd_hash"],
         )
         return user
     return None
