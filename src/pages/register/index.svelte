@@ -1,6 +1,7 @@
 <script>
   import { goto } from "@roxi/routify";
   import { createForm } from "svelte-forms-lib";
+  import { SvelteToast as Toast, toast } from "@zerodevx/svelte-toast";
   import * as yup from "yup";
 
   const csrf = document.getElementsByName("csrf-token")[0].content;
@@ -58,6 +59,20 @@
             $errors.email = result.msg;
           } else if (result.errorField === "username") {
             $errors.username = result.msg;
+          } else if (
+            response.status === 400 &&
+            result.msg === "The CSRF token has expired."
+          ) {
+            toast.push("session has expired, please refresh the page", {
+              initial: 1,
+              reversed: true,
+              intro: { y: 64 },
+              theme: {
+                "--toastMinHeight": "2rem",
+                "--toastPadding": "0 0.5rem",
+                "--toastBarBackground": "transparent",
+              },
+            });
           }
         }
       } else {
@@ -150,6 +165,8 @@
     </div>
   </form>
 </div>
+
+<Toast />
 
 <style>
   .error {

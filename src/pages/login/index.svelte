@@ -9,7 +9,17 @@
 
   onMount(() => {
     if ($params.newUser) {
-      toast.push("new account created!", options);
+      toast.push("new account created!", {
+        initial: 1,
+        reversed: true,
+        intro: { y: 64 },
+        theme: {
+          "--toastMinHeight": "2rem",
+          "--toastPadding": "0 0.5rem",
+          "--toastBackground": "#48BB78",
+          "--toastBarBackground": "transparent",
+        },
+      });
     }
   });
 
@@ -41,21 +51,23 @@
         $errors.password = result.msg;
       } else if (!result.login && response.status === 404) {
         $errors.email = result.msg;
+      } else if (
+        response.status === 400 &&
+        result.msg === "The CSRF token has expired."
+      ) {
+        toast.push("session has expired, please refresh the page", {
+          initial: 1,
+          reversed: true,
+          intro: { y: 64 },
+          theme: {
+            "--toastMinHeight": "2rem",
+            "--toastPadding": "0 0.5rem",
+            "--toastBarBackground": "transparent",
+          },
+        });
       }
     },
   });
-
-  const options = {
-    initial: 1,
-    reversed: true,
-    intro: { y: 64 },
-    theme: {
-      "--toastMinHeight": "2rem",
-      "--toastPadding": "0 0.5rem",
-      "--toastBackground": "#48BB78",
-      "--toastBarBackground": "#48BB78",
-    },
-  };
 </script>
 
 <h1 class="text-4xl font-bold dark:text-white">log in</h1>
@@ -109,13 +121,6 @@
 <Toast />
 
 <style>
-  :root {
-    --toastContainerTop: auto;
-    --toastContainerRight: auto;
-    --toastContainerBottom: 1rem;
-    --toastContainerLeft: calc(50vw - 8rem);
-  }
-
   .error {
     @apply border border-red-600 ring-red-600;
   }
