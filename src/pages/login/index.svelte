@@ -3,7 +3,7 @@
   import { onMount } from "svelte";
   import { createForm } from "svelte-forms-lib";
   import { SvelteToast as Toast, toast } from "@zerodevx/svelte-toast";
-  import * as yup from "yup";
+  import { loginSchema } from "../../schemas";
 
   const csrf = document.getElementsByName("csrf-token")[0].content;
 
@@ -28,10 +28,7 @@
       email: "",
       password: "",
     },
-    validationSchema: yup.object().shape({
-      email: yup.string().email().required(),
-      password: yup.string().required(),
-    }),
+    validationSchema: loginSchema,
     onSubmit: async (values) => {
       const response = await fetch("/api/auth/login", {
         method: "POST",

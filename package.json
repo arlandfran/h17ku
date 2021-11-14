@@ -28,9 +28,7 @@
     "svelte-preprocess": "^4.7.0",
     "tailwindcss": "^2.2.19",
     "tailwindcss-delicious-hamburgers": "^1.0.2",
-    "vite": "^2.0.5"
-  },
-  "dependencies": {
+    "vite": "^2.0.5",
     "yup": "^0.32.11"
   }
 }

@@ -2,7 +2,7 @@
   import { goto } from "@roxi/routify";
   import { createForm } from "svelte-forms-lib";
   import { SvelteToast as Toast, toast } from "@zerodevx/svelte-toast";
-  import * as yup from "yup";
+  import { registerSchema } from "../../schemas";
 
   const csrf = document.getElementsByName("csrf-token")[0].content;
 
@@ -15,27 +15,7 @@
       password: "",
       password2: "",
     },
-    validationSchema: yup.object().shape({
-      email: yup.string().email().required(),
-      username: yup
-        .string()
-        .min(4)
-        .trim("no spaces allowed")
-        .strict(true)
-        .required(),
-      password: yup
-        .string()
-        .min(8)
-        .trim("no spaces allowed")
-        .strict(true)
-        .required(),
-      password2: yup
-        .string()
-        .min(8, "password must be at least 8 characters")
-        .trim("no spaces allowed")
-        .strict(true)
-        .required("confirm password is a required field"),
-    }),
+    validationSchema: registerSchema,
     onSubmit: async (values) => {
       if (values.password === values.password2) {
         passwordsMatch = true;
@@ -59,21 +39,21 @@
             $errors.email = result.msg;
           } else if (result.errorField === "username") {
             $errors.username = result.msg;
-          } else if (
-            response.status === 400 &&
-            result.msg === "The CSRF token has expired."
-          ) {
-            toast.push("session has expired, please refresh the page", {
-              initial: 1,
-              reversed: true,
-              intro: { y: 64 },
-              theme: {
-                "--toastMinHeight": "2rem",
-                "--toastPadding": "0 0.5rem",
-                "--toastBarBackground": "transparent",
-              },
-            });
           }
+        } else if (
+          response.status === 400 &&
+          result.msg === "The CSRF token has expired."
+        ) {
+          toast.push("session has expired, please refresh the page", {
+            initial: 1,
+            reversed: true,
+            intro: { y: 64 },
+            theme: {
+              "--toastMinHeight": "2rem",
+              "--toastPadding": "0 0.5rem",
+              "--toastBarBackground": "transparent",
+            },
+          });
         }
       } else {
         passwordsMatch = false;
