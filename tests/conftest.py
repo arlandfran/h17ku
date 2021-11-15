@@ -20,6 +20,13 @@ def app():
     return test_app
 
 
+@pytest.fixture
+def csrf_client():
+    csrf_app = create_app(config_name="test_csrf")
+    with csrf_app.test_client() as client:
+        yield client
+
+
 @pytest.fixture(scope="module")
 def mongo():
     test_app = create_app(config_name="test")

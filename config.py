@@ -25,6 +25,10 @@ class TestConfig(Config):
     MONGO_URI = os.getenv("MONGO_TEST_URI")
 
 
+class TestCSRFConfig(TestConfig):
+    WTF_CSRF_ENABLED = True
+
+
 class ProdConfig(Config):
     SESSION_COOKIE_SECURE = True
     REMEMBER_COOKIE_SECURE = True
@@ -34,5 +38,6 @@ class ProdConfig(Config):
 config = {
     "dev": DevConfig,
     "test": TestConfig,
+    "test_csrf": TestCSRFConfig,
     "prod": ProdConfig,
 }
