@@ -1,21 +1,11 @@
-import re
 from flask import request
 from flask_login import login_user, current_user, logout_user, login_required
 from werkzeug.security import check_password_hash, generate_password_hash
 
 from app import mongo
 from app.models import User, NewUserSchema, UserSchema
+from app.helpers import find_whitespace
 from api.auth import auth_bp
-
-
-def find_whitespace(data):
-    """
-    Loop over JSON and return True if any value has whitespace
-    """
-    for value in data.values():
-        if re.search(" +", value):
-            return True
-    return False
 
 
 @auth_bp.post("/register")
