@@ -1,12 +1,40 @@
 from flask_login import UserMixin
+from marshmallow import Schema, fields, validate
+
 from app import login_manager, mongo
 
 
+class NewUserSchema(Schema):
+    email = fields.Email(required=True)
+    username = fields.String(
+        required=True,
+        validate=validate.Length(min=4, error="username must be at least 4 characters"),
+    )
+    password = fields.String(
+        required=True,
+        validate=validate.Length(min=8, error="password must be at least 8 characters"),
+    )
+    password2 = fields.String(
+        required=True,
+        validate=validate.Length(
+            min=8,
+            error="password must be at least 8 characters",
+        ),
+    )
+
+
+class UserSchema(Schema):
+    email = fields.Email(required=True)
+    password = fields.String(
+        required=True,
+        validate=validate.Length(min=8, error="password must be at least 8 characters"),
+    )
+
+
 class User(UserMixin):
-    def __init__(self, email, username, pwd_hash):
+    def __init__(self, email, username):
         self.email = email
         self.username = username
-        self.pwd_hash = pwd_hash
 
     def get_id(self):
         return self.username
@@ -19,7 +47,6 @@ def load_user(username):
         user = User(
             email=username_exists["email"],
             username=username,
-            pwd_hash=username_exists["pwd_hash"],
         )
         return user
     return None
