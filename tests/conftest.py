@@ -37,23 +37,23 @@ def mongo():
             yield test_mongo
 
 
-@pytest.fixture(scope="module")
+@pytest.fixture()
 def new_user():
     user = User("test@test.com", "test_user")
     return user
 
 
-@pytest.fixture(scope="module")
+@pytest.fixture()
 def user_loader():
-    yield load_user
+    return load_user
 
 
-@pytest.fixture(scope="class")
+@pytest.fixture()
 def user_class():
-    yield User
+    return User
 
 
-@pytest.fixture(scope="module")
+@pytest.fixture()
 def fake_user(mongo):
     password = fake.password(length=8)
     pwd_hash = generate_password_hash(password)
@@ -70,11 +70,12 @@ def fake_user(mongo):
             "pwd_hash": user["pwd_hash"],
         }
     )
-    return user
+    yield user
+    mongo.db.users.delete_one({"email": user["email"]})
 
 
 @pytest.fixture(scope="module")
-def new_fake_user():
+def new_fake_user(mongo):
     same_password = fake.password(length=8)
     user = {
         "email": fake.ascii_safe_email(),
@@ -82,10 +83,11 @@ def new_fake_user():
         "password": same_password,
         "password2": same_password,
     }
-    return user
+    yield user
+    mongo.db.users.delete_one({"email": user["email"]})
 
 
-@pytest.fixture(scope="function")
+@pytest.fixture()
 def email_exists(new_fake_user):
     user = {
         "email": new_fake_user["email"],
@@ -96,7 +98,7 @@ def email_exists(new_fake_user):
     return user
 
 
-@pytest.fixture(scope="function")
+@pytest.fixture()
 def username_exists(new_fake_user):
     user = {
         "email": fake.ascii_safe_email(),
@@ -107,7 +109,7 @@ def username_exists(new_fake_user):
     return user
 
 
-@pytest.fixture(scope="function")
+@pytest.fixture()
 def different_passwords(new_fake_user):
     user = {
         "email": new_fake_user["email"],
