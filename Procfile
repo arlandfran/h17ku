@@ -1,1 +1,1 @@
-web: cd api && gunicorn h14ku:app
+web: gunicorn "h14ku:create_app('prod')"

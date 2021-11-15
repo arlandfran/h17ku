@@ -1,2 +1,10 @@
 <!-- routify:options preload="proximity" -->
-<slot />
+<script>
+  import Navbar from "../components/Navbar.svelte";
+</script>
+
+<Navbar />
+
+<main class="flex flex-col items-center p-4">
+  <slot />
+</main>
