@@ -91,6 +91,17 @@ def test_password_is_valid(client):
     assert response.json["msg"] == "no spaces allowed"
 
 
+def test_passwords_match(client, different_passwords):
+    """
+    GIVEN a Flask app and fake user data with different passwords
+    WHEN the /register endpoint is sent an non matching passwords (POST)
+    THEN check that the endpoint expects matching passwords and returns the correct response
+    """
+    response = client.post("/api/auth/register", json=different_passwords)
+    assert response.status_code == 400
+    assert response.json["msg"] == "passwords do not match"
+
+
 def test_register_new_user(client, mongo, new_fake_user):
     """
     GIVEN a Flask app, Mongo client and fake user data

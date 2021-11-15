@@ -66,3 +66,14 @@ def username_exists(new_fake_user):
         "password2": new_fake_user["password"],
     }
     return user
+
+
+@pytest.fixture(scope="function")
+def different_passwords(new_fake_user):
+    user = {
+        "email": new_fake_user["email"],
+        "username": new_fake_user["username"],
+        "password": fake.password(length=8),
+        "password2": fake.password(length=8),
+    }
+    return user

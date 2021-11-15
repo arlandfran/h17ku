@@ -28,6 +28,8 @@ def register():
     invalid = NewUserSchema().validate(data)
     if invalid:
         return {"msg": invalid}, 400
+    if data["password"] != data["password2"]:
+        return {"msg": "passwords do not match"}, 400
     # check if email or user already exists
     email_exists = mongo.db.users.find_one({"email": data["email"]})
     user_exists = mongo.db.users.find_one({"username": data["username"].lower()})
