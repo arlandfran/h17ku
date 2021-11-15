@@ -4,8 +4,9 @@ from faker import Faker
 from faker.providers import internet, misc
 from werkzeug.security import generate_password_hash
 
+
 from app import create_app
-from app.models import User
+from app.models import User, load_user
 
 
 fake = Faker()
@@ -33,6 +34,16 @@ def mongo():
 def new_user():
     user = User("test@test.com", "test_user")
     return user
+
+
+@pytest.fixture(scope="module")
+def user_loader():
+    yield load_user
+
+
+@pytest.fixture(scope="class")
+def user_class():
+    yield User
 
 
 @pytest.fixture(scope="module")

@@ -75,7 +75,7 @@ def check_session():
     """Check if user is logged in"""
     if current_user.is_authenticated:
         return {"login": True, "id": current_user.get_id()}, 200
-    return {"login": False}
+    return {"login": False}, 404
 
 
 @auth_bp.get("/logout")

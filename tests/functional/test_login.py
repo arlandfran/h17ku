@@ -117,3 +117,14 @@ def test_user_is_logged_in(client, fake_user):
     assert response.status_code == 200
     assert response.json["login"] is True
     assert response.json["id"] == fake_user["username"]
+
+
+def test_user_not_logged_in(client):
+    """
+    GIVEN a Flask app
+    WHEN there is no user logged in
+    THEN check that there is no user in Flask session
+    """
+    response = client.get("/api/auth/session")
+    assert response.status_code == 404
+    assert response.json["login"] is False
