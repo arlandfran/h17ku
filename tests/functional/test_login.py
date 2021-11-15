@@ -98,3 +98,22 @@ def test_user_login(client, fake_user):
     )
     assert response.status_code == 200
     assert response.json["login"] is True
+
+
+def test_user_is_logged_in(client, fake_user):
+    """
+    GIVEN a Flask app and fake user data
+    WHEN user login is successful
+    THEN check that the user is in Flask session
+    """
+    response = client.post(
+        "/api/auth/login",
+        json={"email": fake_user["email"], "password": fake_user["password"]},
+    )
+    assert response.status_code == 200
+    assert response.json["login"] is True
+
+    response = client.get("/api/auth/session")
+    assert response.status_code == 200
+    assert response.json["login"] is True
+    assert response.json["id"] == fake_user["username"]
