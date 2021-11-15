@@ -13,9 +13,7 @@ A web app that helps users to compose haikus.
 **Developer Goals**:
 
 - Build a CRUD application with Python, Flask & MongoDB
-
 - Implement basic user authentication
-
 - Demonstrate unit testing with pytest
 
 ## UX
@@ -49,11 +47,8 @@ A web app that helps users to compose haikus.
 ## Features
 
 - Responsive design
-
 - CRUD functionality
-
 - User authentication
-
 - Haiku validator
 
 - Comments
@@ -69,7 +64,6 @@ A web app that helps users to compose haikus.
 **Front-end**:
 
 - [Svelte](https://svelte.dev/) - JavaScript Framework
-
 - [Routify](https://routify.dev/) - Svelte Router
 
 - [Tailwind CSS](https://tailwindcss.com) - Utility CSS Framework
@@ -80,20 +74,13 @@ A web app that helps users to compose haikus.
 
 - [MongoDB Atlas](https://mongodb.com/atlas) - Cloud Database
 
-- [Flask-PyMongo](https://flask-pymongo.readthedocs.io/en/latest/) - Flask Wrapper for PyMongo
-
-- [Flask-Login](https://flask-login.readthedocs.io/en/latest/) - User Session Management for Flask
-
 **Tooling**:
 
 - [Figma](https://www.figma.com/) - High-fidelity Wireframing
 
 - [Visual Studio Code](https://code.visualstudio.com/) - Code Editor
-
 - [Git](https://git-scm.com/) - Version Control System
-
 - [Github](https://github.com/) - Code Hosting Platform
-
 - [Heroku](https://www.heroku.com/) - Platform-as-a-Service Cloud Provider
 
 - [Gunicorn](https://gunicorn.org/) - Python WSGI HTTP Server
