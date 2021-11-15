@@ -2,6 +2,7 @@ import pytest
 from flask_pymongo import PyMongo
 from faker import Faker
 from faker.providers import internet, misc
+from werkzeug.security import generate_password_hash
 
 from app import create_app
 from app.models import User
@@ -31,6 +32,26 @@ def mongo():
 @pytest.fixture(scope="module")
 def new_user():
     user = User("test@test.com", "test_user")
+    return user
+
+
+@pytest.fixture(scope="module")
+def fake_user(mongo):
+    password = fake.password(length=8)
+    pwd_hash = generate_password_hash(password)
+    user = {
+        "email": fake.ascii_safe_email(),
+        "username": fake.user_name(),
+        "password": password,
+        "pwd_hash": pwd_hash,
+    }
+    mongo.db.users.insert_one(
+        {
+            "email": user["email"],
+            "username": user["username"],
+            "pwd_hash": user["pwd_hash"],
+        }
+    )
     return user
 
 

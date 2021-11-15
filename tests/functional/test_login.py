@@ -1,3 +1,21 @@
+def test_if_correct_db(mongo):
+    """
+    GIVEN a Mongo client
+    WHEN testing
+    THEN check the client is connected to the test database
+    """
+    assert mongo.db.name == "test"
+
+
+def test_fake_user_exists(mongo, fake_user):
+    """
+    GIVEN a Mongo client and fake user data
+    WHEN testing login
+    THEN check if fake user exists in test database
+    """
+    assert mongo.db.users.find({"email": fake_user["email"]})
+
+
 def test_login_data_is_valid(client):
     """
     GIVEN a Flask app
@@ -50,3 +68,17 @@ def test_password_is_valid(client):
     response = client.post("/api/auth/login", json={"password": "1234 5678"})
     assert response.status_code == 400
     assert response.json["msg"] == "no spaces allowed"
+
+
+def test_user_login(client, fake_user):
+    """
+    GIVEN a Flask app and fake user data
+    WHEN the /login endpoint is sent a valid data (POST)
+    THEN check that the response is valid and user is logged in
+    """
+    response = client.post(
+        "/api/auth/login",
+        json={"email": fake_user["email"], "password": fake_user["password"]},
+    )
+    assert response.status_code == 200
+    assert response.json["login"] is True

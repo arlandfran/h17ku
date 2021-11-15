@@ -10,8 +10,8 @@ def test_if_correct_db(mongo):
 def test_user_collection_is_empty(mongo):
     """
     GIVEN a Mongo client
-    WHEN testing authentication
-    THEN empty user collection
+    WHEN testing registration
+    THEN that user collection is empty for testing
     """
     mongo.db.users.delete_many({})
     users = list(mongo.db.users.find({}))
