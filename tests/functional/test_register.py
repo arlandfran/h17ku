@@ -1,23 +1,3 @@
-def test_if_correct_db(mongo):
-    """
-    GIVEN a Mongo client
-    WHEN testing authentication
-    THEN check the client is connected to the test database
-    """
-    assert mongo.db.name == "test"
-
-
-def test_user_collection_is_empty(mongo):
-    """
-    GIVEN a Mongo client
-    WHEN testing registration
-    THEN that user collection is empty for testing
-    """
-    mongo.db.users.delete_many({})
-    users = list(mongo.db.users.find({}))
-    assert len(users) == 0
-
-
 def test_empty_data_is_invalid(client):
     """
     GIVEN a Flask app

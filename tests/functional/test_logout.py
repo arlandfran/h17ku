@@ -1,12 +1,3 @@
-def test_if_correct_db(mongo):
-    """
-    GIVEN a Mongo client
-    WHEN testing
-    THEN check the client is connected to the test database
-    """
-    assert mongo.db.name == "test"
-
-
 def test_invalid_logout(client):
     """
     GIVEN a Flask app
@@ -25,7 +16,7 @@ def test_logout(client, mongo, fake_user):
     """
     GIVEN a Flask app, Mongo client and fake user data
     WHEN user logged in
-    THEN check response is valid
+    THEN log the user out and check the response is valid
     """
     assert mongo.db.users.find({"email": fake_user["email"]})
 

@@ -1,21 +1,3 @@
-def test_if_correct_db(mongo):
-    """
-    GIVEN a Mongo client
-    WHEN testing
-    THEN check the client is connected to the test database
-    """
-    assert mongo.db.name == "test"
-
-
-def test_fake_user_exists(mongo, fake_user):
-    """
-    GIVEN a Mongo client and fake user data
-    WHEN testing login
-    THEN check if fake user exists in test database
-    """
-    assert mongo.db.users.find({"email": fake_user["email"]})
-
-
 def test_login_data_is_valid(client):
     """
     GIVEN a Flask app
