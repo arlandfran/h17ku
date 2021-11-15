@@ -1,4 +1,3 @@
-from os import error
 from flask_login import UserMixin
 from marshmallow import Schema, fields, validate
 
