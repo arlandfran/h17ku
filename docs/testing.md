@@ -69,7 +69,9 @@ def test_if_correct_db(mongo): # pass in mongo fixture to test function
 
 This fixture yields a PyMongo client for testing. Setting `scope="module"` means the fixture is destroyed during teardown of the last test in the module.
 
-In this project, any fixture that writes data to MongoDB also cleans itself up on teardown so that the test database doesn't get bloated with any test data.
+Now you can pass this fixture as an argument to your test function and access the return value in the test.
+
+> In this project, any fixture that writes data to MongoDB also cleans itself up on teardown so that the test database doesn't get bloated with any test data.
 
 Fixtures can also request other fixtures. This allows you to compose a generic fixture and then reuse that for different test cases.
 
@@ -99,4 +101,4 @@ def different_passwords(user): # uses user fixture
     return user
 ```
 
-> Note that the user fixture _yields_ the user dict instead of returning it. The main reason for this is that any teardown code placed after `yield` is executed automatically by pytest. So say you were to use this fixture to test registration, you may want to remove the registered user from the test database at the end of testing. Since the scope of the fixture is `module`, the code after the yield statement is only executed after every other test in the module is run.
+Note that the user fixture _yields_ the user dict instead of returning it. The main reason for this is that any teardown code placed after `yield` is executed automatically by pytest. Say you were to use this fixture to test registration, you may want to remove the registered user from the test database at the end of testing. Since the scope of the fixture is `module`, the code after the yield statement is only executed after every other test in the module is run.
