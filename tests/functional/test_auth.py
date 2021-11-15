@@ -32,6 +32,65 @@ def test_empty_data_is_invalid(client):
     assert response.json["msg"]["password2"] == ["Missing data for required field."]
 
 
+def test_email_is_valid(client):
+    """
+    GIVEN a Flask app
+    WHEN the /register endpoing is sent an invalid email (POST)
+    THEN check that the endpoint expects a valid email address and returns the correct response
+    """
+    response = client.post("/api/auth/register", json={"email": ""})
+    assert response.status_code == 400
+    assert response.json["msg"]["email"] == ["Not a valid email address."]
+
+    response = client.post("/api/auth/register", json={"email": "invalid"})
+    assert response.status_code == 400
+    assert response.json["msg"]["email"] == ["Not a valid email address."]
+
+    response = client.post("/api/auth/register", json={"email": "invalid@invalid"})
+    assert response.status_code == 400
+    assert response.json["msg"]["email"] == ["Not a valid email address."]
+
+
+def test_username_is_valid(client):
+    """
+    GIVEN a Flask app
+    WHEN the /register endpoint is sent an invalid username (POST)
+    THEN check that the endpoint expects a valid username and returns the correct response
+    """
+    response = client.post("/api/auth/register", json={"username": ""})
+    assert response.status_code == 400
+    assert response.json["msg"]["username"] == [
+        "username must be at least 4 characters"
+    ]
+
+    response = client.post("/api/auth/register", json={"username": "with spaces"})
+    assert response.status_code == 400
+    assert response.json["msg"] == "no spaces allowed"
+
+
+def test_password_is_valid(client):
+    """
+    GIVEN a Flask app
+    WHEN the /register endpoint is sent an invalid password (POST)
+    THEN check that the endpoint expects a valid password and returns the correct response
+    """
+    response = client.post("/api/auth/register", json={"password": ""})
+    assert response.status_code == 400
+    assert response.json["msg"]["password"] == [
+        "password must be at least 8 characters"
+    ]
+
+    response = client.post("/api/auth/register", json={"password": "1234"})
+    assert response.status_code == 400
+    assert response.json["msg"]["password"] == [
+        "password must be at least 8 characters"
+    ]
+
+    response = client.post("/api/auth/register", json={"password": "1234 5678"})
+    assert response.status_code == 400
+    assert response.json["msg"] == "no spaces allowed"
+
+
 def test_register_new_user(client, mongo, new_fake_user):
     """
     GIVEN a Flask app, Mongo client and fake user data

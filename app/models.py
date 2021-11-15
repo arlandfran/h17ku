@@ -1,14 +1,27 @@
+from os import error
 from flask_login import UserMixin
-from marshmallow import Schema, fields
+from marshmallow import Schema, fields, validate
 
 from app import login_manager, mongo
 
 
 class NewUserSchema(Schema):
     email = fields.Email(required=True)
-    username = fields.String(required=True)
-    password = fields.String(required=True)
-    password2 = fields.String(required=True)
+    username = fields.String(
+        required=True,
+        validate=validate.Length(min=4, error="username must be at least 4 characters"),
+    )
+    password = fields.String(
+        required=True,
+        validate=validate.Length(min=8, error="password must be at least 8 characters"),
+    )
+    password2 = fields.String(
+        required=True,
+        validate=validate.Length(
+            min=8,
+            error="password must be at least 8 characters",
+        ),
+    )
 
 
 class User(UserMixin):
