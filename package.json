@@ -8,7 +8,7 @@
     "dev:vite": "vite",
     "test": "run-s test:*",
     "test:pytest": "venv/bin/coverage run -m pytest -vv",
-    "test:report": "venv/bin/coverage report --show-missing",
+    "test:report": "venv/bin/coverage report -m",
     "preview": "vite preview",
     "build": "run-s build:*",
     "build:routify": "routify -b",

@@ -74,7 +74,7 @@ def test_password_is_valid(client):
 def test_passwords_match(client, different_passwords):
     """
     GIVEN a Flask app and fake user data with different passwords
-    WHEN the /register endpoint is sent an non matching passwords (POST)
+    WHEN the /register endpoint is sent non matching passwords (POST)
     THEN check that the endpoint expects matching passwords and returns the correct response
     """
     response = client.post("/api/auth/register", json=different_passwords)
@@ -84,7 +84,7 @@ def test_passwords_match(client, different_passwords):
 
 def test_register_new_user(client, mongo, new_fake_user):
     """
-    GIVEN a Flask app, Mongo client and fake user data
+    GIVEN a Flask app, a Mongo client and fake user data
     WHEN the /register endpoint is sent valid data (POST)
     THEN check the response is valid and user added to database
     """

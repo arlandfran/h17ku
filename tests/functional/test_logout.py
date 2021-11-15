@@ -14,7 +14,7 @@ def test_invalid_logout(client):
 
 def test_logout(client, mongo, fake_user):
     """
-    GIVEN a Flask app, Mongo client and fake user data
+    GIVEN a Flask app, a Mongo client and fake user data
     WHEN user logged in
     THEN log the user out and check the response is valid
     """
