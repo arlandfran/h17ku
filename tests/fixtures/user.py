@@ -55,11 +55,12 @@ def email_exists(fake_user):
     """
     Create fake user fixture for registration that uses an existing email in test database
     """
+    same_password = fake.password(length=8)
     user = {
         "email": fake_user["email"],
         "username": fake.user_name(),
-        "password": new_fake_user["password"],
-        "password2": new_fake_user["password"],
+        "password": same_password,
+        "password2": same_password,
     }
     return user
 
@@ -72,20 +73,20 @@ def username_exists(fake_user):
     user = {
         "email": fake.ascii_safe_email(),
         "username": fake_user["username"],
-        "password": new_fake_user["password"],
-        "password2": new_fake_user["password"],
+        "password": fake_user["password"],
+        "password2": fake_user["password"],
     }
     return user
 
 
 @pytest.fixture()
-def different_passwords(new_fake_user):
+def different_passwords():
     """
     Create fake user fixture for registration that has non matching passwords
     """
     user = {
-        "email": new_fake_user["email"],
-        "username": new_fake_user["username"],
+        "email": fake.ascii_safe_email(),
+        "username": fake.user_name(),
         "password": fake.password(length=8),
         "password2": fake.password(length=8),
     }

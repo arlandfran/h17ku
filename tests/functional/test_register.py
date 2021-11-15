@@ -127,11 +127,11 @@ def test_username_already_exists(client, username_exists):
     assert response.json["errorField"] == "username"
 
 
-def test_password_is_hashed(mongo, new_fake_user):
+def test_password_is_hashed(mongo, fake_user):
     """
     GIVEN a Mongo client and fake user data
-    WHEN a new user is registered
+    WHEN a user is registered
     THEN check the password is hashed when stored in database
     """
-    added_user = mongo.db.users.find_one({"email": new_fake_user["email"]})
-    assert new_fake_user["password"] != added_user["pwd_hash"]
+    added_user = mongo.db.users.find_one({"email": fake_user["email"]})
+    assert fake_user["password"] != added_user["pwd_hash"]
