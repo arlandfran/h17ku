@@ -1,7 +1,7 @@
 def test_if_correct_db(mongo):
     """
     GIVEN a Mongo client
-    WHEN testing
+    WHEN connecting to a database during testing
     THEN check the client is connected to the test database
     """
     assert mongo.db.name == "test"
