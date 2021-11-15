@@ -4,7 +4,7 @@ from flask_login import login_user, current_user, logout_user, login_required
 from werkzeug.security import check_password_hash, generate_password_hash
 
 from app import mongo
-from app.models import User, NewUserSchema
+from app.models import User, NewUserSchema, UserSchema
 from api.auth import auth_bp
 
 
@@ -50,6 +50,11 @@ def register():
 def login():
     """Handle user login"""
     data = request.get_json()
+    if find_whitespace(data):
+        return {"msg": "no spaces allowed"}, 400
+    invalid = UserSchema().validate(data)
+    if invalid:
+        return {"msg": invalid}, 400
     email_exists = mongo.db.users.find_one({"email": data["email"]})
     if email_exists:
         if check_password_hash(email_exists["pwd_hash"], data["password"]):

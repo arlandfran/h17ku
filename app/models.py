@@ -24,6 +24,14 @@ class NewUserSchema(Schema):
     )
 
 
+class UserSchema(Schema):
+    email = fields.Email(required=True)
+    password = fields.String(
+        required=True,
+        validate=validate.Length(min=8, error="password must be at least 8 characters"),
+    )
+
+
 class User(UserMixin):
     def __init__(self, email, username):
         self.email = email
