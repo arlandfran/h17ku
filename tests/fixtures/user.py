@@ -3,30 +3,12 @@ from faker import Faker
 from faker.providers import internet, misc
 from werkzeug.security import generate_password_hash
 
-from app.models import User, load_user
-
 fake = Faker()
 fake.add_provider(internet)
 fake.add_provider(misc)
 
 
-@pytest.fixture()
-def new_user():
-    user = User("test@test.com", "test_user")
-    return user
-
-
-@pytest.fixture()
-def user_loader():
-    return load_user
-
-
-@pytest.fixture()
-def user_class():
-    return User
-
-
-@pytest.fixture()
+@pytest.fixture(scope="module")
 def fake_user(mongo):
     password = fake.password(length=8)
     pwd_hash = generate_password_hash(password)

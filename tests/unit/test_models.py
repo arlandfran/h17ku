@@ -1,23 +1,28 @@
-def test_new_user(new_user):
-    """
-    GIVEN a User model
-    WHEN a new User is created
-    THEN check that email, username & id are defined correctly and is authenticated
-    """
-    assert new_user.email == "test@test.com"
-    assert new_user.username == "test_user"
-    assert new_user.get_id() == "test_user"
-    assert new_user.is_authenticated
+from app.models import User, load_user
 
 
-def test_user_loader(user_loader, new_fake_user, fake_user, user_class):
+def test_new_user(fake_user):
     """
-    GIVEN a user loader, fake user data and the user class
+    GIVEN the User class and fake user data
+    WHEN a new user object is created with the fake user
+    THEN check each field is defined correctly
+    """
+    existing_user = User(email=fake_user["email"], username=fake_user["username"])
+
+    assert existing_user.email == fake_user["email"]
+    assert existing_user.username == fake_user["username"]
+    assert existing_user.get_id() == fake_user["username"]
+    assert existing_user.is_authenticated
+
+
+def test_user_loader(fake_user):
+    """
+    GIVEN the user loader and fake user data
     WHEN a username is passed into the user loader
     THEN check that the return value is correct
     """
-    user = user_loader(new_fake_user["username"])
-    assert user is None
-
-    user = user_loader(fake_user["username"])
-    assert isinstance(user, user_class)
+    user = load_user(fake_user["username"])
+    assert isinstance(user, User)
+    assert user.email == fake_user["email"]
+    assert user.username == fake_user["username"]
+    assert load_user("anonymous_user") is None
