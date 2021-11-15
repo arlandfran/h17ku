@@ -10,6 +10,10 @@ fake.add_provider(misc)
 
 @pytest.fixture(scope="module")
 def fake_user(mongo):
+    """
+    Create fake user fixture
+    Fake user is inserted into test database and then deleted on teardown
+    """
     password = fake.password(length=8)
     pwd_hash = generate_password_hash(password)
     user = {
@@ -31,6 +35,10 @@ def fake_user(mongo):
 
 @pytest.fixture(scope="module")
 def new_fake_user(mongo):
+    """
+    Create fake user fixture for registration
+    Fake user is deleted from test database on teardown
+    """
     same_password = fake.password(length=8)
     user = {
         "email": fake.ascii_safe_email(),
@@ -43,9 +51,12 @@ def new_fake_user(mongo):
 
 
 @pytest.fixture()
-def email_exists(new_fake_user):
+def email_exists(fake_user):
+    """
+    Create fake user fixture for registration that uses an existing email in test database
+    """
     user = {
-        "email": new_fake_user["email"],
+        "email": fake_user["email"],
         "username": fake.user_name(),
         "password": new_fake_user["password"],
         "password2": new_fake_user["password"],
@@ -54,10 +65,13 @@ def email_exists(new_fake_user):
 
 
 @pytest.fixture()
-def username_exists(new_fake_user):
+def username_exists(fake_user):
+    """
+    Create fake user fixture for registration that uses an existing username in test database
+    """
     user = {
         "email": fake.ascii_safe_email(),
-        "username": new_fake_user["username"],
+        "username": fake_user["username"],
         "password": new_fake_user["password"],
         "password2": new_fake_user["password"],
     }
@@ -66,6 +80,9 @@ def username_exists(new_fake_user):
 
 @pytest.fixture()
 def different_passwords(new_fake_user):
+    """
+    Create fake user fixture for registration that has non matching passwords
+    """
     user = {
         "email": new_fake_user["email"],
         "username": new_fake_user["username"],
