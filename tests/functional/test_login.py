@@ -46,10 +46,18 @@ def test_email_is_valid(client):
     assert response.status_code == 400
     assert response.json["msg"]["email"] == ["Not a valid email address."]
 
+    response = client.post(
+        "/api/auth/login",
+        json={"email": "wrong@email.com", "password": "wrongpassword"},
+    )
+    assert response.status_code == 404
+    assert response.json["msg"] == "email not found"
+    assert response.json["login"] is False
 
-def test_password_is_valid(client):
+
+def test_password_is_valid(client, fake_user):
     """
-    GIVEN a Flask app
+    GIVEN a Flask app and fake user data
     WHEN the /login endpoint is sent an invalid password (POST)
     THEN check that the endpoint expects a valid password and returns the correct response
     """
@@ -68,6 +76,14 @@ def test_password_is_valid(client):
     response = client.post("/api/auth/login", json={"password": "1234 5678"})
     assert response.status_code == 400
     assert response.json["msg"] == "no spaces allowed"
+
+    response = client.post(
+        "/api/auth/login",
+        json={"email": fake_user["email"], "password": "wrongpassword"},
+    )
+    assert response.status_code == 401
+    assert response.json["msg"] == "incorrect password"
+    assert response.json["login"] is False
 
 
 def test_user_login(client, fake_user):
