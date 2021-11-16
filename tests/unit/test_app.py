@@ -12,7 +12,7 @@ def test_app_config(config):
     """
     assert config["TESTING"] is True
     assert config["WTF_CSRF_ENABLED"] is False
-    assert config["MONGO_URI"] == os.getenv("MONGO_TEST_URI")
+    assert config["MONGO_URI"] == os.getenv("TEST_DB")
 
 
 def test_home_page(client):
