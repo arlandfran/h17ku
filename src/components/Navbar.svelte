@@ -8,6 +8,7 @@
   let showMenu = false;
 
   const defaultLinks = [
+    { link: "home", href: "./" },
     { link: "log in", href: "./login" },
     { link: "register", href: "./register" },
   ];
