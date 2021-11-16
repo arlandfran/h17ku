@@ -35,6 +35,7 @@
     "svelte-forms-lib": "^2.0.0",
     "syllable": "^5.0.0",
     "tailwindcss-delicious-hamburgers": "^1.0.2",
+    "tippy.js": "^6.3.7",
     "yup": "^0.32.11"
   }
 }
