@@ -70,7 +70,7 @@
       <label class="block mb-2 font-bold" for="email"> email </label>
       <input
         class:error={$errors.email}
-        class="px-3 py-2 w-full leading-tight rounded shadow-lg appearance-none focus:outline-none focus:ring-black dark:ring-white focus:ring-2 dark:bg-gray-700"
+        class="px-3 py-2 w-full leading-tight rounded border border-black appearance-none dark:shadow-lg focus:outline-none focus:ring-black dark:ring-white focus:ring-1 dark:focus:ring-2 dark:bg-gray-700 dark:border-none"
         id="email"
         type="email"
         placeholder="email address"
@@ -79,7 +79,9 @@
         on:invalid|preventDefault
       />
       {#if $errors.email}
-        <small class="py-2 text-xs text-red-600">{$errors.email}</small>
+        <small class="py-2 text-xs font-bold text-red-600 dark:font-normal"
+          >{$errors.email}</small
+        >
       {/if}
     </div>
 
@@ -87,7 +89,7 @@
       <label class="block mb-2 font-bold" for="email"> username </label>
       <input
         class:error={$errors.username}
-        class="px-3 py-2 w-full leading-tight rounded shadow-lg appearance-none focus:outline-none focus:ring-black dark:ring-white focus:ring-2 dark:bg-gray-700"
+        class="px-3 py-2 w-full leading-tight rounded border border-black appearance-none dark:shadow-lg focus:outline-none focus:ring-black dark:ring-white focus:ring-1 dark:focus:ring-2 dark:bg-gray-700 dark:border-none"
         id="username"
         type="text"
         placeholder="username"
@@ -95,7 +97,9 @@
         bind:value={$form.username}
       />
       {#if $errors.username}
-        <small class="py-2 text-xs text-red-600">{$errors.username}</small>
+        <small class="py-2 text-xs font-bold text-red-600 dark:font-normal"
+          >{$errors.username}</small
+        >
       {/if}
     </div>
 
@@ -103,7 +107,7 @@
       <label class="block mb-2 font-bold" for="email"> password </label>
       <input
         class:error={$errors.password}
-        class="px-3 py-2 w-full leading-tight rounded shadow-lg appearance-none focus:outline-none focus:ring-black dark:ring-white focus:ring-2 dark:bg-gray-700"
+        class="px-3 py-2 w-full leading-tight rounded border border-black appearance-none dark:shadow-lg focus:outline-none focus:ring-black dark:ring-white focus:ring-1 dark:focus:ring-2 dark:bg-gray-700 dark:border-none"
         id="password"
         type="password"
         placeholder="**********"
@@ -111,7 +115,9 @@
         bind:value={$form.password}
       />
       {#if $errors.password}
-        <small class="py-2 text-xs text-red-600">{$errors.password}</small>
+        <small class="py-2 text-xs font-bold text-red-600 dark:font-normal"
+          >{$errors.password}</small
+        >
       {/if}
     </div>
 
@@ -119,7 +125,7 @@
       <label class="block mb-2 font-bold" for="email"> confirm password </label>
       <input
         class:error={$errors.password2}
-        class="px-3 py-2 w-full leading-tight rounded shadow-lg appearance-none focus:outline-none focus:ring-black dark:ring-white focus:ring-2 dark:bg-gray-700"
+        class="px-3 py-2 w-full leading-tight rounded border border-black appearance-none dark:shadow-lg focus:outline-none focus:ring-black dark:ring-white focus:ring-1 dark:focus:ring-2 dark:bg-gray-700 dark:border-none"
         id="password2"
         type="password"
         placeholder="**********"
@@ -127,10 +133,14 @@
         bind:value={$form.password2}
       />
       {#if $errors.password2}
-        <small class="py-2 text-xs text-red-600">{$errors.password2}</small>
+        <small class="py-2 text-xs font-bold text-red-600 dark:font-normal"
+          >{$errors.password2}</small
+        >
       {/if}
       {#if passwordsMatch === false}
-        <small class="py-2 text-xs text-red-600">passwords do not match</small>
+        <small class="py-2 text-xs font-bold text-red-600 dark:font-normal"
+          >passwords do not match</small
+        >
       {/if}
     </div>
 
