@@ -29,6 +29,7 @@
     "svelte-forms-lib": "^1.10.7",
     "svelte-match-media": "^1.2.1",
     "svelte-preprocess": "^4.7.0",
+    "syllable": "^5.0.0",
     "tailwindcss": "^2.2.19",
     "tailwindcss-delicious-hamburgers": "^1.0.2",
     "vite": "^2.0.5",
