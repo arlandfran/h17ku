@@ -23,7 +23,7 @@ def test_home_page(client):
     """
     response = client.get("/")
     assert response.status_code == 200
-    assert b"h14ku" in response.data
+    assert b"h17ku" in response.data
     assert b"csrf-token" in response.data
 
 
