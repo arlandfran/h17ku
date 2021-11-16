@@ -14,3 +14,7 @@ export const loginSchema = object({
   email: string().email().required(),
   password: string().required(),
 });
+
+export const haikuSchema = object({
+  haiku: string().max(140, "you have reached the 140 character limit"),
+});

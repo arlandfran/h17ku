@@ -34,7 +34,8 @@
   {#if $isAuthenticated}
     <button
       class="p-2 rounded-sm focus:outline-none focus:ring-2 focus:ring-black dark:ring-white"
-      >post</button
+      type="submit"
+      form="haiku">post</button
     >
   {:else}
     <span
