@@ -1,7 +1,7 @@
 <script>
   import { Router, ready, beforeUrlChange } from "@roxi/routify";
   import { routes } from "../.routify/routes";
-  import { isAuthenticated } from "./stores";
+  import { isAuthenticated, user } from "./stores";
 
   getSession();
 
@@ -16,6 +16,7 @@
     });
     const result = await res.json();
     $isAuthenticated = result.login;
+    $user = result.id;
     $ready();
   }
 </script>
