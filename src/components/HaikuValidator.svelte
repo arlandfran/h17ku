@@ -13,7 +13,7 @@
   $: count = syllable(text);
 </script>
 
-<div class="flex flex-col gap-2 w-full max-w-2xl">
+<div class="flex flex-col gap-2 mb-8 w-full max-w-2xl">
   <label for="haiku-validator" class="dark:text-white"
     >compose your haiku:</label
   >
