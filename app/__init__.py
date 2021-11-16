@@ -2,21 +2,20 @@ from flask import Flask, render_template
 from flask_pymongo import PyMongo
 from flask_login import LoginManager
 from flask_wtf.csrf import CSRFProtect
-from config import config
 
 mongo = PyMongo()
 login_manager = LoginManager()
 login_manager.session_protection = "strong"
 
 
-def create_app(config_name="dev"):
+def create_app(config="config.DevConfig"):
     """Create Flask app with specified config."""
     app = Flask(
         __name__,
         template_folder="../dist",
         static_folder="../dist/assets",
     )
-    app.config.from_object(config.get(config_name))
+    app.config.from_object(config)
 
     from api import api_bp
 
