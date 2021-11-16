@@ -11,19 +11,19 @@ Create your Heroku account [here](https://signup.heroku.com/login).
 Start off by cloning this project to your machine:
 
 ```Shell
-git clone http://github.com/arlandfran/h14ku.git
+git clone http://github.com/arlandfran/h17ku.git
 ```
 
 Next open a terminal and install Heroku CLI. Installation steps for each platform can be found in the official documentation [here](https://devcenter.heroku.com/articles/heroku-cli).
 
 Once you've installed Heroku CLI run `heroku login` and follow the prompts.
 
-Navigate to the project directory if you haven't already `cd h14ku` and run `heroku create my-app-name`. Be sure to pass in your own unique app name such as "h14ku-test" as h14ku is already taken.
+Navigate to the project directory if you haven't already `cd h17ku` and run `heroku create my-app-name`. Be sure to pass in your own unique app name such as "h17ku-test" as h17ku is already taken.
 
 ```Shell
-$ heroku create h14ku-test
-Creating ⬢ h14ku-test... done
-https://h14ku-test.herokuapp.com/ | https://git.heroku.com/h14ku-test.git
+$ heroku create h17ku-test
+Creating ⬢ h17ku-test... done
+https://h17ku-test.herokuapp.com/ | https://git.heroku.com/h17ku-test.git
 ```
 
 > By default the app is created in the US region, if you want to create the app in Europe provide the --region flag in the `heroku create` command.
@@ -36,20 +36,20 @@ Once your Heroku app has been created, a git remote called `heroku` should also 
 
 ```Shell
 $ git remote -v
-heroku  https://git.heroku.com/h14ku-test.git (fetch)
-heroku  https://git.heroku.com/h14ku-test.git (push)
-origin  http://github.com/arlandfran/h14ku.git (fetch)
-origin  http://github.com/arlandfran/h14ku.git (push)
+heroku  https://git.heroku.com/h17ku-test.git (fetch)
+heroku  https://git.heroku.com/h17ku-test.git (push)
+origin  http://github.com/arlandfran/h17ku.git (fetch)
+origin  http://github.com/arlandfran/h17ku.git (push)
 ```
 
 > Note: If you would like to setup automatic deployment on Heroku, you will need to have your own Github repository of this project, in which case you will need to fork this project and then connect that forked repository to Heroku.
 
 ```Shell
 $ git remote -v
-heroku  https://git.heroku.com/h14ku-test.git (fetch)
-heroku  https://git.heroku.com/h14ku-test.git (push)
-origin  http://github.com/your-github-username/h14ku.git (fetch)
-origin  http://github.com/your-github-username/h14ku.git (push)
+heroku  https://git.heroku.com/h17ku-test.git (fetch)
+heroku  https://git.heroku.com/h17ku-test.git (push)
+origin  http://github.com/your-github-username/h17ku.git (fetch)
+origin  http://github.com/your-github-username/h17ku.git (push)
 ```
 
 At this stage you should be able to deploy your application to Heroku using `git push heroku main` but because this app uses Svelte for the frontend, you'll need to configure a Node.js buildpack as well as a Python buildpack for the app to build correctly on Heroku.
@@ -70,7 +70,7 @@ You can run the `heroku buildpack` command to verify that the buildpacks are in 
 
 ```Shell
 $ heroku buildpacks
-=== h14ku-test Buildpack URLs
+=== h17ku-test Buildpack URLs
 1. heroku/nodejs
 2. heroku/python
 ```
@@ -89,7 +89,7 @@ You should now be able to create a cluster for your project, go ahead an create 
 
 2. Select the `M0 Sandbox` Cluster Tier.
 
-3. Give your cluster a name. Example: h14ku-eu-west
+3. Give your cluster a name. Example: h17ku-eu-west
 
 Once your cluster has been provisioned, navigate to the _Database Access_ tab and add a new database user. When you have done that navigate to the _Network Access_ tab and a new IP address `0.0.0.0/0`. This configures your cluster to accept access from any IP address.
 
@@ -125,8 +125,8 @@ Once your app has deployed you can run `heroku ps:scale web=1` command. This wil
 To run this application locally clone the Github repository and install the project dependencies for Svelte.
 
 ```Shell
-git clone http://github.com/arlandfran/h14ku.git
-cd h14ku
+git clone http://github.com/arlandfran/h17ku.git
+cd h17ku
 npm install
 ```
 
