@@ -25,10 +25,7 @@ class NewUserSchema(Schema):
 
 class UserSchema(Schema):
     email = fields.Email(required=True)
-    password = fields.String(
-        required=True,
-        validate=validate.Length(min=8, error="password must be at least 8 characters"),
-    )
+    password = fields.String(required=True)
 
 
 class User(UserMixin):
