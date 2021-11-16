@@ -10,3 +10,6 @@ api_bp.register_blueprint(auth_bp)
 @api_bp.errorhandler(CSRFError)
 def handle_csrf_error(error):
     return {"msg": error.description}, 400
+
+
+from api import routes

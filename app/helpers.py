@@ -1,4 +1,6 @@
 import re
+import json
+from bson import json_util
 
 
 def find_whitespace(data):
@@ -9,3 +11,8 @@ def find_whitespace(data):
         if re.search(" +", value):
             return True
     return False
+
+
+def parse_json(data):
+    """Parses input data and returns JSON"""
+    return json.loads(json_util.dumps(data))
