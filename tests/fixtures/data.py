@@ -18,3 +18,14 @@ def whitespace_data():
         has_no_whitespace,
         has_empty_value,
     ]
+
+
+@pytest.fixture()
+def cursor(mongo):
+    """
+    Create a cursor fixture to test json parsing
+    """
+    single = mongo.db.posts.find_one({"author": "test"})
+    multiple = mongo.db.posts.find({})
+    data = {"single": single, "multiple": multiple}
+    return data

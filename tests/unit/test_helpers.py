@@ -1,6 +1,6 @@
 import pytest
 
-from app.helpers import find_whitespace
+from app.helpers import find_whitespace, parse_json
 
 
 def test_find_whitespace_helper(whitespace_data):
@@ -24,3 +24,17 @@ def test_find_whitespace_helper(whitespace_data):
 
     assert error.type is AttributeError
     assert error.value.args[0] == "'set' object has no attribute 'values'"
+
+
+def test_parse_json_helper(cursor):
+    """
+    GIVEN the parse_json helper and cursor data
+    THEN when the helper is called with different cursor data
+    THEN check that helper parses the data correctly
+    """
+    single = parse_json(cursor.get("single"))
+    multiple = parse_json(cursor.get("multiple"))
+    assert isinstance(single, dict)
+    assert isinstance(multiple, list)
+    for document in multiple:
+        assert isinstance(document, dict)
