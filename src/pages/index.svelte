@@ -1,5 +1,17 @@
 <script>
   import HaikuValidator from "../components/HaikuValidator.svelte";
+  import Posts from "../components/Posts.svelte";
+  import { ready } from "@roxi/routify";
+  let posts = [];
+
+  getPosts();
+
+  async function getPosts() {
+    const res = await fetch("/api/posts");
+    const result = await res.json();
+    posts = result.data;
+    $ready();
+  }
 </script>
 
 <section class="mb-4 w-full max-w-2xl">
@@ -13,3 +25,5 @@
 </section>
 
 <HaikuValidator />
+
+<Posts {posts} />
