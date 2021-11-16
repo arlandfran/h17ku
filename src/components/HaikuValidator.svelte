@@ -1,4 +1,5 @@
 <script>
+  import ActionBar from "../components/ActionBar.svelte";
   import { onMount } from "svelte";
   import autosize from "autosize/dist/autosize.min.js";
   import { syllable } from "syllable";
@@ -29,4 +30,6 @@
   <div class="dark:text-white">
     syllables: {count}
   </div>
+
+  <ActionBar />
 </div>
