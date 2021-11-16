@@ -1,1 +1,1 @@
-web: gunicorn "h17ku:create_app(config_name='prod')"
+web: gunicorn "h17ku:create_app(config='config.ProdConfig')"
