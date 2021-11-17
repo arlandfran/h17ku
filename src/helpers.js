@@ -21,11 +21,13 @@ export function getElapsedTime(startTime) {
   let totalHours = hours + days * 24;
   if (totalHours === 0) {
     if (minutes === 0) {
-      return `${seconds}s`;
+      return `${seconds}s ago`;
     } else {
-      return `${minutes}m`;
+      return `${minutes}m ago`;
     }
+  } else if (totalHours < 24) {
+    return `${hours}h ago`;
   } else {
-    return `${totalHours}h`;
+    return endTime.toDateString().slice(4, -5);
   }
 }
