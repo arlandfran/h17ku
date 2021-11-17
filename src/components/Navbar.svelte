@@ -39,8 +39,8 @@
   }
 </script>
 
-<header class="flex justify-center w-full">
-  <div class="flex flex-col items-end p-4 md:py-4 md:px-0 w-192 min-h-16">
+<header class="flex justify-end p-4 w-full">
+  <div class="flex flex-col items-end min-h-16">
     <div class="flex gap-x-4 items-center">
       <ThemeToggler />
       <Hamburger bind:showMenu />
