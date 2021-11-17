@@ -4,18 +4,19 @@
   import { fade, slide } from "svelte/transition";
   import { media } from "svelte-match-media";
   import { isAuthenticated, user } from "../stores";
+  import { url } from "@roxi/routify";
 
   let showMenu = false;
 
   const unprotectedPages = [
-    { link: "home", href: "./" },
-    { link: "log in", href: "./login" },
-    { link: "register", href: "./register" },
+    { link: "home", href: "/" },
+    { link: "log in", href: "/login" },
+    { link: "register", href: "/register" },
   ];
 
   const protectedPages = [
-    { link: "home", href: "./" },
-    { link: "account", href: `./[user]` },
+    { link: "home", href: "/" },
+    { link: "account", href: $url("/:user", { user: $user }) },
   ];
 
   $: if ($media.desktop) {
