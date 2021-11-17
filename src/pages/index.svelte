@@ -1,6 +1,7 @@
 <script>
   import HaikuValidator from "../components/HaikuValidator.svelte";
-  import Posts from "../components/Posts.svelte";
+  import Post from "../components/Post.svelte";
+  import PostsFilter from "../components/PostsFilter.svelte";
   import { ready } from "@roxi/routify";
   import { updatePosts, filter, user } from "../stores";
 
@@ -41,4 +42,10 @@
 
 <HaikuValidator />
 
-<Posts {posts} />
+<div class="grid gap-y-4 w-full max-w-2xl">
+  <PostsFilter />
+
+  {#each posts as post}
+    <Post {...post} />
+  {/each}
+</div>

@@ -1,7 +1,7 @@
 <script>
   import { ready, url, goto } from "@roxi/routify";
   import { onMount } from "svelte";
-  import Posts from "../components/Posts.svelte";
+  import Post from "../components/Post.svelte";
 
   let posts = [];
   const slug = $url().slice(1);
@@ -22,7 +22,11 @@
 </script>
 
 {#if user}
-  <h1 class="mb-4 text-4xl font-bold dark:text-white">{slug}</h1>
+  <h1 class="mb-4 text-4xl font-bold dark:text-white">your haikus</h1>
 
-  <Posts {posts} />
+  <div class="max-w-2xl gridw-full">
+    {#each posts as post}
+      <Post {...post} />
+    {/each}
+  </div>
 {/if}
