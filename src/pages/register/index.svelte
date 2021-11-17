@@ -3,7 +3,7 @@
   import { createForm } from "svelte-forms-lib";
   import { SvelteToast as Toast, toast } from "@zerodevx/svelte-toast";
   import { registerSchema } from "../../schemas";
-  import { csrf } from "../../stores";
+  import { csrf, isFromRegister } from "../../stores";
 
   let passwordsMatch;
 
@@ -32,7 +32,8 @@
         const result = await response.json();
 
         if (response.status === 201) {
-          $goto("../login", { newUser: true });
+          $goto("../login");
+          $isFromRegister = true;
         } else if (response.status === 409) {
           if (result.errorField === "email") {
             $errors.email = result.msg;

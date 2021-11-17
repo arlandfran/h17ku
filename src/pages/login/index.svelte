@@ -1,13 +1,12 @@
 <script>
-  import { params, goto } from "@roxi/routify";
-  import { onMount } from "svelte";
+  import { goto, afterPageLoad } from "@roxi/routify";
   import { createForm } from "svelte-forms-lib";
   import { SvelteToast as Toast, toast } from "@zerodevx/svelte-toast";
   import { loginSchema } from "../../schemas";
-  import { csrf } from "../../stores";
+  import { csrf, isFromRegister } from "../../stores";
 
-  onMount(() => {
-    if ($params.newUser) {
+  $afterPageLoad(() => {
+    if ($isFromRegister) {
       toast.push("new account created!", {
         initial: 1,
         reversed: true,
@@ -20,6 +19,7 @@
         },
       });
     }
+    $isFromRegister = false;
   });
 
   const { form, errors, handleChange, handleSubmit } = createForm({
