@@ -27,3 +27,18 @@ def post():
     }
     mongo.db.posts.insert_one(document)
     return {"msg": "haiku posted successfully"}, 200
+
+
+@api_bp.get("/user")
+def get_user():
+    username = request.args.get("username")
+    if username:
+        user = mongo.db.users.find_one({"username": username})
+        if user:
+            posts = mongo.db.posts.find({"author": username})
+            if not posts:
+                return {"data": []}, 200
+            data = parse_json(posts)
+            return {"data": data}, 200
+        return {"msg": "username not found"}, 404
+    return {"msg": "no username given"}, 400
