@@ -18,6 +18,11 @@ module.exports = {
       padding: "0px",
       animationSpeed: 1.5,
     },
+    extend: {
+      spacing: {
+        192: "42rem",
+      },
+    },
   },
   variants: {
     extend: {
