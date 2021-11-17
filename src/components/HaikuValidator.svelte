@@ -4,8 +4,9 @@
   import autosize from "autosize/dist/autosize.min.js";
   import { syllable } from "syllable";
   import { createForm } from "svelte-forms-lib";
-  import { user } from "../stores";
+  import { user, csrf } from "../stores";
   import { haikuSchema } from "../schemas";
+  import { SvelteToast as Toast, toast } from "@zerodevx/svelte-toast";
 
   onMount(() => {
     autosize(document.querySelectorAll("textarea"));
@@ -27,7 +28,36 @@
     validationSchema: haikuSchema,
     onSubmit: async (values) => {
       $form.author = $user;
-      console.log(values);
+
+      const response = await fetch("/api/post", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-CSRFToken": $csrf,
+        },
+        credentials: "same-origin",
+        body: JSON.stringify(values),
+      });
+
+      const result = await response.json();
+
+      if (response.status === 200) {
+        $form.haiku = "";
+      } else if (
+        response.status === 400 &&
+        result.msg === "The CSRF token has expired."
+      ) {
+        toast.push("session has expired, please refresh the page", {
+          initial: 1,
+          reversed: true,
+          intro: { y: 64 },
+          theme: {
+            "--toastMinHeight": "2rem",
+            "--toastPadding": "0 0.5rem",
+            "--toastBarBackground": "transparent",
+          },
+        });
+      }
     },
   });
 </script>
@@ -61,6 +91,8 @@
 
   <ActionBar />
 </div>
+
+<Toast />
 
 <style>
   .error {
