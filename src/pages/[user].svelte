@@ -1,24 +1,29 @@
 <script>
-  import { ready, url } from "@roxi/routify";
+  import { ready, url, goto } from "@roxi/routify";
+  import { onMount } from "svelte";
   import Posts from "../components/Posts.svelte";
 
-  const slug = $url().slice(1);
   let posts = [];
+  const slug = $url().slice(1);
+  let user = false;
 
-  getData(slug);
-
-  async function getData(username) {
-    const response = await fetch(`/api/user?username=${username}`);
-
+  onMount(async () => {
+    const response = await fetch(`/api/user?username=${slug}`);
     const result = await response.json();
 
     if (response.status === 200) {
       posts = result.data;
+      user = true;
       $ready();
+    } else if (response.status === 404) {
+      $goto("../404", {}, true);
+      console.log("not found");
     }
-  }
+  });
 </script>
 
-<h1 class="mb-4 text-4xl font-bold dark:text-white">{slug}</h1>
+{#if user}
+  <h1 class="mb-4 text-4xl font-bold dark:text-white">{slug}</h1>
 
-<Posts {posts} />
+  <Posts {posts} />
+{/if}
