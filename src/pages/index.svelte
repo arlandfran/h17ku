@@ -2,6 +2,8 @@
   import HaikuValidator from "../components/HaikuValidator.svelte";
   import Posts from "../components/Posts.svelte";
   import { ready } from "@roxi/routify";
+  import { isPosting } from "../stores";
+
   let posts = [];
 
   getPosts();
@@ -11,6 +13,11 @@
     const result = await res.json();
     posts = result.data;
     $ready();
+  }
+
+  $: if ($isPosting) {
+    getPosts();
+    $isPosting = false;
   }
 </script>
 
