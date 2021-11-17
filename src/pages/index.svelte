@@ -2,22 +2,30 @@
   import HaikuValidator from "../components/HaikuValidator.svelte";
   import Posts from "../components/Posts.svelte";
   import { ready } from "@roxi/routify";
-  import { isPosting } from "../stores";
+  import { updatePosts, filter, user } from "../stores";
 
   let posts = [];
 
-  getPosts();
-
-  async function getPosts() {
-    const res = await fetch("/api/posts");
+  async function getPosts(filter) {
+    const res = await fetch(`/api/posts?filter=${filter}`);
     const result = await res.json();
     posts = result.data;
     $ready();
   }
 
-  $: if ($isPosting) {
-    getPosts();
-    $isPosting = false;
+  async function getUserPosts(user) {
+    const res = await fetch(`/api/posts?filter=user&username=${user}`);
+    const result = await res.json();
+    posts = result.data;
+    $ready();
+  }
+
+  $: if ($updatePosts && $filter !== "my haikus") {
+    getPosts($filter);
+    $updatePosts = false;
+  } else {
+    getUserPosts($user);
+    $updatePosts = false;
   }
 </script>
 

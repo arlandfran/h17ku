@@ -1,7 +1,7 @@
 <script>
   import { Router, ready, beforeUrlChange } from "@roxi/routify";
   import { routes } from "../.routify/routes";
-  import { isAuthenticated, user, csrf } from "./stores";
+  import { isAuthenticated, user, csrf, filter } from "./stores";
 
   getCSRF();
   getSession();
@@ -18,6 +18,7 @@
     const result = await res.json();
     $isAuthenticated = result.login;
     $user = result.id;
+    $filter = "my haikus";
     $ready();
   }
 

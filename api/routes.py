@@ -11,9 +11,22 @@ from api import api_bp
 
 @api_bp.get("/posts")
 def get_posts():
-    posts = mongo.db.posts.find({}).sort("created_at", -1)
-    data = parse_json(posts)
-    return {"data": data}, 200
+    post_filter = request.args.get("filter")
+    if post_filter:
+        if post_filter == "popular":
+            posts = mongo.db.posts.find({}).sort("likes", -1).limit(10)
+            data = parse_json(posts)
+            return {"data": data}, 200
+        if post_filter == "newest":
+            posts = mongo.db.posts.find({}).sort("created_at", -1).limit(10)
+            data = parse_json(posts)
+            return {"data": data}, 200
+        if post_filter == "user":
+            username = request.args.get("username")
+            posts = mongo.db.posts.find({"author": username}).limit(10)
+            data = parse_json(posts)
+            return {"data": data}, 200
+    return {"msg": "either no arguments given or the argument given is invalid"}, 400
 
 
 @api_bp.post("/post")

@@ -4,7 +4,7 @@
   import autosize from "autosize/dist/autosize.min.js";
   import { syllable } from "syllable";
   import { createForm } from "svelte-forms-lib";
-  import { user, csrf, isPosting } from "../stores";
+  import { user, csrf, updatePosts } from "../stores";
   import { haikuSchema } from "../schemas";
   import { SvelteToast as Toast, toast } from "@zerodevx/svelte-toast";
 
@@ -47,7 +47,7 @@
 
         if (response.status === 200) {
           $form.haiku = "";
-          $isPosting = true;
+          $updatePosts = true;
         } else if (
           response.status === 400 &&
           result.msg === "The CSRF token has expired."
