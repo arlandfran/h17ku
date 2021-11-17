@@ -1,8 +1,9 @@
 <script>
   import { Router, ready, beforeUrlChange } from "@roxi/routify";
   import { routes } from "../.routify/routes";
-  import { isAuthenticated, user } from "./stores";
+  import { isAuthenticated, user, csrf } from "./stores";
 
+  getCSRF();
   getSession();
 
   $beforeUrlChange(() => {
@@ -18,6 +19,10 @@
     $isAuthenticated = result.login;
     $user = result.id;
     $ready();
+  }
+
+  function getCSRF() {
+    $csrf = document.getElementsByName("csrf-token")[0].content;
   }
 </script>
 

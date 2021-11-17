@@ -3,8 +3,7 @@
   import { createForm } from "svelte-forms-lib";
   import { SvelteToast as Toast, toast } from "@zerodevx/svelte-toast";
   import { registerSchema } from "../../schemas";
-
-  const csrf = document.getElementsByName("csrf-token")[0].content;
+  import { csrf } from "../../stores";
 
   let passwordsMatch;
 
@@ -24,7 +23,7 @@
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            "X-CSRFToken": csrf,
+            "X-CSRFToken": $csrf,
           },
           credentials: "same-origin",
           body: JSON.stringify(values),
