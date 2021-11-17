@@ -10,18 +10,13 @@
   const elapsedTime = getElapsedTime(time);
 </script>
 
-<div
-  class="px-4 py-4 w-80 border-b border-black dark:border-white dark:border-b-2"
->
+<div class="px-4 py-4 w-full border-b border-black dark:border-gray-400">
   <div class="mb-4 font-mono whitespace-pre-line">
     {haiku}
   </div>
 
-  <div>
-    {author} • {elapsedTime}
-  </div>
-
-  <div>
-    likes: {likes}
+  <div class="flex gap-4">
+    <span>{author} • {elapsedTime}</span>
+    <span>likes: {likes}</span>
   </div>
 </div>

@@ -1,4 +1,4 @@
-import { object, string } from "yup";
+import { object, string, number } from "yup";
 
 export const registerSchema = object({
   email: string().required().email(),
@@ -16,5 +16,7 @@ export const loginSchema = object({
 });
 
 export const haikuSchema = object({
-  haiku: string().max(80, "you have reached the 80 character limit"),
+  haiku: string()
+    .max(80, "you have reached the 80 character limit")
+    .required("cannot post empty text"),
 });

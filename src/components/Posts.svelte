@@ -4,7 +4,7 @@
   export let posts;
 </script>
 
-<div class="grid max-w-4xl sm:grid-cols-2 md:gap-x-8">
+<div class="grid max-w-4xl">
   {#each posts as post}
     <Post {...post} />
   {/each}
