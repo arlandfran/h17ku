@@ -11,7 +11,7 @@
   onMount(() => {
     autosize(document.querySelectorAll("textarea"));
     $form.haiku =
-      "pineapples are good\napples are very yummy\npen is good i guess";
+      "five syllables here\nseven more syllables here\nfive syllables here";
   });
 
   $: count = syllable($form.haiku);
