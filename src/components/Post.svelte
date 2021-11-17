@@ -7,7 +7,9 @@
   const time = new Date(created_at.$date).toDateString();
 </script>
 
-<div class="py-8 w-80 border-b-2 border-white dark:text-white">
+<div
+  class="py-8 w-80 border-b border-black dark:text-white dark:border-white dark:border-b-2"
+>
   <div>
     {haiku}
   </div>
