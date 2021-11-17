@@ -23,7 +23,11 @@ def get_posts():
             return {"data": data}, 200
         if post_filter == "user":
             username = request.args.get("username")
-            posts = mongo.db.posts.find({"author": username}).limit(10)
+            posts = (
+                mongo.db.posts.find({"author": username})
+                .sort("created_at", -1)
+                .limit(10)
+            )
             data = parse_json(posts)
             return {"data": data}, 200
     return {"msg": "either no arguments given or the argument given is invalid"}, 400
