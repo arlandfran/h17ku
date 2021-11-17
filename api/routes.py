@@ -1,9 +1,11 @@
+import random
 from datetime import datetime
 from flask import request
 from flask_login import login_required
 
 from app import mongo
 from app.helpers import parse_json
+from app.haikus import haikus
 from api import api_bp
 
 
@@ -42,3 +44,9 @@ def get_user():
             return {"data": data}, 200
         return {"msg": "username not found"}, 404
     return {"msg": "no username given"}, 400
+
+
+@api_bp.get("/haiku")
+def get_haiku():
+    haiku = random.choice(haikus)
+    return {"data": haiku}, 200
