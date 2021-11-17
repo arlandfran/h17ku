@@ -16,5 +16,5 @@ export const loginSchema = object({
 });
 
 export const haikuSchema = object({
-  haiku: string().max(140, "you have reached the 140 character limit"),
+  haiku: string().max(80, "you have reached the 80 character limit"),
 });

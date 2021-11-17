@@ -10,12 +10,14 @@
 
   onMount(() => {
     autosize(document.querySelectorAll("textarea"));
+    $form.haiku =
+      "pineapples are good\napples are very yummy\npen is good i guess";
   });
 
   $: count = syllable($form.haiku);
 
-  $: if ($form.haiku.length > 140) {
-    $errors.haiku = "you have reached the 140 character limit";
+  $: if ($form.haiku.length > 80) {
+    $errors.haiku = "you have reached the 80 character limit";
   } else {
     $errors.haiku = "";
   }
@@ -43,7 +45,7 @@
 
       if (response.status === 200) {
         $form.haiku = "";
-        $isPosting = false;
+        $isPosting = true;
       } else if (
         response.status === 400 &&
         result.msg === "The CSRF token has expired."
@@ -71,9 +73,8 @@
       id="haiku-validator"
       name="haiku"
       class:error={$errors.haiku}
-      class="box-border p-4 w-full rounded border border-black resize-none dark:shadow-lg dark:bg-gray-700 focus:outline-none focus:ring-1 focus:ring-black dark:ring-white dark:border-none dark:focus:ring-2"
-      rows="1"
-      placeholder="pineapples are good / apples are very yummy / pen is good i guess"
+      class="box-border p-4 w-full whitespace-pre-line rounded border border-black resize-none dark:shadow-lg dark:bg-gray-700 focus:outline-none focus:ring-1 focus:ring-black dark:ring-white dark:border-none dark:focus:ring-2"
+      rows="3"
       bind:value={$form.haiku}
       on:change={handleChange}
     />
