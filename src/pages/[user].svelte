@@ -17,7 +17,6 @@
       $ready();
     } else if (response.status === 404) {
       $goto("../404", {}, true);
-      console.log("not found");
     }
   });
 </script>
