@@ -30,7 +30,7 @@
   }
 </script>
 
-<div class="flex gap-4 justify-end dark:text-white">
+<div class="flex gap-4 justify-end">
   {#if $isAuthenticated}
     <button
       class="p-2 rounded-sm focus:outline-none focus:ring-2 focus:ring-black dark:ring-white"

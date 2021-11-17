@@ -62,9 +62,9 @@
   });
 </script>
 
-<h1 class="my-4 text-3xl font-bold dark:text-white">create your account</h1>
+<h1 class="my-4 text-3xl font-bold">create your account</h1>
 
-<div class="w-full max-w-2xl min-w-xs dark:text-white">
+<div class="w-full max-w-2xl min-w-xs">
   <form on:submit={handleSubmit} class="py-6">
     <div class="mb-4">
       <label class="block mb-2 font-bold" for="email"> email </label>
@@ -146,7 +146,7 @@
 
     <div class="flex justify-center">
       <button
-        class="px-4 py-2 text-xl font-bold dark:text-white focus:outline-none focus:ring-black dark:ring-white focus:ring-2 disabled:line-through disabled:cursor-default"
+        class="px-4 py-2 text-xl font-bold focus:outline-none focus:ring-black dark:ring-white focus:ring-2 disabled:line-through disabled:cursor-default"
         type="submit"
         disabled={!$isValid}
       >

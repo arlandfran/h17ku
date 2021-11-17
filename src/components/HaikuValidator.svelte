@@ -65,15 +65,13 @@
 
 <div class="flex flex-col gap-2 mb-8 w-full max-w-2xl">
   <form class="flex flex-col gap-2" on:submit={handleSubmit} id="haiku">
-    <label for="haiku-validator" class="dark:text-white"
-      >compose your haiku:</label
-    >
+    <label for="haiku-validator">compose your haiku:</label>
 
     <textarea
       id="haiku-validator"
       name="haiku"
       class:error={$errors.haiku}
-      class="box-border p-4 w-full rounded border border-black resize-none dark:shadow-lg dark:bg-gray-700 dark:text-white focus:outline-none focus:ring-1 focus:ring-black dark:ring-white dark:border-none dark:focus:ring-2"
+      class="box-border p-4 w-full rounded border border-black resize-none dark:shadow-lg dark:bg-gray-700 focus:outline-none focus:ring-1 focus:ring-black dark:ring-white dark:border-none dark:focus:ring-2"
       rows="1"
       placeholder="pineapples are good / apples are very yummy / pen is good i guess"
       bind:value={$form.haiku}
@@ -81,7 +79,7 @@
     />
   </form>
 
-  <div class="flex justify-between dark:text-white">
+  <div class="flex justify-between">
     <span>
       syllables: {count}
     </span>
