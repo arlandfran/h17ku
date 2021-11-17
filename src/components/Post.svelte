@@ -16,7 +16,9 @@
   </div>
 
   <div class="flex gap-4">
-    <span>{author} • {elapsedTime}</span>
+    <span
+      >{author} • <time datetime={time.toISOString()}>{elapsedTime}</time></span
+    >
     <span>likes: {likes}</span>
   </div>
 </div>
