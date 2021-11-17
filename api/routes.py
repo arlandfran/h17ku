@@ -9,7 +9,7 @@ from api import api_bp
 
 @api_bp.get("/posts")
 def get_posts():
-    posts = mongo.db.posts.find({})
+    posts = mongo.db.posts.find({}).sort("created_at", -1)
     data = parse_json(posts)
     return {"data": data}, 200
 
