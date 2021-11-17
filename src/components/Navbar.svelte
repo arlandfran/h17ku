@@ -78,13 +78,12 @@
         transition:slide={{ duration: 200 }}
       >
         {#if $isAuthenticated}
-          <ul class="flex flex-col gap-4" in:fade>
+          <ul class="flex flex-col" in:fade>
             {#each protectedPages as { link, href }}
-              <li>
-                <a
-                  class="p-2 rounded-sm focus:outline-none focus:ring-2 focus:ring-black dark:ring-white"
-                  {href}>{link}</a
-                >
+              <li
+                class="p-2 rounded-sm focus:outline-none focus:ring-2 focus:ring-black dark:ring-white"
+              >
+                <a {href}>{link}</a>
               </li>
             {/each}
             <button
