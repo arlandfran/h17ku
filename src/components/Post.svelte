@@ -10,7 +10,7 @@
 <div
   class="py-8 w-80 border-b border-black dark:text-white dark:border-white dark:border-b-2"
 >
-  <div>
+  <div class="font-mono">
     {haiku}
   </div>
 
