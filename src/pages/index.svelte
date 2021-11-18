@@ -48,7 +48,9 @@
 <div class="flex flex-col gap-y-4 w-full max-w-2xl">
   <PostsFilter />
 
-  {#each posts as post}
-    <Post {...post} />
-  {/each}
+  {#if posts.length}
+    {#each posts as post}
+      <Post {...post} />
+    {/each}
+  {/if}
 </div>
