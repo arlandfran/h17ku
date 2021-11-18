@@ -3,6 +3,7 @@
   import Post from "../components/Post.svelte";
   import PostsFilter from "../components/PostsFilter.svelte";
   import { updatePosts, filter, user } from "../stores";
+  import ActionBar from "../components/ActionBar.svelte";
 
   let posts = [];
 
@@ -44,6 +45,10 @@
 </section>
 
 <HaikuValidator />
+
+<div class="mb-4 w-full max-w-2xl text-right">
+  <ActionBar />
+</div>
 
 <div class="flex flex-col gap-y-4 w-full max-w-2xl">
   <PostsFilter />
