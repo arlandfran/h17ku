@@ -11,7 +11,7 @@
   <select
     name="filter"
     id="filter"
-    class="p-2 bg-gray-800 rounded-sm cursor-pointer focus:outline-none focus:ring-2 focus:ring-black dark:ring-white"
+    class="p-2 rounded-sm cursor-pointer dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-black dark:ring-white"
     on:change={onChangeHandler}
   >
     {#if $isAuthenticated}
