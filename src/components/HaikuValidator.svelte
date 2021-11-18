@@ -78,7 +78,7 @@
       id="haiku-validator"
       name="haiku"
       class:error={$isAuthenticated && ($errors.count || $errors.haiku)}
-      class="box-border p-4 w-full whitespace-pre-line rounded border border-black resize-none dark:shadow-lg dark:bg-gray-700 focus:outline-none focus:ring-1 focus:ring-black dark:ring-white dark:border-none dark:focus:ring-2"
+      class="textarea"
       rows="3"
       bind:value={$form.haiku}
       on:change={handleChange}
