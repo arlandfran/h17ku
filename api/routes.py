@@ -64,17 +64,18 @@ def post():
         return {
             "msg": "either no arguments given or the argument given is invalid"
         }, 400
-    data = request.json
-    posted_at = datetime.now()
-    document = {
-        "author": data["author"],
-        "haiku": data["haiku"],
-        "posted_at": posted_at,
-        "likes": 0,
-        "comments": [],
-    }
-    mongo.db.posts.insert_one(document)
-    return {"msg": "haiku posted successfully"}, 200
+    if not request.args.get("id"):
+        data = request.json
+        document = {
+            "author": data["author"],
+            "haiku": data["haiku"],
+            "posted_at": datetime.now(),
+            "likes": 0,
+            "comments": [],
+        }
+        mongo.db.posts.insert_one(document)
+        return {"msg": "haiku posted successfully"}, 200  #
+    return {"msg": "either no arguments given or the argument given is invalid"}
 
 
 @api_bp.get("/user")
