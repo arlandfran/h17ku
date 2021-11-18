@@ -21,7 +21,7 @@ def get_posts():
             posts = mongo.db.posts.find({}).sort("created_at", -1).limit(10)
             data = parse_json(posts)
             return {"data": data}, 200
-        if post_filter == "user":
+        if post_filter == "my-haikus":
             username = request.args.get("username")
             posts = (
                 mongo.db.posts.find({"author": username})

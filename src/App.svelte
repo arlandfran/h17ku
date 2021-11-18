@@ -1,13 +1,13 @@
 <script>
-  import { Router, ready, beforeUrlChange } from "@roxi/routify";
+  import { Router, beforeUrlChange } from "@roxi/routify";
   import { routes } from "../.routify/routes";
   import { isAuthenticated, user, csrf, filter } from "./stores";
 
   getCSRF();
   getSession();
 
-  $beforeUrlChange(() => {
-    getSession();
+  $beforeUrlChange(async () => {
+    await getSession();
     return true;
   });
 
@@ -19,7 +19,7 @@
     if (result.login) {
       $isAuthenticated = result.login;
       $user = result.id;
-      $filter = "my haikus";
+      $filter = "my-haikus";
     }
   }
 

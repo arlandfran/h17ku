@@ -6,22 +6,24 @@
 
   let posts = [];
 
-  getPosts($filter);
+  getPosts();
 
-  async function getPosts(filter) {
-    if (filter !== "my haiku") {
-      const response = await fetch(`/api/posts?filter=${filter}`);
+  async function getPosts() {
+    if ($filter === "my-haikus") {
+      const response = await fetch(
+        `/api/posts?filter=my-haikus&username=${$user}`
+      );
       const result = await response.json();
       posts = result.data;
     } else {
-      const response = await fetch(`/api/posts?filter=user&username=${user}`);
+      const response = await fetch(`/api/posts?filter=${$filter}`);
       const result = await response.json();
       posts = result.data;
     }
   }
 
   $: if ($updatePosts) {
-    getPosts($filter);
+    getPosts();
     $updatePosts = false;
   }
 </script>

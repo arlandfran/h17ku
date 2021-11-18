@@ -15,9 +15,9 @@
     on:change={onChangeHandler}
   >
     {#if $isAuthenticated}
-      <option value="my haikus" selected>my haikus</option>
+      <option label="my haikus" value="my-haikus" selected>my haikus</option>
     {/if}
-    <option value="popular">popular</option>
-    <option value="newest">newest</option>
+    <option label="popular" value="popular">popular</option>
+    <option label="newest" value="newest">newest</option>
   </select>
 </div>
