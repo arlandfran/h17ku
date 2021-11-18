@@ -4,16 +4,17 @@
   import { url } from "@roxi/routify";
   import CommentForm from "../components/CommentForm.svelte";
   import { onMount, afterUpdate } from "svelte";
+  import Comment from "../components/Comment.svelte";
 
   export let _id;
   export let author;
   export let haiku;
   export let likes;
-  export let created_at;
+  export let posted_at;
+  export let comments;
   export let isSelected = false;
-  export let comments = [];
 
-  let time = new Date(created_at.$date);
+  let time = new Date(posted_at.$date);
   let isEditing = false;
   let elapsedTime;
 
@@ -22,7 +23,7 @@
   });
 
   afterUpdate(() => {
-    time = new Date(created_at.$date);
+    time = new Date(posted_at.$date);
     elapsedTime = getElapsedTime(time);
   });
 
@@ -55,7 +56,11 @@
 
     {#if !isSelected}
       <a href={$url("/:user/:id", { user: author, id: _id.$oid })} class="link">
-        comments
+        {#if !comments.length}
+          no comments
+        {:else}
+          {comments.length} comments
+        {/if}
       </a>
     {/if}
 
@@ -64,14 +69,14 @@
       <button class="btn">delete</button>
     {/if}
   </div>
-
-  {#if isSelected}
-    {#each comments as comment}
-      {comment}
-    {/each}
-  {/if}
 </div>
 
 {#if isSelected}
-  <CommentForm {author} />
+  <CommentForm {author} {_id} />
+
+  {#if comments.length}
+    {#each [...comments].reverse() as comment}
+      <Comment {...comment} {posted_at} />
+    {/each}
+  {/if}
 {/if}
