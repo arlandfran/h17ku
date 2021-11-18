@@ -35,7 +35,7 @@
 </script>
 
 <section class="mb-4 w-full max-w-2xl">
-  <h1 class="title">haiku*</h1>
+  <h1 class="title">haiku<span class="text-yellow-400">*</span></h1>
 
   <p>
     *a form of japanese poetry - a haiku expresses a single feeling or

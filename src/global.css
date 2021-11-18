@@ -35,3 +35,7 @@
 .title {
   @apply mb-2 font-serif text-4xl font-bold text-center;
 }
+
+.active {
+  @apply font-medium text-yellow-400;
+}

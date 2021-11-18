@@ -10,6 +10,7 @@ module.exports = {
       gray: colors.trueGray,
       red: colors.red,
       green: colors.emerald,
+      yellow: colors.amber,
     },
     deliciousHamburgers: {
       size: "28px",
