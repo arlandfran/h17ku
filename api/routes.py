@@ -71,6 +71,7 @@ def post():
         "haiku": data["haiku"],
         "posted_at": posted_at,
         "likes": 0,
+        "comments": [],
     }
     mongo.db.posts.insert_one(document)
     return {"msg": "haiku posted successfully"}, 200
