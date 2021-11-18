@@ -20,7 +20,7 @@
 }
 
 .error {
-  @apply border border-red-600 ring-red-600;
+  @apply border border-red-600 ring-red-600 dark:border dark:border-red-600 dark:ring-red-600;
 }
 
 .title {
