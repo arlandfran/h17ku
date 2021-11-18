@@ -157,9 +157,3 @@
 </div>
 
 <Toast />
-
-<style>
-  .error {
-    @apply border border-red-600 ring-red-600;
-  }
-</style>
