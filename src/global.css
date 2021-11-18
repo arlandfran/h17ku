@@ -23,6 +23,10 @@
   @apply border border-red-600 ring-red-600 dark:border dark:border-red-600 dark:ring-red-600;
 }
 
+.text-error {
+  @apply py-2 text-xs font-bold text-red-600 dark:font-normal;
+}
+
 .title {
   @apply mb-2 font-serif text-4xl font-bold text-center;
 }

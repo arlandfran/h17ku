@@ -83,9 +83,7 @@
         on:invalid|preventDefault
       />
       {#if $errors.email}
-        <small class="py-2 text-xs font-bold text-red-600 dark:font-normal"
-          >{$errors.email}</small
-        >
+        <small class="text-error">{$errors.email}</small>
       {/if}
     </div>
 
@@ -101,9 +99,7 @@
         bind:value={$form.password}
       />
       {#if $errors.password}
-        <small class="py-2 text-xs font-bold text-red-600 dark:font-normal"
-          >{$errors.password}</small
-        >
+        <small class="text-error">{$errors.password}</small>
       {/if}
     </div>
 

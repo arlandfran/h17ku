@@ -79,9 +79,7 @@
         on:invalid|preventDefault
       />
       {#if $errors.email}
-        <small class="py-2 text-xs font-bold text-red-600 dark:font-normal"
-          >{$errors.email}</small
-        >
+        <small class="text-error">{$errors.email}</small>
       {/if}
     </div>
 
@@ -97,9 +95,7 @@
         bind:value={$form.username}
       />
       {#if $errors.username}
-        <small class="py-2 text-xs font-bold text-red-600 dark:font-normal"
-          >{$errors.username}</small
-        >
+        <small class="text-error">{$errors.username}</small>
       {/if}
     </div>
 
@@ -115,9 +111,7 @@
         bind:value={$form.password}
       />
       {#if $errors.password}
-        <small class="py-2 text-xs font-bold text-red-600 dark:font-normal"
-          >{$errors.password}</small
-        >
+        <small class="text-error">{$errors.password}</small>
       {/if}
     </div>
 
@@ -138,9 +132,7 @@
         >
       {/if}
       {#if passwordsMatch === false}
-        <small class="py-2 text-xs font-bold text-red-600 dark:font-normal"
-          >passwords do not match</small
-        >
+        <small class="text-error">passwords do not match</small>
       {/if}
     </div>
 
