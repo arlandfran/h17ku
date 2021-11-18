@@ -4,7 +4,7 @@
   import { syllable } from "syllable";
   import { createForm } from "svelte-forms-lib";
   import { haikuSchema } from "../schemas";
-  import { user, csrf, updatePosts } from "../stores";
+  import { user, csrf } from "../stores";
 
   export let _id;
   export let haiku;
