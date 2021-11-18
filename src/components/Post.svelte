@@ -5,6 +5,7 @@
   import CommentForm from "../components/CommentForm.svelte";
   import { onMount, afterUpdate } from "svelte";
   import Comment from "../components/Comment.svelte";
+  import EditForm from "../components/EditForm.svelte";
 
   export let _id;
   export let author;
@@ -12,6 +13,7 @@
   export let likes;
   export let posted_at;
   export let comments;
+  export let edited;
   export let isSelected = false;
 
   let time = new Date(posted_at.$date);
@@ -26,22 +28,21 @@
     time = new Date(posted_at.$date);
     elapsedTime = getElapsedTime(time);
   });
-
-  const editHandler = () => (isEditing = !isEditing);
 </script>
 
 <div
   class="flex flex-col gap-y-4 px-4 py-4 w-full border-b border-black dark:border-gray-400"
 >
   <div>
-    <span
-      >{author} •
-      <time datetime={time.toISOString()}>{elapsedTime}</time></span
-    >
+    {author} •
+    <time datetime={time.toISOString()}>{elapsedTime}</time>
+    {#if edited}
+      <span class="italic">edited</span>
+    {/if}
   </div>
 
   {#if isEditing}
-    textarea
+    <EditForm {_id} bind:isEditing bind:haiku />
   {:else}
     <div class="font-mono whitespace-pre-line">
       {haiku}
@@ -65,8 +66,18 @@
     {/if}
 
     {#if $isAuthenticated && $user === author}
-      <button class="btn" type="button" on:click={editHandler}>edit</button>
-      <button class="btn">delete</button>
+      {#if isEditing}
+        <button class="btn" on:click={() => (isEditing = false)}>discard</button
+        >
+        <button class="btn" type="submit" form="edit-form">confirm</button>
+      {:else}
+        <button
+          class="btn"
+          type="button"
+          on:click={() => (isEditing = !isEditing)}>edit</button
+        >
+        <button class="btn">delete</button>
+      {/if}
     {/if}
   </div>
 </div>

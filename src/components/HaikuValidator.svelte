@@ -1,5 +1,4 @@
 <script>
-  import ActionBar from "../components/ActionBar.svelte";
   import { onMount } from "svelte";
   import autosize from "autosize/dist/autosize.min.js";
   import { syllable } from "syllable";
@@ -68,7 +67,7 @@
   });
 </script>
 
-<div class="flex flex-col gap-2 mb-8 w-full max-w-2xl">
+<div class="flex flex-col gap-2 w-full max-w-2xl">
   <form class="flex flex-col gap-2" on:submit={handleSubmit} id="haiku">
     <label for="haiku-validator">compose your haiku:</label>
 
@@ -95,8 +94,6 @@
       <span class="text-right">{$errors.count}</span>
     {/if}
   </div>
-
-  <ActionBar />
 </div>
 
 <Toast />

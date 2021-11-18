@@ -72,10 +72,26 @@ def post():
             "posted_at": datetime.now(),
             "likes": 0,
             "comments": [],
+            "edited": False,
         }
         mongo.db.posts.insert_one(document)
         return {"msg": "haiku posted successfully"}, 200  #
     return {"msg": "either no arguments given or the argument given is invalid"}
+
+
+@api_bp.put("/post")
+@login_required
+def update_post():
+    post_id = request.args.get("id")
+    data = request.json
+    document = mongo.db.posts.find_one({"_id": ObjectId(post_id)})
+    if document:
+        mongo.db.posts.update_one(
+            {"_id": ObjectId(post_id)},
+            {"$set": {"haiku": data["haiku"], "edited": True}},
+        )
+        return {"msg": "haiku updated successfully"}, 200
+    return {"msg": "either no arguments given or the argument given is invalid"}, 400
 
 
 @api_bp.get("/user")
