@@ -12,14 +12,15 @@
   });
 
   async function getSession() {
-    const res = await fetch("/api/auth/session", {
+    const response = await fetch("/api/auth/session", {
       credentials: "same-origin",
     });
-    const result = await res.json();
-    $isAuthenticated = result.login;
-    $user = result.id;
-    $filter = "my haikus";
-    $ready();
+    const result = await response.json();
+    if (result.login) {
+      $isAuthenticated = result.login;
+      $user = result.id;
+      $filter = "my haikus";
+    }
   }
 
   function getCSRF() {
