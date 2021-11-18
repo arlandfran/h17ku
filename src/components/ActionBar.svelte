@@ -31,13 +31,15 @@
 </script>
 
 <div class="flex gap-4 justify-end">
-  {#if $isAuthenticated}
-    <button class="btn" type="submit" form="haiku">post</button>
-  {:else}
-    <span id="post" class="btn" tabindex="0">
-      <button class="line-through cursor-default" disabled>post</button>
-    </span>
-  {/if}
+  <span id="post" class="btn" tabindex="0">
+    <button
+      class="disabled:line-through disabled:cursor-default"
+      disabled={!$isAuthenticated}
+      tabindex="-1"
+      type="submit"
+      form="haiku">post</button
+    >
+  </span>
 
   <button class="btn" id="copy" on:click={copy}>copy</button>
 
