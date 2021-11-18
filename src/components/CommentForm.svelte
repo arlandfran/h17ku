@@ -6,7 +6,7 @@
   import tippy from "tippy.js";
   import "tippy.js/dist/tippy.css";
   import "tippy.js/themes/translucent.css";
-  import { isAuthenticated, user, csrf } from "../stores";
+  import { isAuthenticated, user, csrf, updateComments } from "../stores";
 
   export let _id;
   export let author;
@@ -41,6 +41,10 @@
         credentials: "same-origin",
         body: JSON.stringify(values),
       });
+
+      if (response.status === 200) {
+        $updateComments = true;
+      }
     },
   });
 </script>

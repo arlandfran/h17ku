@@ -76,7 +76,7 @@
 
   {#if comments.length}
     {#each [...comments].reverse() as comment}
-      <Comment {...comment} {posted_at} />
+      <Comment {...comment} />
     {/each}
   {/if}
 {/if}
