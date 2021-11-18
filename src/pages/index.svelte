@@ -46,11 +46,13 @@
 
 <HaikuValidator />
 
-<div class="mb-4 w-full max-w-2xl text-right">
+<div
+  class="pb-4 w-full max-w-2xl text-right border-b border-black dark:border-gray-400"
+>
   <ActionBar />
 </div>
 
-<div class="flex flex-col gap-y-4 w-full max-w-2xl">
+<div class="flex flex-col gap-y-4 mt-2 w-full max-w-2xl">
   <PostsFilter />
 
   {#if posts.length}
