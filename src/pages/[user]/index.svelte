@@ -2,6 +2,7 @@
   import { ready, url, goto } from "@roxi/routify";
   import { onMount } from "svelte";
   import Post from "../../components/Post.svelte";
+  import { isAuthenticated } from "../../stores.js";
 
   let posts = [];
   const slug = $url().slice(1);
@@ -24,9 +25,13 @@
 </script>
 
 {#if user}
-  <h1 class="title">your haikus</h1>
+  {#if $isAuthenticated}
+    <h1 class="title">your haikus</h1>
+  {:else}
+    <h1 class="title">{slug}'s haikus</h1>
+  {/if}
 
-  <div class="max-w-2xl gridw-full">
+  <div class="grid mt-4 w-full max-w-2xl">
     {#each posts as post}
       <Post {...post} />
     {/each}
