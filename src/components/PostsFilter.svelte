@@ -7,7 +7,7 @@
   };
 </script>
 
-<div class="flex justify-end w-full">
+<div class="self-end">
   <select
     name="filter"
     id="filter"
