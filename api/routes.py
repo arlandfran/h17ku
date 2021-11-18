@@ -19,14 +19,14 @@ def get_posts():
             data = parse_json(posts)
             return {"data": data}, 200
         if post_filter == "newest":
-            posts = mongo.db.posts.find({}).sort("created_at", -1).limit(10)
+            posts = mongo.db.posts.find({}).sort("posted_at", -1).limit(10)
             data = parse_json(posts)
             return {"data": data}, 200
         if post_filter == "my-haikus":
             username = request.args.get("username")
             posts = (
                 mongo.db.posts.find({"author": username})
-                .sort("created_at", -1)
+                .sort("posted_at", -1)
                 .limit(10)
             )
             data = parse_json(posts)
@@ -47,12 +47,29 @@ def get_post():
 @api_bp.post("/post")
 @login_required
 def post():
+    if request.args.get("id"):
+        post_id = request.args.get("id")
+        data = request.json
+        document = mongo.db.posts.find_one({"_id": ObjectId(post_id)})
+        if document:
+            new_comment = {
+                "username": data["username"],
+                "comment": data["comment"],
+                "posted_at": datetime.now(),
+            }
+            mongo.db.posts.update_one(
+                {"_id": ObjectId(post_id)}, {"$push": {"comments": new_comment}}
+            )
+            return {"msg": "comment added"}, 200
+        return {
+            "msg": "either no arguments given or the argument given is invalid"
+        }, 400
     data = request.json
-    created_at = datetime.now()
+    posted_at = datetime.now()
     document = {
         "author": data["author"],
         "haiku": data["haiku"],
-        "created_at": created_at,
+        "posted_at": posted_at,
         "likes": 0,
     }
     mongo.db.posts.insert_one(document)
@@ -67,7 +84,7 @@ def get_user():
         if user:
             posts = (
                 mongo.db.posts.find({"author": username})
-                .sort("created_at", -1)
+                .sort("posted_at", -1)
                 .limit(10)
             )
             if not posts:
