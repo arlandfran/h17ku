@@ -94,6 +94,17 @@ def update_post():
     return {"msg": "either no arguments given or the argument given is invalid"}, 400
 
 
+@api_bp.delete("/post")
+@login_required
+def delete_post():
+    post_id = request.args.get("id")
+    document = mongo.db.posts.find_one({"_id": ObjectId(post_id)})
+    if document:
+        mongo.db.posts.delete_one({"_id": ObjectId(post_id)})
+        return {"msg": "haiku deleted successfully"}, 200
+    return {"msg": "either no arguments given or the argument given is invalid"}, 400
+
+
 @api_bp.get("/user")
 def get_user():
     username = request.args.get("username")

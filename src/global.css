@@ -39,3 +39,7 @@
 .active {
   @apply font-medium text-yellow-400;
 }
+
+.danger {
+  @apply font-semibold text-red-500 rounded border-black transition-colors dark:hover:bg-red-600 dark:bg-gray-700 dark:hover:text-white hover:text-white hover:bg-red-600;
+}

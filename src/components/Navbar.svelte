@@ -4,12 +4,12 @@
   import { fade, slide } from "svelte/transition";
   import { media } from "svelte-match-media";
   import { isAuthenticated, user } from "../stores";
-  import { url } from "@roxi/routify";
+  import { url, isActive } from "@roxi/routify";
 
   let showMenu = false;
 
   const unprotectedPages = [
-    { link: "home", href: "/" },
+    { link: "home", href: "/index" },
     { link: "log in", href: "/login" },
     { link: "register", href: "/register" },
   ];
@@ -49,7 +49,7 @@
           <ul class="flex gap-x-2 items-center">
             {#each protectedPages as { link, href }}
               <li>
-                <a class="link" {href}>{link}</a>
+                <a class="link" {href} class:active={$isActive(href)}>{link}</a>
               </li>
             {/each}
           </ul>
@@ -58,7 +58,7 @@
           <ul class="flex gap-2">
             {#each unprotectedPages as { link, href }}
               <li>
-                <a class="link" {href}>{link}</a>
+                <a class="link" {href} class:active={$isActive(href)}>{link}</a>
               </li>
             {/each}
           </ul>
@@ -74,7 +74,9 @@
           <ul class="flex flex-col gap-y-4" in:fade>
             {#each protectedPages as { link, href }}
               <li>
-                <a class="link" {href}>{link} </a>
+                <a class="link" {href} class:active={$isActive(href)}
+                  >{link}
+                </a>
               </li>
             {/each}
             <button on:click={logout}>logout</button>
@@ -83,7 +85,7 @@
           <ul class="flex flex-col gap-y-4" in:fade>
             {#each unprotectedPages as { link, href }}
               <li>
-                <a class="link" {href}>{link}</a>
+                <a class="link" {href} class:active={$isActive(href)}>{link}</a>
               </li>
             {/each}
           </ul>
