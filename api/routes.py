@@ -1,5 +1,6 @@
 import random
 from datetime import datetime
+from bson import ObjectId
 from flask import request
 from flask_login import login_required
 
@@ -33,6 +34,16 @@ def get_posts():
     return {"msg": "either no arguments given or the argument given is invalid"}, 400
 
 
+@api_bp.get("/post")
+def get_post():
+    post_id = request.args.get("id")
+    if post_id:
+        document = mongo.db.posts.find_one({"_id": ObjectId(post_id)})
+        data = parse_json(document)
+        return {"data": data}, 200
+    return {"msg": "no id given"}, 400
+
+
 @api_bp.post("/post")
 @login_required
 def post():
@@ -54,7 +65,11 @@ def get_user():
     if username:
         user = mongo.db.users.find_one({"username": username})
         if user:
-            posts = mongo.db.posts.find({"author": username})
+            posts = (
+                mongo.db.posts.find({"author": username})
+                .sort("created_at", -1)
+                .limit(10)
+            )
             if not posts:
                 return {"data": []}, 200
             data = parse_json(posts)

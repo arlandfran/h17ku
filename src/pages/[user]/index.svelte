@@ -1,14 +1,16 @@
 <script>
   import { ready, url, goto } from "@roxi/routify";
   import { onMount } from "svelte";
-  import Post from "../components/Post.svelte";
+  import Post from "../../components/Post.svelte";
 
   let posts = [];
   const slug = $url().slice(1);
   let user = false;
 
   onMount(async () => {
-    const response = await fetch(`/api/user?username=${slug}`);
+    const response = await fetch(`/api/user?username=${slug}`, {
+      credentials: "same-origin",
+    });
     const result = await response.json();
 
     if (response.status === 200) {
