@@ -6,7 +6,9 @@
   let error;
 
   onMount(async () => {
-    const response = await fetch("/api/haiku?type=error");
+    const response = await fetch("/api/haiku?type=error", {
+      credentials: "same-origin",
+    });
     const result = await response.json();
     error = result.data;
     haiku = true;
@@ -17,7 +19,7 @@
 {#if haiku}
   <div class="flex justify-center items-center w-screen vh-6">
     <div class="text-center">
-      <h1 class="mb-4 text-3xl font-bold whitespace-pre-line">{error}</h1>
+      <h1 class="mb-4 text-2xl font-bold whitespace-pre-line">{error}</h1>
       <a href="/" class="">Go back</a>
     </div>
   </div>

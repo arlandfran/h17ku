@@ -11,12 +11,17 @@
   async function getPosts() {
     if ($filter === "my-haikus") {
       const response = await fetch(
-        `/api/posts?filter=my-haikus&username=${$user}`
+        `/api/posts?filter=my-haikus&username=${$user}`,
+        {
+          credentials: "same-origin",
+        }
       );
       const result = await response.json();
       posts = result.data;
     } else {
-      const response = await fetch(`/api/posts?filter=${$filter}`);
+      const response = await fetch(`/api/posts?filter=${$filter}`, {
+        credentials: "same-origin",
+      });
       const result = await response.json();
       posts = result.data;
     }
