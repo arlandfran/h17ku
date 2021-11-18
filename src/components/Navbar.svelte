@@ -44,16 +44,16 @@
     <div class="flex gap-x-4 items-center">
       <ThemeToggler />
       <Hamburger bind:showMenu />
-      <nav class="hidden md:block">
+      <nav class="hidden gap-x-2 md:flex">
         {#if $isAuthenticated}
-          <ul class="flex gap-2 items-center">
+          <ul class="flex gap-x-2 items-center">
             {#each protectedPages as { link, href }}
               <li>
                 <a class="link" {href}>{link}</a>
               </li>
             {/each}
-            <button on:click={logout}>logout</button>
           </ul>
+          <button class="btn" on:click={logout}>logout</button>
         {:else}
           <ul class="flex gap-2">
             {#each unprotectedPages as { link, href }}
