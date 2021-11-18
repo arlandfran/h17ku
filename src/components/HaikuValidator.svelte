@@ -4,7 +4,7 @@
   import autosize from "autosize/dist/autosize.min.js";
   import { syllable } from "syllable";
   import { createForm } from "svelte-forms-lib";
-  import { user, csrf, updatePosts } from "../stores";
+  import { user, csrf, updatePosts, isAuthenticated } from "../stores";
   import { haikuSchema } from "../schemas";
   import { SvelteToast as Toast, toast } from "@zerodevx/svelte-toast";
 
@@ -77,7 +77,7 @@
     <textarea
       id="haiku-validator"
       name="haiku"
-      class:error={$errors.haiku || $errors.count}
+      class:error={$isAuthenticated && ($errors.count || $errors.haiku)}
       class="box-border p-4 w-full whitespace-pre-line rounded border border-black resize-none dark:shadow-lg dark:bg-gray-700 focus:outline-none focus:ring-1 focus:ring-black dark:ring-white dark:border-none dark:focus:ring-2"
       rows="3"
       bind:value={$form.haiku}
@@ -90,7 +90,9 @@
       syllables: {count}
     </span>
     {#if $errors.haiku}
-      <span class="text-right">{$errors.haiku}</span>
+      {#if $isAuthenticated}
+        <span class="text-right">{$errors.haiku}</span>
+      {/if}
     {:else if $errors.count}
       <span class="text-right">{$errors.count}</span>
     {/if}
