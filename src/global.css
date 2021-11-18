@@ -8,3 +8,9 @@
   --toastContainerBottom: 1rem;
   --toastContainerLeft: calc(50vw - 8rem);
 }
+
+.btn,
+.link,
+.dropdown {
+  @apply p-2 rounded-sm focus:outline-none focus:ring-2 focus:ring-black dark:ring-white dark:bg-gray-800;
+}

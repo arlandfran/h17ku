@@ -49,24 +49,16 @@
           <ul class="flex gap-2 items-center">
             {#each protectedPages as { link, href }}
               <li>
-                <a
-                  class="p-2 rounded-sm focus:outline-none focus:ring-2 focus:ring-black dark:ring-white"
-                  {href}>{link}</a
-                >
+                <a class="link" {href}>{link}</a>
               </li>
             {/each}
-            <button
-              class="p-2 rounded-sm focus:outline-none focus:ring-2 focus:ring-black dark:ring-white"
-              on:click={logout}>logout</button
-            >
+            <button on:click={logout}>logout</button>
           </ul>
         {:else}
           <ul class="flex gap-2">
             {#each unprotectedPages as { link, href }}
-              <li
-                class="p-2 rounded-sm focus:outline-none focus:ring-2 focus:ring-black dark:ring-white"
-              >
-                <a {href}>{link}</a>
+              <li>
+                <a class="link" {href}>{link}</a>
               </li>
             {/each}
           </ul>
@@ -79,26 +71,19 @@
         transition:slide={{ duration: 200 }}
       >
         {#if $isAuthenticated}
-          <ul class="flex flex-col" in:fade>
+          <ul class="flex flex-col gap-y-4" in:fade>
             {#each protectedPages as { link, href }}
-              <li
-                class="p-2 rounded-sm focus:outline-none focus:ring-2 focus:ring-black dark:ring-white"
-              >
-                <a {href}>{link}</a>
+              <li>
+                <a class="link" {href}>{link} </a>
               </li>
             {/each}
-            <button
-              class="p-2 rounded-sm focus:outline-none focus:ring-2 focus:ring-black dark:ring-white"
-              on:click={logout}>logout</button
-            >
+            <button on:click={logout}>logout</button>
           </ul>
         {:else}
-          <ul class="flex flex-col" in:fade>
+          <ul class="flex flex-col gap-y-4" in:fade>
             {#each unprotectedPages as { link, href }}
-              <li
-                class="p-2 rounded-sm focus:outline-none focus:ring-2 focus:ring-black dark:ring-white"
-              >
-                <a {href}>{link}</a>
+              <li>
+                <a class="link" {href}>{link}</a>
               </li>
             {/each}
           </ul>

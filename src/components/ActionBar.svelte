@@ -32,29 +32,14 @@
 
 <div class="flex gap-4 justify-end">
   {#if $isAuthenticated}
-    <button
-      class="p-2 rounded-sm focus:outline-none focus:ring-2 focus:ring-black dark:ring-white"
-      type="submit"
-      form="haiku">post</button
-    >
+    <button class="btn" type="submit" form="haiku">post</button>
   {:else}
-    <span
-      id="post"
-      tabindex="0"
-      class="rounded-sm focus:outline-none focus:ring-2 focus:ring-black dark:ring-white"
-    >
-      <button class="p-2 line-through" disabled>post</button>
+    <span id="post" class="btn" tabindex="0">
+      <button class="line-through" disabled>post</button>
     </span>
   {/if}
 
-  <button
-    id="copy"
-    class="p-2 rounded-sm focus:outline-none focus:ring-2 focus:ring-black dark:ring-white"
-    on:click={copy}>copy</button
-  >
+  <button class="btn" id="copy" on:click={copy}>copy</button>
 
-  <button
-    class="p-2 rounded-sm focus:outline-none focus:ring-2 focus:ring-black dark:ring-white"
-    >share</button
-  >
+  <button class="btn">share</button>
 </div>

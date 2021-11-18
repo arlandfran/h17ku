@@ -18,10 +18,7 @@
   }
 </script>
 
-<button
-  class="p-2 md:hidden focus:outline-none focus:ring-2 focus:ring-black dark:ring-white"
-  on:click={menuClickHandler}
->
+<button class="btn md:hidden" on:click={menuClickHandler}>
   <div
     id="hamburger"
     class="align-middle c-hamburger c-hamburger--chop"

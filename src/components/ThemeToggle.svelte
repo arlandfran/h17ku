@@ -22,7 +22,7 @@
 </script>
 
 <button
-  class="p-2 focus:outline-none focus:ring-2 focus:ring-black hover:bg-gray-400 dark:ring-white"
+  class="btn hover:bg-gray-400"
   on:click={toggleTheme}
   on:click={toggleIcon}
 >
