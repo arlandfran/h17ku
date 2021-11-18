@@ -66,7 +66,7 @@
   });
 </script>
 
-<h1 class="text-4xl font-bold">log in</h1>
+<h1 class="title">log in</h1>
 
 <div class="w-full max-w-2xl min-w-xs">
   <form on:submit={handleSubmit} class="py-6">

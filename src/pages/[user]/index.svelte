@@ -24,7 +24,7 @@
 </script>
 
 {#if user}
-  <h1 class="mb-4 text-4xl font-bold dark:text-white">your haikus</h1>
+  <h1 class="title">your haikus</h1>
 
   <div class="max-w-2xl gridw-full">
     {#each posts as post}

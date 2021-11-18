@@ -34,7 +34,7 @@
 </script>
 
 <section class="mb-4 w-full max-w-2xl">
-  <h1 class="mb-2 font-serif text-4xl font-bold text-center">haiku*</h1>
+  <h1 class="title">haiku*</h1>
 
   <p>
     *a form of japanese poetry - a haiku expresses a single feeling or
@@ -45,7 +45,7 @@
 
 <HaikuValidator />
 
-<div class="grid gap-y-4 w-full max-w-2xl">
+<div class="flex flex-col gap-y-4 w-full max-w-2xl">
   <PostsFilter />
 
   {#each posts as post}
