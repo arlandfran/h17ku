@@ -24,14 +24,12 @@
 
   const { form, errors, handleChange, handleSubmit } = createForm({
     initialValues: {
-      author: "",
+      author: $user,
       haiku: "",
       count: 0,
     },
     validationSchema: haikuSchema,
     onSubmit: async (values) => {
-      $form.author = $user;
-
       if (syllable($form.haiku) === 17) {
         const response = await fetch("/api/post", {
           method: "POST",
