@@ -35,7 +35,7 @@
     <button class="btn" type="submit" form="haiku">post</button>
   {:else}
     <span id="post" class="btn" tabindex="0">
-      <button class="line-through" disabled>post</button>
+      <button class="line-through cursor-default" disabled>post</button>
     </span>
   {/if}
 
