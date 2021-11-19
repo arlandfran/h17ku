@@ -4,9 +4,7 @@
   import { fade, slide } from "svelte/transition";
   import { media } from "svelte-match-media";
   import { isAuthenticated, user } from "../../stores";
-  import { url, isActive } from "@roxi/routify";
-
-  let showMenu = false;
+  import { isActive, afterPageLoad } from "@roxi/routify";
 
   const unprotectedPages = [
     { link: "home", href: "/index" },
@@ -14,10 +12,19 @@
     { link: "register", href: "/register" },
   ];
 
-  const protectedPages = [
+  let protectedPages = [
     { link: "home", href: "/index" },
-    { link: "account", href: $url(`/${$user}`) },
+    { link: "account", href: `/${$user}` },
   ];
+
+  let showMenu = false;
+
+  $afterPageLoad(() => {
+    protectedPages = [
+      { link: "home", href: "/index" },
+      { link: "account", href: `/${$user}` },
+    ];
+  });
 
   $: if ($media.desktop) {
     showMenu = false;
