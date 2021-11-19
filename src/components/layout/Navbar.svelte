@@ -16,7 +16,7 @@
 
   const protectedPages = [
     { link: "home", href: "/" },
-    { link: "account", href: $url("/:user", { user: $user }) },
+    { link: "account", href: $url(`/${$user}`) }
   ];
 
   $: if ($media.desktop) {
