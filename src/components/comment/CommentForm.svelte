@@ -10,7 +10,7 @@
   import { SvelteToast as Toast, toast } from "@zerodevx/svelte-toast";
 
   export let _id;
-  export let author;
+  export let username;
 
   onMount(() => {
     autosize(document.querySelectorAll("textarea"));
@@ -74,7 +74,7 @@
       rows="1"
       class:error={$errors.comment}
       class="textarea"
-      placeholder="reply to {author}"
+      placeholder="reply to {username}"
       on:change={handleChange}
       bind:value={$form.comment}
     />

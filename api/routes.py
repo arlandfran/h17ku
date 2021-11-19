@@ -25,7 +25,7 @@ def get_posts():
         if post_filter == "my-haikus":
             username = request.args.get("username")
             posts = (
-                mongo.db.posts.find({"author": username})
+                mongo.db.posts.find({"username": username})
                 .sort("posted_at", -1)
                 .limit(10)
             )
@@ -53,8 +53,9 @@ def post():
         data = request.json
         document = mongo.db.posts.find_one({"_id": ObjectId(post_id)})
         if document:
+            _id = ObjectId()
             new_comment = {
-                "_id": ObjectId(),
+                "_id": _id,
                 "username": data["username"],
                 "comment": data["comment"],
                 "posted_at": datetime.now(),
@@ -62,8 +63,9 @@ def post():
                 "replies": [],
             }
             mongo.db.posts.update_one(
-                {"_id": ObjectId(post_id)}, {"$push": {"comments": new_comment}}
+                {"_id": ObjectId(post_id)}, {"$push": {"comments": _id}}
             )
+            mongo.db.comments.insert_one(new_comment)
             return {"msg": "comment added"}, 200
         return {
             "msg": "either no arguments given or the argument given is invalid"
@@ -72,7 +74,7 @@ def post():
     if not request.args.get("id"):
         data = request.json
         document = {
-            "author": data["author"],
+            "username": data["username"],
             "haiku": data["haiku"],
             "posted_at": datetime.now(),
             "likes": [],
@@ -128,15 +130,18 @@ def like():
         like = request.args.get("like")
         username = request.json["username"]
         if like == "true":
+            comment = mongo.db.posts.find_one({"comments._id": ObjectId(comment_id)})
+            print(comment["comments"])
+
             mongo.db.posts.update_one(
-                {"_id": ObjectId(post_id)},
-                {"$push": {"likes": username}},
+                {"comments._id": ObjectId(comment_id)},
+                {"$push": {"comments.username": username}},
             )
             return {"liked": True}, 200
         if like == "false":
             mongo.db.posts.update_one(
-                {"_id": ObjectId(post_id)},
-                {"$pull": {"likes": username}},
+                {"comments._id": ObjectId(comment_id)},
+                {"$pull": {"comment.likes": username}},
             )
             return {"liked": False}, 200
         return {
@@ -162,7 +167,7 @@ def get_user():
         user = mongo.db.users.find_one({"username": username})
         if user:
             posts = (
-                mongo.db.posts.find({"author": username})
+                mongo.db.posts.find({"username": username})
                 .sort("posted_at", -1)
                 .limit(10)
             )

@@ -2,13 +2,13 @@
   import { url } from "@roxi/routify";
 
   export let id;
-  export let author;
+  export let username;
   export let comments;
 </script>
 
 <div class="flex items-center">
   <a
-    href={$url("/:user/:id", { user: author, id: id })}
+    href={$url("/:user/:id", { user: username, id: id })}
     class="flex gap-2 transition link hover:bg-blue-600 focus:bg-blue-600 focus:ring-blue-600 hover:text-white focus:text-white"
   >
     <svg

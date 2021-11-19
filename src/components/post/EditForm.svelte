@@ -29,7 +29,7 @@
 
   const { form, errors, handleChange, handleSubmit } = createForm({
     initialValues: {
-      author: $user,
+      username: $user,
       haiku: "",
       count: 0,
     },

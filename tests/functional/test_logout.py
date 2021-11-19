@@ -7,7 +7,7 @@ def test_invalid_logout(client):
     response = client.get("/api/auth/logout")
     assert response.status_code == 401
     assert (
-        b"The server could not verify that you are authorized to access the URL requested."
+        b"The server could not verify that you are usernameized to access the URL requested."
         in response.data
     )
 
