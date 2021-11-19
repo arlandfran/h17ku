@@ -1,12 +1,12 @@
 <script>
   import { onMount } from "svelte";
-  import autosize from "autosize/dist/autosize.min.js";
-  import { syllable } from "syllable";
-  import { createForm } from "svelte-forms-lib";
-  import { haikuSchema } from "../../schemas";
-  import { user, csrf } from "../../stores";
-  import { SvelteToast as Toast, toast } from "@zerodevx/svelte-toast";
   import { slide } from "svelte/transition";
+  import { createForm } from "svelte-forms-lib";
+  import { SvelteToast, toast } from "@zerodevx/svelte-toast";
+  import { user, csrf } from "../../stores";
+  import { haikuSchema } from "../../schemas";
+  import { syllable } from "syllable";
+  import autosize from "autosize/dist/autosize.min.js";
 
   export let _id;
   export let haiku;
@@ -16,7 +16,6 @@
     autosize(document.querySelectorAll("textarea"));
     $form.haiku = haiku;
     document.getElementById("edit-haiku").select();
-    count = 17;
   });
 
   $: count = syllable($form.haiku);
@@ -55,13 +54,10 @@
         ) {
           toast.push("session has expired, please refresh the page", {
             initial: 1,
+            duration: 5000,
             reversed: true,
+            dismissable: true,
             intro: { y: 64 },
-            theme: {
-              "--toastMinHeight": "2rem",
-              "--toastPadding": "0 0.5rem",
-              "--toastBarBackground": "transparent",
-            },
           });
         }
       } else {
@@ -95,4 +91,4 @@
   </div>
 </form>
 
-<Toast />
+<SvelteToast />
