@@ -65,9 +65,9 @@
     if (response.status === 200) {
       liked = result.liked;
       if (liked) {
-        count += 1;
+        likesCount += 1;
       } else {
-        count -= 1;
+        likesCount -= 1;
       }
     } else if (
       response.status === 400 &&
