@@ -1,8 +1,8 @@
 <script>
   import DeleteBtn from "../buttons/DeleteBtn.svelte";
-  import EditBtn from "../buttons/EditBtn.svelte";
-  import CancelBtn from "../buttons/CancelBtn.svelte";
-  import SubmitEditBtn from "../buttons/SubmitEditBtn.svelte";
+  import ToggleEdit from "../buttons/ToggleEdit.svelte";
+  import CancelEdit from "../buttons/CancelEdit.svelte";
+  import SubmitEdit from "../buttons/SubmitEdit.svelte";
   import CommentsLink from "../comment/CommentsLink.svelte";
   import LikeBtn from "../buttons/LikeBtn.svelte";
   import SaveBtn from "../buttons/SaveBtn.svelte";
@@ -140,10 +140,10 @@
 
     {#if $isAuthenticated && $user === username}
       {#if isEditing}
-        <CancelBtn bind:state={isEditing} />
-        <SubmitEditBtn />
+        <CancelEdit bind:isEditing />
+        <SubmitEdit />
       {:else}
-        <EditBtn bind:isEditing />
+        <ToggleEdit bind:isEditing />
 
         <DeleteBtn bind:isDeleting />
         {#if isDeleting && !$media.smallMobile}

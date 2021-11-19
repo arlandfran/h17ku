@@ -1,10 +1,10 @@
 <script>
-  export let state;
+  export let isEditing;
 </script>
 
 <button
   class="transition btn hover:bg-red-600 focus:bg-red-600 focus:ring-red-600 hover:text-white focus:text-white"
-  on:click={() => (state = false)}
+  on:click={() => (isEditing = false)}
   ><svg
     xmlns="http://www.w3.org/2000/svg"
     class="w-6 h-6"
