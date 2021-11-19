@@ -38,6 +38,7 @@
       .then((result) => {
         if (result.logout) {
           $isAuthenticated = false;
+          window.location.href = "/";
         }
       })
       .catch((err) => {
