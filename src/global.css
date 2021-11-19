@@ -7,6 +7,9 @@
   --toastContainerRight: auto;
   --toastContainerBottom: 1rem;
   --toastContainerLeft: calc(50vw - 8rem);
+  --toastMinHeight: 2rem;
+  --toastPadding: 0 0.5rem;
+  --toastBackground: #48bb78;
 }
 
 .btn,

@@ -1,13 +1,27 @@
 <script>
+  import { onMount } from "svelte";
   import HaikuValidator from "../components/HaikuValidator.svelte";
   import Post from "../components/post/Post.svelte";
   import PostsFilter from "../components/post/PostsFilter.svelte";
-  import { updatePosts, filter, user } from "../stores";
+  import { updatePosts, filter, user, isFromRegister } from "../stores";
   import ActionBar from "../components/ActionBar.svelte";
+  import { SvelteToast as Toast, toast } from "@zerodevx/svelte-toast";
 
   let posts = [];
 
   getPosts();
+
+  onMount(() => {
+    if ($isFromRegister) {
+      toast.push("you have been logged in successfully", {
+        initial: 0,
+        reversed: true,
+        dismissable: true,
+        intro: { y: 64 },
+      });
+    }
+    $isFromRegister = false;
+  });
 
   async function getPosts() {
     if ($filter === "my-haikus") {
@@ -61,3 +75,5 @@
     {/each}
   {/if}
 </div>
+
+<Toast />

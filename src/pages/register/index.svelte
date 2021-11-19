@@ -3,7 +3,7 @@
   import { createForm } from "svelte-forms-lib";
   import { SvelteToast as Toast, toast } from "@zerodevx/svelte-toast";
   import { registerSchema } from "../../schemas";
-  import { csrf, isFromRegister } from "../../stores";
+  import { csrf, isFromRegister, user } from "../../stores";
 
   let passwordsMatch;
 
@@ -32,8 +32,26 @@
         const result = await response.json();
 
         if (response.status === 201) {
-          $goto("../login");
-          $isFromRegister = true;
+          const response = await fetch("/api/auth/login", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "X-CSRFToken": $csrf,
+            },
+            credentials: "same-origin",
+            body: JSON.stringify({
+              email: values.email,
+              password: values.password,
+            }),
+          });
+
+          const result = await response.json();
+
+          if (result.login) {
+            $isFromRegister = true;
+            $user = result.id;
+            $goto("/");
+          }
         } else if (response.status === 409) {
           if (result.errorField === "email") {
             $errors.email = result.msg;
