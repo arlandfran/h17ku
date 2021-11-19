@@ -30,9 +30,18 @@
   let isEditing = false;
   let elapsedTime;
   let isDeleting;
+  let liked;
+  let likesCount = likes.length;
 
   onMount(() => {
     elapsedTime = getElapsedTime(time);
+    for (let i = 0; i < likes.length; i++) {
+      if (likes[i] === $user) {
+        liked = true;
+      } else {
+        liked = false;
+      }
+    }
   });
 
   afterUpdate(() => {
@@ -91,7 +100,7 @@
   {/if}
 
   <div class="flex gap-2 items-center md:gap-4">
-    <LikeBtn id={_id.$oid} {likes} />
+    <LikeBtn id={_id.$oid} bind:likesCount bind:liked />
 
     {#if !isSelected}
       <CommentsLink id={_id.$oid} {author} comments={comments.length} />

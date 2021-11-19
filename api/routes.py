@@ -94,6 +94,27 @@ def update_post():
     return {"msg": "either no arguments given or the argument given is invalid"}, 400
 
 
+@api_bp.patch("/post")
+@login_required
+def like_post():
+    post_id = request.args.get("id")
+    like = request.args.get("like")
+    username = request.json["username"]
+    if like == "true":
+        mongo.db.posts.update_one(
+            {"_id": ObjectId(post_id)},
+            {"$push": {"likes": username}},
+        )
+        return {"liked": True}, 200
+    if like == "false":
+        mongo.db.posts.update_one(
+            {"_id": ObjectId(post_id)},
+            {"$pull": {"likes": username}},
+        )
+        return {"liked": False}, 200
+    return {"msg": "either no arguments given or the argument given is invalid"}, 400
+
+
 @api_bp.delete("/post")
 @login_required
 def delete_post():
