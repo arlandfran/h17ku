@@ -47,15 +47,19 @@ def get_post():
 @api_bp.post("/post")
 @login_required
 def post():
+    # if comment
     if request.args.get("id"):
         post_id = request.args.get("id")
         data = request.json
         document = mongo.db.posts.find_one({"_id": ObjectId(post_id)})
         if document:
             new_comment = {
+                "_id": ObjectId(),
                 "username": data["username"],
                 "comment": data["comment"],
                 "posted_at": datetime.now(),
+                "likes": [],
+                "replies": [],
             }
             mongo.db.posts.update_one(
                 {"_id": ObjectId(post_id)}, {"$push": {"comments": new_comment}}
@@ -64,6 +68,7 @@ def post():
         return {
             "msg": "either no arguments given or the argument given is invalid"
         }, 400
+    # if haiku
     if not request.args.get("id"):
         data = request.json
         document = {
@@ -96,23 +101,47 @@ def update_post():
 
 @api_bp.patch("/post")
 @login_required
-def like_post():
-    post_id = request.args.get("id")
-    like = request.args.get("like")
-    username = request.json["username"]
-    if like == "true":
-        mongo.db.posts.update_one(
-            {"_id": ObjectId(post_id)},
-            {"$push": {"likes": username}},
-        )
-        return {"liked": True}, 200
-    if like == "false":
-        mongo.db.posts.update_one(
-            {"_id": ObjectId(post_id)},
-            {"$pull": {"likes": username}},
-        )
-        return {"liked": False}, 200
-    return {"msg": "either no arguments given or the argument given is invalid"}, 400
+def like():
+    # if post
+    if not request.args.get("comment"):
+        post_id = request.args.get("id")
+        like = request.args.get("like")
+        username = request.json["username"]
+        if like == "true":
+            mongo.db.posts.update_one(
+                {"_id": ObjectId(post_id)},
+                {"$push": {"likes": username}},
+            )
+            return {"liked": True}, 200
+        if like == "false":
+            mongo.db.posts.update_one(
+                {"_id": ObjectId(post_id)},
+                {"$pull": {"likes": username}},
+            )
+            return {"liked": False}, 200
+        return {
+            "msg": "either no arguments given or the argument given is invalid"
+        }, 400
+    if request.args.get("comment"):
+        post_id = request.args.get("id")
+        comment_id = request.args.get("comment")
+        like = request.args.get("like")
+        username = request.json["username"]
+        if like == "true":
+            mongo.db.posts.update_one(
+                {"_id": ObjectId(post_id)},
+                {"$push": {"likes": username}},
+            )
+            return {"liked": True}, 200
+        if like == "false":
+            mongo.db.posts.update_one(
+                {"_id": ObjectId(post_id)},
+                {"$pull": {"likes": username}},
+            )
+            return {"liked": False}, 200
+        return {
+            "msg": "either no arguments given or the argument given is invalid"
+        }, 400
 
 
 @api_bp.delete("/post")
