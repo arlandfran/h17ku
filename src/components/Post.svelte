@@ -68,7 +68,7 @@
     </div>
   {/if}
 
-  <div class="flex gap-4 items-center">
+  <div class="flex gap-2 items-center md:gap-4">
     <button class="flex gap-2 btn">
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -133,9 +133,43 @@
 
     {#if $isAuthenticated && $user === author}
       {#if isEditing}
-        <button class="btn" on:click={() => (isEditing = false)}>discard</button
+        <button
+          class="transition btn hover:bg-red-500"
+          on:click={() => (isEditing = false)}
+          ><svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="w-6 h-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M6 18L18 6M6 6l12 12"
+            />
+          </svg></button
         >
-        <button class="btn" type="submit" form="edit-form">confirm</button>
+        <button
+          class="transition btn hover:bg-green-500"
+          type="submit"
+          form="edit-form"
+          ><svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="w-6 h-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M5 13l4 4L19 7"
+            />
+          </svg></button
+        >
       {:else}
         <button
           class="btn"
