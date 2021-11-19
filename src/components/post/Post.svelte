@@ -109,7 +109,7 @@
         <EditBtn bind:isEditing />
 
         <DeleteBtn bind:isDeleting />
-        {#if isDeleting && $media.desktop}
+        {#if isDeleting && !$media.smallMobile}
           <div
             class="flex justify-center"
             transition:fly={{ duration: 200, x: -10 }}
@@ -123,7 +123,7 @@
   </div>
 </div>
 
-{#if isDeleting && $media.mobile}
+{#if isDeleting && $media.smallMobile}
   <div
     class="flex justify-center"
     transition:slide={{ duration: 200 }}
