@@ -106,8 +106,8 @@
       <CommentsLink id={_id.$oid} {author} comments={comments.length} />
     {/if}
 
-    {#if $user !== author}
-      <SaveBtn />
+    {#if $isAuthenticated && $user !== author}
+      <SaveBtn id={_id.$oid} />
     {/if}
 
     {#if $isAuthenticated && $user === author}
