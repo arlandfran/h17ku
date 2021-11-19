@@ -13,8 +13,9 @@
 
   onMount(() => {
     if ($isFromRegister) {
-      toast.push("you have been logged in successfully", {
-        initial: 0,
+      toast.push("you have been logged in", {
+        initial: 1,
+        duration: 5000,
         reversed: true,
         dismissable: true,
         intro: { y: 64 },
