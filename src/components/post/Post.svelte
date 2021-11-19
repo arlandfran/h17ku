@@ -1,11 +1,11 @@
 <script>
-  import { getElapsedTime } from "../helpers";
-  import { isAuthenticated, user, csrf, updatePosts } from "../stores";
+  import { getElapsedTime } from "../../helpers";
+  import { isAuthenticated, user, csrf, updatePosts } from "../../stores";
   import { url } from "@roxi/routify";
-  import CommentForm from "../components/CommentForm.svelte";
+  import CommentForm from "../comment/CommentForm.svelte";
   import { onMount, afterUpdate } from "svelte";
-  import Comment from "../components/Comment.svelte";
-  import EditForm from "../components/EditForm.svelte";
+  import Comment from "../comment/Comment.svelte";
+  import EditForm from "./EditForm.svelte";
   import { slide, fly } from "svelte/transition";
   import { media } from "svelte-match-media";
 

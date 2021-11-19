@@ -2,11 +2,11 @@
   import { onMount } from "svelte";
   import autosize from "autosize/dist/autosize.min.js";
   import { createForm } from "svelte-forms-lib";
-  import { commentSchema } from "../schemas";
+  import { commentSchema } from "../../schemas";
   import tippy from "tippy.js";
   import "tippy.js/dist/tippy.css";
   import "tippy.js/themes/translucent.css";
-  import { isAuthenticated, user, csrf, updateComments } from "../stores";
+  import { isAuthenticated, user, csrf, updateComments } from "../../stores";
 
   export let _id;
   export let author;
