@@ -70,12 +70,12 @@ def post():
             "author": data["author"],
             "haiku": data["haiku"],
             "posted_at": datetime.now(),
-            "likes": 0,
+            "likes": [],
             "comments": [],
             "edited": False,
         }
         mongo.db.posts.insert_one(document)
-        return {"msg": "haiku posted successfully"}, 200  #
+        return {"msg": "haiku posted successfully"}, 200
     return {"msg": "either no arguments given or the argument given is invalid"}
 
 
