@@ -1,27 +1,42 @@
 <script>
-  import { params } from "@roxi/routify";
-  import { onMount } from "svelte";
   import Post from "../../components/post/Post.svelte";
+  import Comment from "../../components/comment/Comment.svelte";
+  import CommentForm from "../../components/comment/CommentForm.svelte";
+  import { onMount } from "svelte";
+  import { params } from "@roxi/routify";
   import { updateComments } from "../../stores";
 
-  let data;
+  let post;
+  let comments = [];
   let isLoaded = false;
 
   onMount(async () => {
+    await getPost();
     await getComments();
   });
 
-  async function getComments() {
+  const getPost = async () => {
     const response = await fetch(`/api/post?id=${$params.id}`, {
       credentials: "same-origin",
     });
 
     const result = await response.json();
     if (response.status === 200) {
-      data = await result.data;
+      post = await result.data;
       isLoaded = true;
     }
-  }
+  };
+
+  const getComments = async () => {
+    const response = await fetch(`/api/comments?id=${$params.id}`, {
+      credentials: "same-origin",
+    });
+
+    const result = await response.json();
+    if (response.status === 200) {
+      comments = await result.data;
+    }
+  };
 
   $: if ($updateComments) {
     getComments();
@@ -31,6 +46,12 @@
 
 <div class="grid gap-y-4 w-full max-w-2xl">
   {#if isLoaded}
-    <Post {...data} isSelected="true" />
+    <Post {...post} />
+
+    <CommentForm _id={post._id} username={post.username} />
+
+    {#each comments as comment}
+      <Comment {...comment} />
+    {/each}
   {/if}
 </div>
