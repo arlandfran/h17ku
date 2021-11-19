@@ -29,7 +29,8 @@
   let elapsedTime;
   let isDeleting;
   let liked;
-  let count = likes.length;
+  let likesCount = likes.length;
+  let commentsCount = comments.length;
 
   onMount(() => {
     elapsedTime = getElapsedTime(time);
@@ -79,6 +80,8 @@
     }
   };
 
+  const editHandler = async () => {};
+
   const deleteHandler = async () => {
     const response = await fetch(`/api/post?id=${_id.$oid}`, {
       method: "DELETE",
@@ -125,10 +128,10 @@
   {/if}
 
   <div class="flex gap-2 items-center md:gap-4">
-    <LikeBtn {count} {liked} {likeHandler} />
+    <LikeBtn count={likesCount} {liked} {likeHandler} />
 
     {#if !isSelected}
-      <CommentsLink id={_id.$oid} {username} comments={comments.length} />
+      <CommentsLink count={commentsCount} {_id} />
     {/if}
 
     {#if $isAuthenticated && $user !== username}
