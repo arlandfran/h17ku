@@ -80,8 +80,6 @@
     }
   };
 
-  const editHandler = async () => {};
-
   const deleteHandler = async () => {
     const response = await fetch(`/api/post?id=${_id.$oid}`, {
       method: "DELETE",
