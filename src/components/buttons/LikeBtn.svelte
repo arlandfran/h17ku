@@ -1,9 +1,13 @@
 <script>
   import { onMount } from "svelte";
-  import { csrf, user, isAuthenticated } from "../../stores";
+  import { isAuthenticated } from "../../stores";
   import tippy from "tippy.js";
   import "tippy.js/dist/tippy.css";
   import "tippy.js/themes/translucent.css";
+
+  export let count;
+  export let liked;
+  export let likeHandler;
 
   onMount(() => {
     if (!$isAuthenticated) {
@@ -17,56 +21,13 @@
       });
     }
   });
-
-  export let id;
-  export let likesCount;
-  export let liked;
-
-  const like = async () => {
-    const response = await fetch(`/api/post?id=${id}&like=${!liked}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-        "X-CSRFToken": $csrf,
-      },
-      credentials: "same-origin",
-      body: JSON.stringify({ username: $user }),
-    });
-
-    const result = await response.json();
-
-    if (response.status === 200) {
-      liked = result.liked;
-      if (liked) {
-        likesCount += 1;
-        liked = true;
-      } else {
-        likesCount -= 1;
-        liked = false;
-      }
-    } else if (
-      response.status === 400 &&
-      result.msg === "The CSRF token has expired."
-    ) {
-      toast.push("session has expired, please refresh the page", {
-        initial: 1,
-        reversed: true,
-        intro: { y: 64 },
-        theme: {
-          "--toastMinHeight": "2rem",
-          "--toastPadding": "0 0.5rem",
-          "--toastBarBackground": "transparent",
-        },
-      });
-    }
-  };
 </script>
 
 {#if $isAuthenticated}
   <button
     class="flex gap-2 transition btn focus:bg-rose-400 focus:ring-rose-400 hover:bg-rose-400 hover:text-white focus:text-white"
     class:text-rose-500={liked}
-    on:click={like}
+    on:click={likeHandler}
   >
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -83,7 +44,7 @@
       />
     </svg>
 
-    {likesCount}
+    {count}
   </button>
 {:else}
   <span
@@ -111,7 +72,7 @@
         />
       </svg>
 
-      {likesCount}
+      {count}
     </button>
   </span>
 {/if}
