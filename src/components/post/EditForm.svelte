@@ -6,6 +6,7 @@
   import { haikuSchema } from "../../schemas";
   import { user, csrf } from "../../stores";
   import { SvelteToast as Toast, toast } from "@zerodevx/svelte-toast";
+  import { slide } from "svelte/transition";
 
   export let _id;
   export let haiku;
@@ -81,17 +82,17 @@
     class="edit-textarea"
     class:error={$errors.haiku}
   />
-</form>
 
-<div class="flex justify-between">
-  <span>
-    syllables: {count}
-  </span>
-  {#if $errors.haiku}
-    <span class="text-right">{$errors.haiku}</span>
-  {:else if $errors.count}
-    <span class="text-right">{$errors.count}</span>
-  {/if}
-</div>
+  <div class="flex justify-between" in:slide={{ duration: 200 }}>
+    <span>
+      syllables: {count}
+    </span>
+    {#if $errors.haiku}
+      <span class="text-right">{$errors.haiku}</span>
+    {:else if $errors.count}
+      <span class="text-right">{$errors.count}</span>
+    {/if}
+  </div>
+</form>
 
 <Toast />
