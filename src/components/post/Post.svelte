@@ -15,6 +15,7 @@
   import { media } from "svelte-match-media";
   import { getElapsedTime } from "../../helpers";
   import { isAuthenticated, user, csrf, updatePosts } from "../../stores";
+  import { SvelteToast as Toast, toast } from "@zerodevx/svelte-toast";
 
   export let _id;
   export let author;
@@ -52,6 +53,20 @@
     if (response.status === 200) {
       isDeleting = false;
       $updatePosts = true;
+    } else if (
+      response.status === 400 &&
+      result.msg === "The CSRF token has expired."
+    ) {
+      toast.push("session has expired, please refresh the page", {
+        initial: 1,
+        reversed: true,
+        intro: { y: 64 },
+        theme: {
+          "--toastMinHeight": "2rem",
+          "--toastPadding": "0 0.5rem",
+          "--toastBarBackground": "transparent",
+        },
+      });
     }
   };
 </script>
@@ -76,7 +91,7 @@
   {/if}
 
   <div class="flex gap-2 items-center md:gap-4">
-    <LikeBtn {likes} />
+    <LikeBtn id={_id.$oid} {likes} />
 
     {#if !isSelected}
       <CommentsLink id={_id.$oid} {author} comments={comments.length} />
@@ -127,3 +142,5 @@
     {/each}
   {/if}
 {/if}
+
+<Toast />

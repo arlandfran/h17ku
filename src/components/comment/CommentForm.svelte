@@ -7,6 +7,7 @@
   import "tippy.js/dist/tippy.css";
   import "tippy.js/themes/translucent.css";
   import { isAuthenticated, user, csrf, updateComments } from "../../stores";
+  import { SvelteToast as Toast, toast } from "@zerodevx/svelte-toast";
 
   export let _id;
   export let author;
@@ -44,6 +45,20 @@
 
       if (response.status === 200) {
         $updateComments = true;
+      } else if (
+        response.status === 400 &&
+        result.msg === "The CSRF token has expired."
+      ) {
+        toast.push("session has expired, please refresh the page", {
+          initial: 1,
+          reversed: true,
+          intro: { y: 64 },
+          theme: {
+            "--toastMinHeight": "2rem",
+            "--toastPadding": "0 0.5rem",
+            "--toastBarBackground": "transparent",
+          },
+        });
       }
     },
   });
@@ -76,3 +91,5 @@
     {/if}
   </form>
 </div>
+
+<Toast />

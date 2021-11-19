@@ -5,6 +5,7 @@
   import { createForm } from "svelte-forms-lib";
   import { haikuSchema } from "../../schemas";
   import { user, csrf } from "../../stores";
+  import { SvelteToast as Toast, toast } from "@zerodevx/svelte-toast";
 
   export let _id;
   export let haiku;
@@ -47,9 +48,23 @@
         if (response.status === 200) {
           isEditing = false;
           haiku = $form.haiku;
-        } else {
-          $errors.count = "must be 17 syllables";
+        } else if (
+          response.status === 400 &&
+          result.msg === "The CSRF token has expired."
+        ) {
+          toast.push("session has expired, please refresh the page", {
+            initial: 1,
+            reversed: true,
+            intro: { y: 64 },
+            theme: {
+              "--toastMinHeight": "2rem",
+              "--toastPadding": "0 0.5rem",
+              "--toastBarBackground": "transparent",
+            },
+          });
         }
+      } else {
+        $errors.count = "must be 17 syllables";
       }
     },
   });
@@ -78,3 +93,5 @@
     <span class="text-right">{$errors.count}</span>
   {/if}
 </div>
+
+<Toast />
