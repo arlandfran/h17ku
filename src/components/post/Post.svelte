@@ -1,5 +1,6 @@
 <script>
-  import DeleteBtn from "../buttons/DeleteBtn.svelte";
+  import ToggleDelete from "../buttons/ToggleDelete.svelte";
+  import ConfirmDelete from "../buttons/ConfirmDelete.svelte";
   import ToggleEdit from "../buttons/ToggleEdit.svelte";
   import CancelEdit from "../buttons/CancelEdit.svelte";
   import SubmitEdit from "../buttons/SubmitEdit.svelte";
@@ -125,7 +126,7 @@
     </div>
   {/if}
 
-  <div class="flex gap-2 items-center md:gap-4">
+  <div class="flex gap-4 items-center sm:gap-8">
     <LikeBtn count={likesCount} {liked} {likeHandler} />
 
     {#if !isSelected}
@@ -143,14 +144,13 @@
       {:else}
         <ToggleEdit bind:isEditing />
 
-        <DeleteBtn bind:isDeleting />
+        <ToggleDelete bind:isDeleting />
         {#if isDeleting && !$media.smallMobile}
           <div
             class="flex justify-center"
             transition:fly={{ duration: 200, x: -10 }}
-            on:click={deleteHandler}
           >
-            <button class="btn danger">delete haiku?</button>
+            <ConfirmDelete {deleteHandler} />
           </div>
         {/if}
       {/if}
@@ -159,12 +159,8 @@
 </div>
 
 {#if isDeleting && $media.smallMobile}
-  <div
-    class="flex justify-center"
-    transition:slide={{ duration: 200 }}
-    on:click={deleteHandler}
-  >
-    <button class="btn danger">delete haiku?</button>
+  <div class="flex justify-center" transition:slide={{ duration: 200 }}>
+    <ConfirmDelete {deleteHandler} />
   </div>
 {/if}
 
