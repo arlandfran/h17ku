@@ -21,7 +21,7 @@
 }
 
 .edit-textarea {
-  @apply p-0 dark:bg-gray-800 dark:shadow-none;
+  @apply dark:bg-gray-800 dark:shadow-none;
 }
 
 .error {
