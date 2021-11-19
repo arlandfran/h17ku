@@ -1,34 +1,63 @@
 <script>
-  async function getCurrentTime() {
-    const response = await fetch("/api/time");
-    const data = await response.json();
-    return data.time;
+  import HaikuValidator from "../components/HaikuValidator.svelte";
+  import Post from "../components/post/Post.svelte";
+  import PostsFilter from "../components/post/PostsFilter.svelte";
+  import { updatePosts, filter, user } from "../stores";
+  import ActionBar from "../components/ActionBar.svelte";
+
+  let posts = [];
+
+  getPosts();
+
+  async function getPosts() {
+    if ($filter === "my-haikus") {
+      const response = await fetch(
+        `/api/posts?filter=my-haikus&username=${$user}`,
+        {
+          credentials: "same-origin",
+        }
+      );
+      const result = await response.json();
+      posts = result.data;
+    } else {
+      const response = await fetch(`/api/posts?filter=${$filter}`, {
+        credentials: "same-origin",
+      });
+      const result = await response.json();
+      posts = result.data;
+    }
   }
 
-  async function getAllUsers() {
-    const response = await fetch("/api/users");
-    const data = await response.json();
-    return data.users;
+  $: if ($updatePosts) {
+    getPosts();
+    $updatePosts = false;
   }
 </script>
 
-<h1>Routify Starter Template</h1>
+<section class="mb-4 w-full max-w-2xl">
+  <h1 class="title">haiku<span class="text-yellow-400">*</span></h1>
 
-<p>
-  Go to <a href="/about">/about</a>
-</p>
+  <p>
+    *a form of japanese poetry - a haiku expresses a single feeling or
+    impression and contains three unrhymed lines of five, seven, and five
+    syllables, respectively.
+  </p>
+</section>
 
-{#await getCurrentTime()}
-  The current time is loading...
-{:then currentTime}
-  The current time is {currentTime}
-{/await}
+<HaikuValidator />
 
-{#await getAllUsers()}
-  Loading...
-{:then users}
-  <h2>Users:</h2>
-  {#each users as user}
-    <li>{user.username}</li>
-  {/each}
-{/await}
+<div
+  class="pb-4 w-full max-w-2xl text-right border-b border-black dark:border-gray-400"
+>
+  <ActionBar />
+</div>
+
+<div class="flex flex-col gap-y-4 mt-2 w-full max-w-2xl">
+  <PostsFilter />
+
+  {#if posts.length}
+    {#each posts as post}
+      <Post {...post} />
+    {/each}
+  {/if}
+</div>

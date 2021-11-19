@@ -1,1 +1,1 @@
-web: cd api && gunicorn h14ku:app
+web: gunicorn "h17ku:create_app(config='config.ProdConfig')"
