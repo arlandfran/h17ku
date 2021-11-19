@@ -7,7 +7,7 @@
   import CommentsLink from "../comment/CommentsLink.svelte";
   import LikeBtn from "../buttons/LikeBtn.svelte";
   import SaveBtn from "../buttons/SaveBtn.svelte";
-  import EditForm from "./EditForm.svelte";
+  import EditPost from "./EditPost.svelte";
 
   import { onMount, afterUpdate } from "svelte";
   import { slide, fly } from "svelte/transition";
@@ -26,8 +26,8 @@
   export let isSelected = false;
 
   let time = new Date(posted_at.$date);
-  let isEditing = false;
   let elapsedTime;
+  let isEditing;
   let isDeleting;
   let liked;
   let likesCount = likes.length;
@@ -119,7 +119,7 @@
   </div>
 
   {#if isEditing}
-    <EditForm {_id} bind:isEditing bind:haiku />
+    <EditPost {_id} bind:isEditing bind:haiku />
   {:else}
     <div class="font-mono whitespace-pre-line">
       {haiku}
