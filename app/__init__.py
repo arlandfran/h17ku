@@ -1,6 +1,6 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, redirect
 from flask_pymongo import PyMongo
-from flask_login import LoginManager
+from flask_login import LoginManager, current_user
 from flask_wtf.csrf import CSRFProtect
 
 mongo = PyMongo()
@@ -30,5 +30,19 @@ def create_app(config="config.DevConfig"):
     def catch_all(path):
         """Catch all routes and serve index.html from /dist"""
         return render_template("index.html")
+
+    @app.route("/login")
+    def redirect_login():
+        if current_user.is_authenticated:
+            return redirect("/")
+        else:
+            return render_template("index.html")
+
+    @app.route("/register")
+    def redirect_register():
+        if current_user.is_authenticated:
+            return redirect("/")
+        else:
+            return render_template("index.html")
 
     return app
