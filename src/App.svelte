@@ -1,22 +1,30 @@
 <script>
-  import { Router, ready, beforeUrlChange } from "@roxi/routify";
+  import { Router, beforeUrlChange } from "@roxi/routify";
   import { routes } from "../.routify/routes";
-  import { isAuthenticated } from "./stores";
+  import { isAuthenticated, user, csrf, filter } from "./stores";
 
+  getCSRF();
   getSession();
 
-  $beforeUrlChange(() => {
-    getSession();
+  $beforeUrlChange(async () => {
+    await getSession();
     return true;
   });
 
   async function getSession() {
-    const res = await fetch("/api/auth/session", {
+    const response = await fetch("/api/auth/session", {
       credentials: "same-origin",
     });
-    const result = await res.json();
-    $isAuthenticated = result.login;
-    $ready();
+    const result = await response.json();
+    if (result.login) {
+      $isAuthenticated = result.login;
+      $user = result.id;
+      $filter = "my-haikus";
+    }
+  }
+
+  function getCSRF() {
+    $csrf = document.getElementsByName("csrf-token")[0].content;
   }
 </script>
 

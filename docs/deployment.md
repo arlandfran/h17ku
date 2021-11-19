@@ -103,13 +103,18 @@ You should also see your connection string underneath:
 
 Copy the connection string and go back to the Heroku CLI terminal and configure the Heroku config vars to properly connect your MongoDB database.
 
+Since this applications uses multiple databases for different configurations, you will need to create 3 databases for testing, development and production. The name of the databases are up to you but Flask expects the config vars to be: `DEV_DB`, `PROD_DB` and `TEST_DB` for their respective databases.
+
 ```Shell
-heroku config:set MONGO_URI="YOUR_CONNECTION_STRING"
+# Do this for all your databases
+$ heroku config:set DEV_DB="YOUR_CONNECTION_STRING"
+Setting DEV_DB and restarting ⬢ h17ku... done, v1
+DEV_DB: "YOUR_CONNECTION_STRING"
 ```
 
 > Remember to update the password and myFirstDatabase name fields in the connection string and paste it **inside** the double quotes.
 
-Now your application can securely access the MONGO_URI string and we can finally deploy it to Heroku.
+Now your application can securely access the MONGO_URI strings for all your databases and we can finally deploy it to Heroku.
 
 ```Shell
 git commit -am "initial deploy"

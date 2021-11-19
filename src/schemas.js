@@ -14,3 +14,15 @@ export const loginSchema = object({
   email: string().email().required(),
   password: string().required(),
 });
+
+export const haikuSchema = object({
+  haiku: string()
+    .max(80, "you have reached the 80 character limit")
+    .required("cannot post empty text"),
+});
+
+export const commentSchema = object({
+  comment: string()
+    .max(280, "you have reached the 280 character limit")
+    .required(),
+});

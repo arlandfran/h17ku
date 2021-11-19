@@ -10,6 +10,9 @@ module.exports = {
       gray: colors.trueGray,
       red: colors.red,
       green: colors.emerald,
+      yellow: colors.amber,
+      blue: colors.sky,
+      rose: colors.rose,
     },
     deliciousHamburgers: {
       size: "28px",
@@ -17,6 +20,11 @@ module.exports = {
       colorLight: "#fff8f4",
       padding: "0px",
       animationSpeed: 1.5,
+    },
+    extend: {
+      spacing: {
+        192: "42rem",
+      },
     },
   },
   variants: {

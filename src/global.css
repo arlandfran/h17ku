@@ -8,3 +8,38 @@
   --toastContainerBottom: 1rem;
   --toastContainerLeft: calc(50vw - 8rem);
 }
+
+.btn,
+.link,
+.dropdown {
+  @apply p-2 rounded-sm focus:outline-none focus:ring-2 focus:ring-black dark:ring-white dark:bg-gray-800;
+}
+
+.textarea,
+.edit-textarea {
+  @apply box-border p-4 w-full font-mono whitespace-pre-line rounded border border-black resize-none dark:shadow-lg dark:bg-gray-700 focus:outline-none focus:ring-1 focus:ring-black dark:ring-white dark:border-none dark:focus:ring-2;
+}
+
+.edit-textarea {
+  @apply p-0 dark:bg-gray-800 dark:shadow-none;
+}
+
+.error {
+  @apply border border-red-600 ring-red-600 dark:border dark:border-red-600 dark:ring-red-600;
+}
+
+.text-error {
+  @apply py-2 text-xs font-bold text-red-600 dark:font-normal;
+}
+
+.title {
+  @apply mb-2 font-serif text-4xl font-bold text-center;
+}
+
+.active {
+  @apply font-medium text-yellow-400;
+}
+
+.danger {
+  @apply font-semibold text-red-600 rounded transition dark:hover:bg-red-600 dark:bg-gray-700 dark:hover:text-white hover:text-white hover:bg-red-600 focus:ring-red-600 focus:bg-red-600 focus:text-white dark:focus:bg-red-600;
+}

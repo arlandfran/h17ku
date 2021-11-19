@@ -3,7 +3,11 @@ import HMR from "@roxi/routify/hmr";
 import App from "./App.svelte";
 import { setup } from "svelte-match-media";
 
-setup();
+setup({
+  desktop: "screen and (min-width: 769px)",
+  mobile: "screen and (max-width: 768px)",
+  smallMobile: "screen and (max-width: 425px)",
+});
 
 if (
   localStorage.theme === "dark" ||

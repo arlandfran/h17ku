@@ -1,14 +1,12 @@
 <script>
-  import { params, goto } from "@roxi/routify";
-  import { onMount } from "svelte";
+  import { goto, afterPageLoad } from "@roxi/routify";
   import { createForm } from "svelte-forms-lib";
   import { SvelteToast as Toast, toast } from "@zerodevx/svelte-toast";
   import { loginSchema } from "../../schemas";
+  import { csrf, isFromRegister } from "../../stores";
 
-  const csrf = document.getElementsByName("csrf-token")[0].content;
-
-  onMount(() => {
-    if ($params.newUser) {
+  $afterPageLoad(() => {
+    if ($isFromRegister) {
       toast.push("new account created!", {
         initial: 1,
         reversed: true,
@@ -21,6 +19,7 @@
         },
       });
     }
+    $isFromRegister = false;
   });
 
   const { form, errors, handleChange, handleSubmit } = createForm({
@@ -34,7 +33,7 @@
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "X-CSRFToken": csrf,
+          "X-CSRFToken": $csrf,
         },
         credentials: "same-origin",
         body: JSON.stringify(values),
@@ -67,9 +66,9 @@
   });
 </script>
 
-<h1 class="text-4xl font-bold dark:text-white">log in</h1>
+<h1 class="title">log in</h1>
 
-<div class="w-full max-w-2xl min-w-xs dark:text-white">
+<div class="w-full max-w-2xl min-w-xs">
   <form on:submit={handleSubmit} class="py-6">
     <div class="mb-4">
       <label class="block mb-2 font-bold" for="email"> email</label>
@@ -84,9 +83,7 @@
         on:invalid|preventDefault
       />
       {#if $errors.email}
-        <small class="py-2 text-xs font-bold text-red-600 dark:font-normal"
-          >{$errors.email}</small
-        >
+        <small class="text-error">{$errors.email}</small>
       {/if}
     </div>
 
@@ -102,15 +99,13 @@
         bind:value={$form.password}
       />
       {#if $errors.password}
-        <small class="py-2 text-xs font-bold text-red-600 dark:font-normal"
-          >{$errors.password}</small
-        >
+        <small class="text-error">{$errors.password}</small>
       {/if}
     </div>
 
     <div class="flex justify-center">
       <button
-        class="px-4 py-2 text-xl font-bold dark:text-white focus:outline-none focus:ring-black dark:ring-white focus:ring-2 disabled:line-through disabled:cursor-default"
+        class="px-4 py-2 text-xl font-bold focus:outline-none focus:ring-black dark:ring-white focus:ring-2 disabled:line-through disabled:cursor-default"
         type="submit"
       >
         log in
@@ -120,9 +115,3 @@
 </div>
 
 <Toast />
-
-<style>
-  .error {
-    @apply border border-red-600 ring-red-600;
-  }
-</style>

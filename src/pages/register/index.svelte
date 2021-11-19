@@ -3,8 +3,7 @@
   import { createForm } from "svelte-forms-lib";
   import { SvelteToast as Toast, toast } from "@zerodevx/svelte-toast";
   import { registerSchema } from "../../schemas";
-
-  const csrf = document.getElementsByName("csrf-token")[0].content;
+  import { csrf, isFromRegister } from "../../stores";
 
   let passwordsMatch;
 
@@ -24,7 +23,7 @@
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            "X-CSRFToken": csrf,
+            "X-CSRFToken": $csrf,
           },
           credentials: "same-origin",
           body: JSON.stringify(values),
@@ -33,7 +32,8 @@
         const result = await response.json();
 
         if (response.status === 201) {
-          $goto("../login", { newUser: true });
+          $goto("../login");
+          $isFromRegister = true;
         } else if (response.status === 409) {
           if (result.errorField === "email") {
             $errors.email = result.msg;
@@ -62,9 +62,9 @@
   });
 </script>
 
-<h1 class="my-4 text-3xl font-bold dark:text-white">create your account</h1>
+<h1 class="title">create your account</h1>
 
-<div class="w-full max-w-2xl min-w-xs dark:text-white">
+<div class="w-full max-w-2xl min-w-xs">
   <form on:submit={handleSubmit} class="py-6">
     <div class="mb-4">
       <label class="block mb-2 font-bold" for="email"> email </label>
@@ -79,9 +79,7 @@
         on:invalid|preventDefault
       />
       {#if $errors.email}
-        <small class="py-2 text-xs font-bold text-red-600 dark:font-normal"
-          >{$errors.email}</small
-        >
+        <small class="text-error">{$errors.email}</small>
       {/if}
     </div>
 
@@ -97,9 +95,7 @@
         bind:value={$form.username}
       />
       {#if $errors.username}
-        <small class="py-2 text-xs font-bold text-red-600 dark:font-normal"
-          >{$errors.username}</small
-        >
+        <small class="text-error">{$errors.username}</small>
       {/if}
     </div>
 
@@ -115,9 +111,7 @@
         bind:value={$form.password}
       />
       {#if $errors.password}
-        <small class="py-2 text-xs font-bold text-red-600 dark:font-normal"
-          >{$errors.password}</small
-        >
+        <small class="text-error">{$errors.password}</small>
       {/if}
     </div>
 
@@ -138,15 +132,13 @@
         >
       {/if}
       {#if passwordsMatch === false}
-        <small class="py-2 text-xs font-bold text-red-600 dark:font-normal"
-          >passwords do not match</small
-        >
+        <small class="text-error">passwords do not match</small>
       {/if}
     </div>
 
     <div class="flex justify-center">
       <button
-        class="px-4 py-2 text-xl font-bold dark:text-white focus:outline-none focus:ring-black dark:ring-white focus:ring-2 disabled:line-through disabled:cursor-default"
+        class="px-4 py-2 text-xl font-bold focus:outline-none focus:ring-black dark:ring-white focus:ring-2 disabled:line-through disabled:cursor-default"
         type="submit"
         disabled={!$isValid}
       >
@@ -157,9 +149,3 @@
 </div>
 
 <Toast />
-
-<style>
-  .error {
-    @apply border border-red-600 ring-red-600;
-  }
-</style>

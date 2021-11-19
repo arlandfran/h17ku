@@ -3,14 +3,19 @@
   import autosize from "autosize/dist/autosize.min.js";
   import { syllable } from "syllable";
   import { createForm } from "svelte-forms-lib";
-  import { user, csrf, updatePosts, isAuthenticated } from "../stores";
-  import { haikuSchema } from "../schemas";
+  import { haikuSchema } from "../../schemas";
+  import { user, csrf } from "../../stores";
   import { SvelteToast as Toast, toast } from "@zerodevx/svelte-toast";
+
+  export let _id;
+  export let haiku;
+  export let isEditing = true;
 
   onMount(() => {
     autosize(document.querySelectorAll("textarea"));
-    $form.haiku =
-      "five syllables here\nseven more syllables here\nfive syllables here";
+    $form.haiku = haiku;
+    document.getElementById("edit-haiku").select();
+    count = 17;
   });
 
   $: count = syllable($form.haiku);
@@ -30,8 +35,8 @@
     validationSchema: haikuSchema,
     onSubmit: async (values) => {
       if (syllable($form.haiku) === 17) {
-        const response = await fetch("/api/post", {
-          method: "POST",
+        const response = await fetch(`/api/post?id=${_id.$oid}`, {
+          method: "PUT",
           headers: {
             "Content-Type": "application/json",
             "X-CSRFToken": $csrf,
@@ -40,11 +45,9 @@
           body: JSON.stringify(values),
         });
 
-        const result = await response.json();
-
         if (response.status === 200) {
-          $form.haiku = "";
-          $updatePosts = true;
+          isEditing = false;
+          haiku = $form.haiku;
         } else if (
           response.status === 400 &&
           result.msg === "The CSRF token has expired."
@@ -67,33 +70,28 @@
   });
 </script>
 
-<div class="flex flex-col gap-2 w-full max-w-2xl">
-  <form class="flex flex-col gap-2" on:submit={handleSubmit} id="haiku">
-    <label for="haiku-validator">compose your haiku:</label>
+<form on:submit={handleSubmit} id="edit-form">
+  <label for="edit" class="sr-only">edit haiku</label>
+  <textarea
+    name="haiku"
+    id="edit-haiku"
+    rows="3"
+    bind:value={$form.haiku}
+    on:change={handleChange}
+    class="edit-textarea"
+    class:error={$errors.haiku}
+  />
+</form>
 
-    <textarea
-      id="haiku-validator"
-      name="haiku"
-      class:error={$isAuthenticated && ($errors.count || $errors.haiku)}
-      class="textarea"
-      rows="3"
-      bind:value={$form.haiku}
-      on:change={handleChange}
-    />
-  </form>
-
-  <div class="flex justify-between">
-    <span>
-      syllables: {count}
-    </span>
-    {#if $errors.haiku}
-      {#if $isAuthenticated}
-        <span class="text-right">{$errors.haiku}</span>
-      {/if}
-    {:else if $errors.count}
-      <span class="text-right">{$errors.count}</span>
-    {/if}
-  </div>
+<div class="flex justify-between">
+  <span>
+    syllables: {count}
+  </span>
+  {#if $errors.haiku}
+    <span class="text-right">{$errors.haiku}</span>
+  {:else if $errors.count}
+    <span class="text-right">{$errors.count}</span>
+  {/if}
 </div>
 
 <Toast />
