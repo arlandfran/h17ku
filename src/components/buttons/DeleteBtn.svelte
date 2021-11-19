@@ -3,7 +3,7 @@
 </script>
 
 <button
-  class="btn"
+  class="transition btn hover:bg-red-600 focus:bg-red-600 focus:ring-red-600 hover:text-white focus:text-white"
   on:click={() => (isDeleting = !isDeleting)}
   aria-label="Confirm deletion"
   ><svg

@@ -1,4 +1,6 @@
-<button class="btn">
+<button
+  class="transition btn hover:text-white hover:bg-yellow-400 focus:ring-yellow-400 focus:bg-yellow-400 focus:text-white"
+>
   <svg
     xmlns="http://www.w3.org/2000/svg"
     class="w-6 h-6"
