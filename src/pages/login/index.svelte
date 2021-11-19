@@ -3,7 +3,7 @@
   import { createForm } from "svelte-forms-lib";
   import { SvelteToast as Toast, toast } from "@zerodevx/svelte-toast";
   import { loginSchema } from "../../schemas";
-  import { csrf, isFromRegister } from "../../stores";
+  import { csrf, isFromRegister, user } from "../../stores";
 
   $afterPageLoad(() => {
     if ($isFromRegister) {
@@ -43,6 +43,7 @@
 
       if (result.login) {
         $goto("/");
+        $user = result.id;
       } else if (!result.login && response.status === 401) {
         $errors.password = result.msg;
       } else if (!result.login && response.status === 404) {
