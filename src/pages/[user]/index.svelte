@@ -1,7 +1,7 @@
 <script>
   import { ready, url, goto } from "@roxi/routify";
   import { onMount } from "svelte";
-  import Post from "../../components/Post.svelte";
+  import Post from "../../components/post/Post.svelte";
   import { isAuthenticated } from "../../stores.js";
 
   let posts = [];

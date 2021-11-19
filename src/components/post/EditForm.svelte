@@ -3,8 +3,8 @@
   import autosize from "autosize/dist/autosize.min.js";
   import { syllable } from "syllable";
   import { createForm } from "svelte-forms-lib";
-  import { haikuSchema } from "../schemas";
-  import { user, csrf } from "../stores";
+  import { haikuSchema } from "../../schemas";
+  import { user, csrf } from "../../stores";
 
   export let _id;
   export let haiku;

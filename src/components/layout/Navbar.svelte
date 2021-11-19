@@ -1,9 +1,9 @@
 <script>
-  import ThemeToggler from "../components/ThemeToggle.svelte";
-  import Hamburger from "../components/Hamburger.svelte";
+  import ThemeToggler from "../buttons/ThemeToggle.svelte";
+  import Hamburger from "../buttons/Hamburger.svelte";
   import { fade, slide } from "svelte/transition";
   import { media } from "svelte-match-media";
-  import { isAuthenticated, user } from "../stores";
+  import { isAuthenticated, user } from "../../stores";
   import { url, isActive } from "@roxi/routify";
 
   let showMenu = false;

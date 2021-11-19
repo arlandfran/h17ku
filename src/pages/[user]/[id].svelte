@@ -1,7 +1,7 @@
 <script>
   import { params } from "@roxi/routify";
   import { onMount } from "svelte";
-  import Post from "../../components/Post.svelte";
+  import Post from "../../components/post/Post.svelte";
   import { updateComments } from "../../stores";
 
   let data;

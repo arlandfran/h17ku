@@ -1,5 +1,5 @@
 <script>
-  import { getElapsedTime } from "../helpers";
+  import { getElapsedTime } from "../../helpers";
   import { onMount, afterUpdate } from "svelte";
 
   export let username;
@@ -23,10 +23,8 @@
   class="flex flex-col gap-y-4 px-4 py-4 w-full border-b border-black dark:border-gray-400"
 >
   <div>
-    <span
-      >{username} •
-      <time datetime={time.toISOString()}>{elapsedTime}</time></span
-    >
+    <span>{username}</span> •
+    <time datetime={time.toISOString()}>{elapsedTime}</time>
   </div>
-  <div>{comment}</div>
+  <p>{comment}</p>
 </div>

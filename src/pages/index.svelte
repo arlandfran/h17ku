@@ -1,7 +1,7 @@
 <script>
   import HaikuValidator from "../components/HaikuValidator.svelte";
-  import Post from "../components/Post.svelte";
-  import PostsFilter from "../components/PostsFilter.svelte";
+  import Post from "../components/post/Post.svelte";
+  import PostsFilter from "../components/post/PostsFilter.svelte";
   import { updatePosts, filter, user } from "../stores";
   import ActionBar from "../components/ActionBar.svelte";
 

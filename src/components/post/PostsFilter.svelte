@@ -1,5 +1,5 @@
 <script>
-  import { isAuthenticated, filter, updatePosts } from "../stores";
+  import { isAuthenticated, filter, updatePosts } from "../../stores";
 
   const onChangeHandler = () => {
     $filter = document.getElementById("filter").value;
