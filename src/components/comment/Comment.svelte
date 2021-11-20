@@ -51,7 +51,7 @@
   });
 
   const likeHandler = async () => {
-    const response = await fetch(`/api/comment?id=${_id}&like=${!liked}`, {
+    const response = await fetch(`/api/comment?id=${_id.$oid}&like=${!liked}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -83,14 +83,17 @@
   };
 
   const deleteHandler = async () => {
-    const response = await fetch(`/api/comment?pid=${post_id}&cid=${_id}`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-        "X-CSRFToken": $csrf,
-      },
-      credentials: "same-origin",
-    });
+    const response = await fetch(
+      `/api/comment?pid=${post_id}&cid=${_id.$oid}`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          "X-CSRFToken": $csrf,
+        },
+        credentials: "same-origin",
+      }
+    );
 
     if (response.status === 204) {
       isDeleting = false;

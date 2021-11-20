@@ -51,7 +51,7 @@
 
     <CommentForm _id={post._id} username={post.username} />
 
-    {#each comments as comment (comment._id.$oid)}
+    {#each [...comments].reverse() as comment (comment._id.$oid)}
       <Comment {...comment} post_id={post._id.$oid} />
     {/each}
   {/if}
