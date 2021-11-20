@@ -121,7 +121,7 @@ The database for this project is MongoDB. There are three collections for this p
 
 **Users**:
 
-```json
+```
 {
     _id: ObjectId
     email: String
@@ -132,7 +132,7 @@ The database for this project is MongoDB. There are three collections for this p
 
 **Posts**:
 
-```json
+```
 {
     _id: ObjectId
     username: String
@@ -148,7 +148,8 @@ Posts have a one to many relationship to Users with the `username` field as the 
 
 **Comments**:
 
-```json
+```
+{
     _id: ObjectId
     post: ObjectId
     username: String
@@ -156,6 +157,7 @@ Posts have a one to many relationship to Users with the `username` field as the 
     posted_at: Date
     likes: Array
     edited: Boolean
+}
 ```
 
 Comments have a one to many relationship to Posts with the `post` objectId as the reference.
