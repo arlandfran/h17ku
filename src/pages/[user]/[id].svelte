@@ -47,7 +47,7 @@
 
 <div class="grid gap-y-4 w-full max-w-2xl">
   {#if isLoaded}
-    <Post {...post} />
+    <Post {...post} isSelected="true" />
 
     <CommentForm _id={post._id} username={post.username} />
 
