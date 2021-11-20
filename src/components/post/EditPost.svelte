@@ -3,14 +3,14 @@
   import { slide } from "svelte/transition";
   import { createForm } from "svelte-forms-lib";
   import { SvelteToast, toast } from "@zerodevx/svelte-toast";
-  import { user, csrf } from "../../stores";
+  import { user, csrf, updatePosts } from "../../stores";
   import { haikuSchema } from "../../schemas";
   import { syllable } from "syllable";
   import autosize from "autosize/dist/autosize.min.js";
 
   export let _id;
   export let haiku;
-  export let isEditing = true;
+  export let isEditing;
 
   onMount(() => {
     autosize(document.querySelectorAll("textarea"));
@@ -48,6 +48,7 @@
         if (response.status === 200) {
           isEditing = false;
           haiku = $form.haiku;
+          $updatePosts = true;
         } else if (
           response.status === 400 &&
           result.msg === "The CSRF token has expired."
