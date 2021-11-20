@@ -50,6 +50,8 @@ A web app that helps users to compose haikus.
 
 ## Features
 
+### Implemented
+
 - Responsive design
 
 - CRUD functionality
@@ -63,6 +65,14 @@ A web app that helps users to compose haikus.
 - Like system
 
 - Dark mode
+
+### Planned
+
+- Report system
+
+- Save posts
+
+- Share to social media
 
 ## Information Architecture
 
@@ -134,7 +144,7 @@ The database for this project is MongoDB. There are three collections for this p
 }
 ```
 
-Posts have a one to many relationship to Users with the `username` as the refernce.
+Posts have a one to many relationship to Users with the `username` field as the refernce.
 
 **Comments**:
 
