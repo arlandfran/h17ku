@@ -67,7 +67,7 @@
   <ActionBar />
 </div>
 
-<div class="flex flex-col gap-y-4 mt-2 w-full max-w-2xl">
+<div class="flex flex-col gap-y-4 mt-4 w-full max-w-2xl">
   <PostsFilter />
 
   {#if posts.length}

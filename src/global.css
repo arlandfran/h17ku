@@ -18,13 +18,12 @@
   @apply p-2 rounded-sm focus:outline-none focus:ring-2 focus:ring-black dark:ring-white dark:bg-gray-800;
 }
 
-.textarea,
-.edit-textarea {
+.textarea {
   @apply box-border p-4 w-full font-mono whitespace-pre-line rounded border border-black resize-none dark:shadow-lg dark:bg-gray-700 focus:outline-none focus:ring-1 focus:ring-black dark:ring-white dark:border-none dark:focus:ring-2;
 }
 
 .edit-textarea {
-  @apply dark:bg-gray-800 dark:shadow-none;
+  @apply box-border p-4 w-full font-mono whitespace-pre-line resize-none dark:bg-gray-800 focus:outline-none;
 }
 
 .error {

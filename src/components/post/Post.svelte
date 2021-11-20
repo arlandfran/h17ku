@@ -121,7 +121,7 @@
   {#if isEditing}
     <EditPost {_id} bind:isEditing bind:haiku />
   {:else}
-    <div class="font-mono whitespace-pre-line">
+    <div class="p-4 font-mono whitespace-pre-line">
       {haiku}
     </div>
   {/if}
