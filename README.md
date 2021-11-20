@@ -2,6 +2,8 @@
 
 A web app that helps users to compose haikus.
 
+**Deployed Link:** [https://h17ku.herokuapp.com](https://h17ku.herokuapp.com)
+
 **Project Goals**:
 
 - Help users write their own haikus
