@@ -144,7 +144,7 @@ The database for this project is MongoDB. There are three collections for this p
 }
 ```
 
-Posts have a one to many relationship to Users with the `username` field as the refernce.
+Posts have a one to many relationship to Users with the `username` field as the reference.
 
 **Comments**:
 
@@ -161,6 +161,8 @@ Posts have a one to many relationship to Users with the `username` field as the 
 ```
 
 Comments have a one to many relationship to Posts with the `post` objectId as the reference.
+
+Posts and comments have a very similar model but Posts has a `comments` array that keeps track of the amount of comments that a single Post has.
 
 ## Technologies Used
 
@@ -183,6 +185,24 @@ Comments have a one to many relationship to Posts with the `post` objectId as th
 - [Flask-PyMongo](https://flask-pymongo.readthedocs.io/en/latest/) - Flask Wrapper for PyMongo
 
 - [Flask-Login](https://flask-login.readthedocs.io/en/latest/) - User Session Management for Flask
+
+**Packages**:
+
+- [svelte-toast](https://zerodevx.github.io/svelte-toast/) - Toast notifications
+
+- [svelte-forms-lib](https://svelte-forms-lib-sapper-docs.vercel.app/introduction) - Form creation, validation and submission
+
+- [svelte-match-media](https://github.com/pearofducks/svelte-match-media) - Svelte match media plugin
+
+- [tailwindcss-delicious-hamburgers](https://github.com/theMosaad/tailwindcss-delicious-hamburgers) - Animated hamburger menu
+
+- [syllable](https://github.com/words/syllable) - Syllable counter
+
+- [autosize](https://www.jacklmoore.com/autosize/) - Automatically adjust textarea height
+
+- [tippy.js](https://atomiks.github.io/tippyjs/) - Tooltip provider
+
+- [yup](https://github.com/jquense/yup) - Object schema validator
 
 **Tooling**:
 
