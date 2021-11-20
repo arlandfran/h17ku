@@ -45,7 +45,7 @@
           body: JSON.stringify(values),
         });
 
-        if (response.status === 200) {
+        if (response.status === 204) {
           isEditing = false;
           haiku = $form.haiku;
           $updatePosts = true;
@@ -68,7 +68,7 @@
   });
 </script>
 
-<form on:submit={handleSubmit} id="edit-form">
+<form on:submit={handleSubmit} id="edit-post-form">
   <label for="edit" class="sr-only">edit haiku</label>
   <textarea
     name="haiku"

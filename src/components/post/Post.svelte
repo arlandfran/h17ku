@@ -140,7 +140,7 @@
     {#if $isAuthenticated && $user === username}
       {#if isEditing}
         <CancelEdit bind:isEditing />
-        <SubmitEdit />
+        <SubmitEdit form="edit-post-form" />
       {:else}
         <ToggleEdit bind:isEditing />
 
