@@ -1,8 +1,5 @@
 import random
-from datetime import datetime
-from bson import ObjectId
 from flask import request
-from flask_login import login_required
 
 from app import mongo
 from app.helpers import parse_json
