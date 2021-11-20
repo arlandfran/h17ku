@@ -1,5 +1,5 @@
-from bson import ObjectId
 from datetime import datetime
+from bson import ObjectId
 from flask import request
 from flask_login import login_required
 
@@ -44,9 +44,7 @@ def get_post():
 @login_required
 def post():
     data = request.json
-    _id = ObjectId()
     document = {
-        "_id": _id,
         "username": data["username"],
         "haiku": data["haiku"],
         "posted_at": datetime.now(),
