@@ -71,7 +71,7 @@
   <PostsFilter />
 
   {#if posts.length}
-    {#each posts as post}
+    {#each posts as post (post._id.$oid)}
       <Post {...post} />
     {/each}
   {/if}
