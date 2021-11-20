@@ -203,3 +203,13 @@ Testing is documented in a [separate file here](./docs/testing.md).
 ## Deployment
 
 Deployment is documented in a [separate file here](./docs/deployment.md).
+
+## Credits / Acknowledgements:
+
+- Stack Overflow
+
+- All the doc sites: [svelte.dev](https://svelte.dev/docs), [routify.dev](https://www.routify.dev/docs/helpers), [docs.mongodb.com](https://docs.mongodb.com/), [flask](https://flask.palletsprojects.com/en/2.0.x/) etc.
+
+- The Code Institute Slack community for all the great resources, tips and support
+
+- My mentor Precious Ijege for his support and feedback with the project
