@@ -182,6 +182,24 @@ Comments have a one to many relationship to Posts with the `post` objectId as th
 
 - [Flask-Login](https://flask-login.readthedocs.io/en/latest/) - User Session Management for Flask
 
+**Packages**:
+
+- [svelte-toast](https://zerodevx.github.io/svelte-toast/) - Toast notifications
+
+- [svelte-forms-lib](https://svelte-forms-lib-sapper-docs.vercel.app/introduction) - Form creation, validation and submission
+
+- [svelte-match-media](https://github.com/pearofducks/svelte-match-media) - Svelte match media plugin
+
+- [tailwindcss-delicious-hamburgers](https://github.com/theMosaad/tailwindcss-delicious-hamburgers) - Animated hamburger menu
+
+- [syllable](https://github.com/words/syllable) - Syllable counter
+
+- [autosize](https://www.jacklmoore.com/autosize/) - Automatically adjust textarea height
+
+- [tippy.js](https://atomiks.github.io/tippyjs/) - Tooltip provider
+
+- [yup](https://github.com/jquense/yup) - Object schema validator
+
 **Tooling**:
 
 - [Figma](https://www.figma.com/) - High-fidelity Wireframing
