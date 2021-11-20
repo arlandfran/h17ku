@@ -134,7 +134,7 @@
     <LikeBtn {likesCount} {liked} {likeHandler} />
 
     {#if !isSelected}
-      <CommentsLink {commentsCount} {_id} />
+      <CommentsLink {_id} {username} {commentsCount} />
     {/if}
 
     {#if $isAuthenticated && $user !== username}
