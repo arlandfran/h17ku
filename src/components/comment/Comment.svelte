@@ -4,11 +4,15 @@
   import CancelEdit from "../buttons/CancelEdit.svelte";
   import SubmitEdit from "../buttons/SubmitEdit.svelte";
   import EditComment from "./EditComment.svelte";
+  import ToggleDelete from "../buttons/ToggleDelete.svelte";
+  import ConfirmDelete from "../buttons/ConfirmDelete.svelte";
 
   import { onMount, afterUpdate } from "svelte";
+  import { fly } from "svelte/transition";
   import { getElapsedTime } from "../../helpers";
-  import { csrf, user, isAuthenticated } from "../../stores";
+  import { csrf, user, isAuthenticated, updateComments } from "../../stores";
 
+  export let post_id;
   export let _id;
   export let username;
   export let comment;
@@ -19,20 +23,35 @@
   let time = new Date(posted_at.$date);
   let elapsedTime;
   let isEditing;
+  let isDeleting;
   let liked;
   let likesCount = likes.length;
 
   onMount(() => {
     elapsedTime = getElapsedTime(time);
+    for (let i = 0; i < likes.length; i++) {
+      if (likes[i] === $user) {
+        liked = true;
+      } else {
+        liked = false;
+      }
+    }
   });
 
   afterUpdate(() => {
     time = new Date(posted_at.$date);
     elapsedTime = getElapsedTime(time);
+    for (let i = 0; i < likes.length; i++) {
+      if (likes[i] === $user) {
+        liked = true;
+      } else {
+        liked = false;
+      }
+    }
   });
 
   const likeHandler = async () => {
-    const response = await fetch(`/api/comment?id=${_id.$oid}&like=${!liked}`, {
+    const response = await fetch(`/api/comment?id=${_id}&like=${!liked}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -51,6 +70,31 @@
       } else {
         likesCount -= 1;
       }
+    } else if (
+      response.status === 400 &&
+      result.msg === "The CSRF token has expired."
+    ) {
+      toast.push("session has expired, please refresh the page", {
+        initial: 1,
+        reversed: true,
+        intro: { y: 64 },
+      });
+    }
+  };
+
+  const deleteHandler = async () => {
+    const response = await fetch(`/api/comment?pid=${post_id}&cid=${_id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        "X-CSRFToken": $csrf,
+      },
+      credentials: "same-origin",
+    });
+
+    if (response.status === 204) {
+      isDeleting = false;
+      $updateComments = true;
     } else if (
       response.status === 400 &&
       result.msg === "The CSRF token has expired."
@@ -90,6 +134,16 @@
         <SubmitEdit form="edit-comment-form" />
       {:else}
         <ToggleEdit bind:isEditing />
+
+        <ToggleDelete bind:isDeleting />
+        {#if isDeleting}
+          <div
+            class="flex justify-center"
+            transition:fly={{ duration: 200, x: -10 }}
+          >
+            <ConfirmDelete {deleteHandler} />
+          </div>
+        {/if}
       {/if}
     {/if}
   </div>
