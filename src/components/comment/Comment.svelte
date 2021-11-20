@@ -1,17 +1,24 @@
 <script>
   import LikeBtn from "../buttons/LikeBtn.svelte";
+  import ToggleEdit from "../buttons/ToggleEdit.svelte";
+  import CancelEdit from "../buttons/CancelEdit.svelte";
+  import SubmitEdit from "../buttons/SubmitEdit.svelte";
+  import EditComment from "./EditComment.svelte";
+
   import { onMount, afterUpdate } from "svelte";
   import { getElapsedTime } from "../../helpers";
-  import { csrf, user } from "../../stores";
+  import { csrf, user, isAuthenticated } from "../../stores";
 
   export let _id;
   export let username;
   export let comment;
   export let posted_at;
   export let likes;
+  export let edited;
 
   let time = new Date(posted_at.$date);
   let elapsedTime;
+  let isEditing;
   let liked;
   let likesCount = likes.length;
 
@@ -63,10 +70,27 @@
   <div>
     <span>{username}</span> •
     <time datetime={time.toISOString()}>{elapsedTime}</time>
+    {#if edited}
+      <span class="italic">edited</span>
+    {/if}
   </div>
-  <p>{comment}</p>
 
-  <div class="flex gap-2 items-center md:gap-4">
-    <LikeBtn count={likesCount} {liked} {likeHandler} />
+  {#if isEditing}
+    <EditComment {_id} bind:isEditing bind:comment />
+  {:else}
+    <p class="p-4">{comment}</p>
+  {/if}
+
+  <div class="flex gap-4 items-center sm:gap-8">
+    <LikeBtn {likesCount} {liked} {likeHandler} />
+
+    {#if $isAuthenticated && $user === username}
+      {#if isEditing}
+        <CancelEdit bind:isEditing />
+        <SubmitEdit form="edit-comment-form" />
+      {:else}
+        <ToggleEdit bind:isEditing />
+      {/if}
+    {/if}
   </div>
 </div>
