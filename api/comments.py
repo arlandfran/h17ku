@@ -1,5 +1,5 @@
-from bson import ObjectId
 from datetime import datetime
+from bson import ObjectId
 from flask import request
 from flask_login import login_required
 
@@ -15,32 +15,29 @@ def get_comments():
         {"_id": ObjectId(_id)}, {"comments": 1, "_id": 0}
     )
     json = parse_json(comments)
-    oids = []
+    _ids = []
     for _id in json["comments"]:
-        oids.append(ObjectId(_id["$oid"]))
-    data = mongo.db.comments.find({"_id": {"$all": oids}})
+        _ids.append(ObjectId(_id["$oid"]))
+    data = mongo.db.comments.find({"_id": {"$all": _ids}})
     return {"data": parse_json(data)}, 200
 
 
 @api_bp.post("/comment")
 def post_comment():
-    _id = request.args.get("id")
+    p_id = request.args.get("id")
     data = request.json
-    document = mongo.db.posts.find_one({"_id": ObjectId(_id)})
-    if document:
-        _id = ObjectId()
-        new_comment = {
-            "_id": _id,
-            "username": data["username"],
-            "comment": data["comment"],
-            "posted_at": datetime.now(),
-            "likes": [],
-            "edited": False,
-        }
-        mongo.db.posts.update_one({"_id": ObjectId(_id)}, {"$push": {"comments": _id}})
-        mongo.db.comments.insert_one(new_comment)
-        return {"posted": new_comment}, 200
-    return {}, 400
+    _id = ObjectId()
+    comment = {
+        "_id": _id,
+        "username": data["username"],
+        "comment": data["comment"],
+        "posted_at": datetime.now(),
+        "likes": [],
+        "edited": False,
+    }
+    mongo.db.posts.update_one({"_id": ObjectId(p_id)}, {"$push": {"comments": _id}})
+    mongo.db.comments.insert_one(comment)
+    return {"posted": comment}, 200
 
 
 @api_bp.put("/comment")
@@ -52,6 +49,16 @@ def update_comment():
         {"_id": ObjectId(_id)},
         {"$set": {"comment": data["comment"], "edited": True}},
     )
+    return {}, 204
+
+
+@api_bp.delete("/comment")
+@login_required
+def delete_comment():
+    p_id = request.args.get("pid")
+    c_id = request.args.get("cid")
+    mongo.db.posts.update_one({"_id": ObjectId(p_id)}, {"$pull": {"comments": c_id}})
+    mongo.db.comments.delete_one({"_id": ObjectId(c_id)})
     return {}, 204
 
 
