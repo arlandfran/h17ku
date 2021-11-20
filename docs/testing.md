@@ -119,7 +119,7 @@ Javascript was validated with [JSHint](https://jshint.com/). As Svelte was used,
 
 **Python**
 
-Python code was validated along the way using [Pylint](https://pylint.org/) and enabling it in VS Code. [PEP8] online was also used http://pep8online.com/ for validation but due to the way circular imports work in Flask, some errors were left such as module level import not at top of file.
+Python code was linted along the way using [Pylint](https://pylint.org/) and enabling it in VS Code. [PEP8 online](http://pep8online.com/) was also used for validation but due to the way circular imports work in Flask, some errors were left unavoidable such as `module level import not at top of file`.
 
 ## User Story Testing
 
