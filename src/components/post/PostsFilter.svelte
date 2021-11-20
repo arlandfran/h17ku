@@ -13,6 +13,7 @@
     id="filter"
     class="cursor-pointer dropdown"
     on:change={onChangeHandler}
+    aria-label="sort-filter"
   >
     {#if $isAuthenticated}
       <option label="my haikus" value="my-haikus" selected>my haikus</option>

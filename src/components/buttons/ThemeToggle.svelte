@@ -25,6 +25,7 @@
   class="btn hover:bg-gray-400"
   on:click={toggleTheme}
   on:click={toggleIcon}
+  aria-label="toggle-theme"
 >
   {#if dark}
     <!-- Sun SVG -->

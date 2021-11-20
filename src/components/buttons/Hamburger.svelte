@@ -18,7 +18,7 @@
   }
 </script>
 
-<button class="btn md:hidden" on:click={menuClickHandler}>
+<button class="btn md:hidden" on:click={menuClickHandler} aria-label="open-menu">
   <div
     id="hamburger"
     class="align-middle c-hamburger c-hamburger--chop"
