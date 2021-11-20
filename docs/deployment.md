@@ -147,4 +147,17 @@ pip install -r requirements.txt
 
 > venv\Scripts\activate.bat for Windows
 
+Before you can run the app locally you'll need to set the local environment variables that Flask needs to run.
+
+```Shell
+# set VAR_NAME if using windows
+export FLASK_APP=h17ku
+export FLASK_ENV=development
+export FLASK_RUN_PORT=3000
+export SECRET_KEY=anythingyouwant
+export TEST_DB=your_test_db_mongo_uri
+export DEV_DB=your_dev_db_mongo_uri
+export PROD_DB=your_prod_db_mongo_uri
+```
+
 `npm run api` to start the Flask server and then open another terminal window and `npm run dev` to start the application. Visit `http://localhost:5000` to see the app running locally.
