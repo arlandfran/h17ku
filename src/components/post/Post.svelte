@@ -91,7 +91,7 @@
       credentials: "same-origin",
     });
 
-    if (response.status === 200) {
+    if (response.status === 204) {
       isDeleting = false;
       $updatePosts = true;
     } else if (
