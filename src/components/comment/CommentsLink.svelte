@@ -1,13 +1,12 @@
 <script>
-  import { user } from "../../stores";
-
   export let _id;
+  export let username;
   export let commentsCount;
 </script>
 
 <div class="flex items-center">
   <a
-    href="/{$user}/{_id.$oid}"
+    href="/{username}/{_id.$oid}"
     class="flex gap-2 transition link hover:bg-blue-600 focus:bg-blue-600 focus:ring-blue-600 hover:text-white focus:text-white"
   >
     <svg

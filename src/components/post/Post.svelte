@@ -6,7 +6,6 @@
   import SubmitEdit from "../buttons/SubmitEdit.svelte";
   import CommentsLink from "../comment/CommentsLink.svelte";
   import LikeBtn from "../buttons/LikeBtn.svelte";
-  import SaveBtn from "../buttons/SaveBtn.svelte";
   import EditPost from "./EditPost.svelte";
 
   import { goto } from "@roxi/routify";
@@ -134,11 +133,7 @@
     <LikeBtn {likesCount} {liked} {likeHandler} />
 
     {#if !isSelected}
-      <CommentsLink {commentsCount} {_id} />
-    {/if}
-
-    {#if $isAuthenticated && $user !== username}
-      <SaveBtn id={_id.$oid} />
+      <CommentsLink {_id} {username} {commentsCount} />
     {/if}
 
     {#if $isAuthenticated && $user === username}

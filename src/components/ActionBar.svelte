@@ -42,6 +42,4 @@
   </span>
 
   <button class="btn" id="copy" on:click={copy}>copy</button>
-
-  <button class="btn">share</button>
 </div>
