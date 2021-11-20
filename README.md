@@ -64,6 +64,92 @@ A web app that helps users to compose haikus.
 
 - Dark mode
 
+## Information Architecture
+
+### API
+
+**Auth routes**:
+
+| Method | Route          | Action                       |
+| ------ | -------------- | ---------------------------- |
+| POST   | /auth/register | Handle user registration     |
+| POST   | /auth/login    | Handle user login            |
+| GET    | /auth/session  | Check if a user is logged in |
+| GET    | /auth/logout   | Handle user log out          |
+
+**Post routes**:
+
+| Method | Route  | Action          |
+| ------ | ------ | --------------- |
+| GET    | /post  | Get single post |
+| GET    | /posts | Get all posts   |
+| POST   | /post  | Create post     |
+| PUT    | /post  | Update post     |
+| PATCH  | /post  | Like a post     |
+| DELETE | /post  | Delete post     |
+
+**Comment routes**:
+
+| Method | Route     | Action                            |
+| ------ | --------- | --------------------------------- |
+| GET    | /comments | Get all comments of a single post |
+| POST   | /comment  | Create a comment                  |
+| PUT    | /comment  | Update a comment                  |
+| PATCH  | /comment  | Like a comment                    |
+| DELETE | /comment  | Delete a comment                  |
+
+**Other routes**:
+
+| Method | Route  | Action             |
+| ------ | ------ | ------------------ |
+| GET    | /user  | Get all user posts |
+| GET    | /haiku | Get a random haiku |
+
+### Database
+
+The database for this project is MongoDB. There are three collections for this project: `users`, `posts` and `comments`. Here are the database models for each collection:
+
+**Users**:
+
+```json
+{
+    _id: ObjectId
+    email: String
+    username: String
+    pwd_hash: String
+}
+```
+
+**Posts**:
+
+```json
+{
+    _id: ObjectId
+    username: String
+    haiku: String
+    posted_at: Date
+    likes: Array
+    comments: Array
+    edited: Boolean
+}
+```
+
+Posts have a one to many relationship to Users with the `username` as the refernce.
+
+**Comments**:
+
+```json
+    _id: ObjectId
+    post: ObjectId
+    username: String
+    comment: String
+    posted_at: Date
+    likes: Array
+    edited: Boolean
+```
+
+Comments have a one to many relationship to Posts with the `post` objectId as the reference.
+
 ## Technologies Used
 
 **Languages**: HTML, CSS, JavaScript, Python
