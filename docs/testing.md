@@ -146,3 +146,23 @@ Python code was validated along the way using [Pylint](https://pylint.org/) and 
 - As a user, I want to be able to edit my haiku after I've posted it so that I can fix any typos or make any amendments if I need to
 
   - Users can edit their haikus and commments after posting using the edit icon and then submitting their changes
+
+## Responsive Testing
+
+Website responsiveness was tested on [Google's Mobile Friendly Test](https://search.google.com/test/mobile-friendly) - Passed and [Responsinator](https://www.responsinator.com/) - Mobile and tablet devices test.
+
+## Accessibility Testing
+
+Accessibility was harder to test due to being an SPA. [WAVE](https://wave.webaim.org/) could not detect my pages but Microsoft's [Accessibility Insights for Web extension](https://accessibilityinsights.io/en/) was able to work and I was able to fix every issue.
+
+## Defensive Design
+
+- If user is logged in, then the login and register pages redirect to the home page.
+
+- If the user navigates to a page that does not exists then a 404 page is shown.
+
+- Tooltips will still show if the user tabs to disabled buttons like `post` to inform the user that they need to log in before they can take actions on the site
+
+## Edge Cases
+
+- Very rarely if a user likes a comment, sometimes the state is not tracked properly and a user is able to keep liking comments beyond the one like per user limit
