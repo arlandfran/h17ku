@@ -25,7 +25,7 @@ def cursor(mongo):
     """
     Create a cursor fixture to test json parsing
     """
-    single = mongo.db.posts.find_one({"author": "test"})
+    single = mongo.db.posts.find_one({"username": "test"})
     multiple = mongo.db.posts.find({})
     data = {"single": single, "multiple": multiple}
     return data

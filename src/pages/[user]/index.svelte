@@ -2,11 +2,11 @@
   import { ready, url, goto } from "@roxi/routify";
   import { onMount } from "svelte";
   import Post from "../../components/post/Post.svelte";
-  import { isAuthenticated } from "../../stores.js";
+  import { isAuthenticated, user } from "../../stores.js";
 
   let posts = [];
   const slug = $url().slice(1);
-  let user = false;
+  let isUser = false;
 
   onMount(async () => {
     const response = await fetch(`/api/user?username=${slug}`, {
@@ -16,7 +16,7 @@
 
     if (response.status === 200) {
       posts = result.data;
-      user = true;
+      isUser = true;
       $ready();
     } else if (response.status === 404) {
       $goto("../404", {}, true);
@@ -24,8 +24,8 @@
   });
 </script>
 
-{#if user}
-  {#if $isAuthenticated}
+{#if isUser}
+  {#if $isAuthenticated && slug === $user}
     <h1 class="title">your haikus</h1>
   {:else}
     <h1 class="title">{slug}'s haikus</h1>

@@ -53,7 +53,7 @@ def login():
                 username=email_exists["username"],
             )
             login_user(user_obj)
-            return {"login": True}, 200
+            return {"login": True, "id": user_obj.get_id()}, 200
         else:
             return {"login": False, "msg": "incorrect password"}, 401
     else:

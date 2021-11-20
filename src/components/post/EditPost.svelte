@@ -1,22 +1,21 @@
 <script>
   import { onMount } from "svelte";
-  import autosize from "autosize/dist/autosize.min.js";
-  import { syllable } from "syllable";
-  import { createForm } from "svelte-forms-lib";
-  import { haikuSchema } from "../../schemas";
-  import { user, csrf } from "../../stores";
-  import { SvelteToast as Toast, toast } from "@zerodevx/svelte-toast";
   import { slide } from "svelte/transition";
+  import { createForm } from "svelte-forms-lib";
+  import { SvelteToast, toast } from "@zerodevx/svelte-toast";
+  import { user, csrf, updatePosts } from "../../stores";
+  import { haikuSchema } from "../../schemas";
+  import { syllable } from "syllable";
+  import autosize from "autosize/dist/autosize.min.js";
 
   export let _id;
   export let haiku;
-  export let isEditing = true;
+  export let isEditing;
 
   onMount(() => {
     autosize(document.querySelectorAll("textarea"));
     $form.haiku = haiku;
     document.getElementById("edit-haiku").select();
-    count = 17;
   });
 
   $: count = syllable($form.haiku);
@@ -29,7 +28,7 @@
 
   const { form, errors, handleChange, handleSubmit } = createForm({
     initialValues: {
-      author: $user,
+      username: $user,
       haiku: "",
       count: 0,
     },
@@ -46,22 +45,20 @@
           body: JSON.stringify(values),
         });
 
-        if (response.status === 200) {
+        if (response.status === 204) {
           isEditing = false;
           haiku = $form.haiku;
+          $updatePosts = true;
         } else if (
           response.status === 400 &&
           result.msg === "The CSRF token has expired."
         ) {
           toast.push("session has expired, please refresh the page", {
             initial: 1,
+            duration: 5000,
             reversed: true,
+            dismissable: true,
             intro: { y: 64 },
-            theme: {
-              "--toastMinHeight": "2rem",
-              "--toastPadding": "0 0.5rem",
-              "--toastBarBackground": "transparent",
-            },
           });
         }
       } else {
@@ -71,7 +68,7 @@
   });
 </script>
 
-<form on:submit={handleSubmit} id="edit-form">
+<form on:submit={handleSubmit} id="edit-post-form">
   <label for="edit" class="sr-only">edit haiku</label>
   <textarea
     name="haiku"
@@ -95,4 +92,4 @@
   </div>
 </form>
 
-<Toast />
+<SvelteToast />

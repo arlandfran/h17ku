@@ -19,8 +19,10 @@
 {#if haiku}
   <div class="flex justify-center items-center w-screen vh-6">
     <div class="text-center">
-      <h1 class="mb-4 text-2xl font-bold whitespace-pre-line">{error}</h1>
-      <a href="/" class="">Go back</a>
+      <h1 class="mb-4 text-2xl font-bold whitespace-pre-line">
+        {error.toLowerCase()}
+      </h1>
+      <a href="/" class="btn">go back</a>
     </div>
   </div>
 {/if}

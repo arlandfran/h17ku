@@ -1,26 +1,9 @@
 <script>
-  import { goto, afterPageLoad } from "@roxi/routify";
+  import { goto } from "@roxi/routify";
   import { createForm } from "svelte-forms-lib";
   import { SvelteToast as Toast, toast } from "@zerodevx/svelte-toast";
   import { loginSchema } from "../../schemas";
-  import { csrf, isFromRegister } from "../../stores";
-
-  $afterPageLoad(() => {
-    if ($isFromRegister) {
-      toast.push("new account created!", {
-        initial: 1,
-        reversed: true,
-        intro: { y: 64 },
-        theme: {
-          "--toastMinHeight": "2rem",
-          "--toastPadding": "0 0.5rem",
-          "--toastBackground": "#48BB78",
-          "--toastBarBackground": "transparent",
-        },
-      });
-    }
-    $isFromRegister = false;
-  });
+  import { csrf, user } from "../../stores";
 
   const { form, errors, handleChange, handleSubmit } = createForm({
     initialValues: {
@@ -42,6 +25,7 @@
       const result = await response.json();
 
       if (result.login) {
+        $user = result.id;
         $goto("/");
       } else if (!result.login && response.status === 401) {
         $errors.password = result.msg;

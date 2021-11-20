@@ -10,7 +10,7 @@
   import { SvelteToast as Toast, toast } from "@zerodevx/svelte-toast";
 
   export let _id;
-  export let author;
+  export let username;
 
   onMount(() => {
     autosize(document.querySelectorAll("textarea"));
@@ -26,6 +26,12 @@
     }
   });
 
+  $: if ($form.comment.length > 280) {
+    $errors.comment = "you have reached the 280 character limit";
+  } else {
+    $errors.comment = "";
+  }
+
   const { form, errors, handleChange, handleSubmit } = createForm({
     initialValues: {
       username: $user,
@@ -33,7 +39,7 @@
     },
     validationSchema: commentSchema,
     onSubmit: async (values) => {
-      const response = await fetch(`/api/post?id=${_id.$oid}`, {
+      const response = await fetch(`/api/comment?id=${_id.$oid}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -45,6 +51,7 @@
 
       if (response.status === 200) {
         $updateComments = true;
+        $form.comment = "";
       } else if (
         response.status === 400 &&
         result.msg === "The CSRF token has expired."
@@ -74,7 +81,7 @@
       rows="1"
       class:error={$errors.comment}
       class="textarea"
-      placeholder="reply to {author}"
+      placeholder="reply to {username}"
       on:change={handleChange}
       bind:value={$form.comment}
     />
