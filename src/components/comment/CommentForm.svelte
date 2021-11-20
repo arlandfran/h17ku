@@ -26,6 +26,12 @@
     }
   });
 
+  $: if ($form.comment.length > 280) {
+    $errors.comment = "you have reached the 280 character limit";
+  } else {
+    $errors.comment = "";
+  }
+
   const { form, errors, handleChange, handleSubmit } = createForm({
     initialValues: {
       username: $user,
