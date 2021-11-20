@@ -39,5 +39,5 @@
 }
 
 .active {
-  @apply font-medium text-yellow-400;
+  @apply font-medium text-rose-500 dark:text-yellow-400;
 }
