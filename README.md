@@ -144,7 +144,7 @@ The database for this project is MongoDB. There are three collections for this p
 }
 ```
 
-Posts have a one to many relationship to Users with the `username` field as the refernce.
+Posts have a one to many relationship to Users with the `username` field as the reference.
 
 **Comments**:
 
@@ -159,6 +159,8 @@ Posts have a one to many relationship to Users with the `username` field as the 
 ```
 
 Comments have a one to many relationship to Posts with the `post` objectId as the reference.
+
+Posts and comments have a very similar model but Posts has a `comments` array that keeps track of the amount of comments that a single Post has.
 
 ## Technologies Used
 
