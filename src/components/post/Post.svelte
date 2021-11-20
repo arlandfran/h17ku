@@ -127,10 +127,10 @@
   {/if}
 
   <div class="flex gap-4 items-center sm:gap-8">
-    <LikeBtn count={likesCount} {liked} {likeHandler} />
+    <LikeBtn {likesCount} {liked} {likeHandler} />
 
     {#if !isSelected}
-      <CommentsLink count={commentsCount} {_id} />
+      <CommentsLink {commentsCount} {_id} />
     {/if}
 
     {#if $isAuthenticated && $user !== username}

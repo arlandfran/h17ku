@@ -5,7 +5,7 @@
   import "tippy.js/dist/tippy.css";
   import "tippy.js/themes/translucent.css";
 
-  export let count;
+  export let likesCount;
   export let liked;
   export let likeHandler;
 
@@ -44,7 +44,7 @@
       />
     </svg>
 
-    {count}
+    {likesCount}
   </button>
 {:else}
   <span
@@ -72,7 +72,7 @@
         />
       </svg>
 
-      {count}
+      {likesCount}
     </button>
   </span>
 {/if}
