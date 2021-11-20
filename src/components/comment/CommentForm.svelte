@@ -39,7 +39,7 @@
     },
     validationSchema: commentSchema,
     onSubmit: async (values) => {
-      const response = await fetch(`/api/post?id=${_id.$oid}`, {
+      const response = await fetch(`/api/comment?id=${_id.$oid}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -51,6 +51,7 @@
 
       if (response.status === 200) {
         $updateComments = true;
+        $form.comment = "";
       } else if (
         response.status === 400 &&
         result.msg === "The CSRF token has expired."
