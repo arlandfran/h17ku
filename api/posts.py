@@ -53,7 +53,7 @@ def post():
         "edited": False,
     }
     mongo.db.posts.insert_one(document)
-    return {"posted": document}, 200
+    return {"posted": parse_json(document)}, 200
 
 
 @api_bp.put("/post")
