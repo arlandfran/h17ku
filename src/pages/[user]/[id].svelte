@@ -2,6 +2,7 @@
   import Post from "../../components/post/Post.svelte";
   import Comment from "../../components/comment/Comment.svelte";
   import CommentForm from "../../components/comment/CommentForm.svelte";
+
   import { onMount } from "svelte";
   import { params } from "@roxi/routify";
   import { updateComments } from "../../stores";
@@ -50,8 +51,8 @@
 
     <CommentForm _id={post._id} username={post.username} />
 
-    {#each comments as comment}
-      <Comment {...comment} />
+    {#each comments as comment (comment._id.$oid)}
+      <Comment {...comment} post_id={post._id.$oid} />
     {/each}
   {/if}
 </div>
