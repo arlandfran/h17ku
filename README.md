@@ -30,17 +30,13 @@ A web app that helps users to compose haikus.
 
 - As a user, I want to be able to post my haiku so that I can share it with other users on the website
 
-- As a user, I want to be able to easily copy or use social share buttons so that I can share my haikus on any platform outside of the website
+- As a user, I want to be able to easily copy my post so that I can share my haikus on any platform outside of the website
 
 - As a user, I want to be able to save my haikus so that I can read them at any later date
 
 - As a user, I want to be able to save other user's haikus so that I can read them at a later date
 
 - As a user, I want to be able to edit my haiku after I've posted it so that I can fix any typos or make any amendments if I need to
-
-- As a user, I want to be able to report a haiku in the event that the content is offensive
-
-- As an admin, I want to be able to delete another user's haiku so that I can moderate the haiku board and remove offensive content
 
 ### Design
 
@@ -73,6 +69,10 @@ A web app that helps users to compose haikus.
 - Save posts
 
 - Share to social media
+
+- User search
+
+- Post pagination
 
 ## Information Architecture
 
