@@ -9,6 +9,7 @@
   import SaveBtn from "../buttons/SaveBtn.svelte";
   import EditPost from "./EditPost.svelte";
 
+  import { goto } from "@roxi/routify";
   import { onMount, afterUpdate } from "svelte";
   import { slide, fly } from "svelte/transition";
   import { media } from "svelte-match-media";
@@ -94,6 +95,9 @@
     if (response.status === 204) {
       isDeleting = false;
       $updatePosts = true;
+      if (isSelected) {
+        $goto("/");
+      }
     } else if (
       response.status === 400 &&
       result.msg === "The CSRF token has expired."
