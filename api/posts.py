@@ -13,11 +13,11 @@ def get_posts():
     post_filter = request.args.get("filter")
     if post_filter:
         if post_filter == "popular":
-            posts = mongo.db.posts.find({}).sort("likes", -1).limit(10)
+            posts = mongo.db.posts.find({}).sort("likes", -1).limit(20)
             data = parse_json(posts)
             return {"data": data}, 200
         if post_filter == "newest":
-            posts = mongo.db.posts.find({}).sort("posted_at", -1).limit(10)
+            posts = mongo.db.posts.find({}).sort("posted_at", -1).limit(20)
             data = parse_json(posts)
             return {"data": data}, 200
         if post_filter == "my-haikus":
@@ -25,7 +25,7 @@ def get_posts():
             posts = (
                 mongo.db.posts.find({"username": username})
                 .sort("posted_at", -1)
-                .limit(10)
+                .limit(20)
             )
             data = parse_json(posts)
             return {"data": data}, 200

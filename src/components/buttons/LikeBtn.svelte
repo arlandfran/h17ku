@@ -11,7 +11,7 @@
 
   onMount(() => {
     if (!$isAuthenticated) {
-      tippy("#like", {
+      tippy(".like", {
         content: "you must be logged in to like haikus",
         arrow: false,
         hideOnClick: false,
@@ -48,8 +48,7 @@
   </button>
 {:else}
   <span
-    id="like"
-    class="rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white"
+    class="rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white like"
     tabindex="0"
   >
     <button

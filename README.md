@@ -30,17 +30,13 @@ A web app that helps users to compose haikus.
 
 - As a user, I want to be able to post my haiku so that I can share it with other users on the website
 
-- As a user, I want to be able to easily copy or use social share buttons so that I can share my haikus on any platform outside of the website
+- As a user, I want to be able to easily copy my post so that I can share my haikus on any platform outside of the website
 
 - As a user, I want to be able to save my haikus so that I can read them at any later date
 
 - As a user, I want to be able to save other user's haikus so that I can read them at a later date
 
 - As a user, I want to be able to edit my haiku after I've posted it so that I can fix any typos or make any amendments if I need to
-
-- As a user, I want to be able to report a haiku in the event that the content is offensive
-
-- As an admin, I want to be able to delete another user's haiku so that I can moderate the haiku board and remove offensive content
 
 ### Design
 
@@ -49,6 +45,8 @@ A web app that helps users to compose haikus.
 **Wireframes**: [View wireframes here.](https://www.figma.com/file/U0uHd5o7MSSylybfmesyOo/haiku-help?node-id=0%3A1)
 
 ## Features
+
+### Implemented
 
 - Responsive design
 
@@ -63,6 +61,104 @@ A web app that helps users to compose haikus.
 - Like system
 
 - Dark mode
+
+### Planned
+
+- Report system
+
+- Save posts
+
+- Share to social media
+
+- User search
+
+- Post pagination
+
+## Information Architecture
+
+### API
+
+**Auth routes**:
+
+| Method | Route          | Action                       |
+| ------ | -------------- | ---------------------------- |
+| POST   | /auth/register | Handle user registration     |
+| POST   | /auth/login    | Handle user login            |
+| GET    | /auth/session  | Check if a user is logged in |
+| GET    | /auth/logout   | Handle user log out          |
+
+**Post routes**:
+
+| Method | Route  | Action          |
+| ------ | ------ | --------------- |
+| GET    | /post  | Get single post |
+| GET    | /posts | Get all posts   |
+| POST   | /post  | Create post     |
+| PUT    | /post  | Update post     |
+| PATCH  | /post  | Like a post     |
+| DELETE | /post  | Delete post     |
+
+**Comment routes**:
+
+| Method | Route     | Action                            |
+| ------ | --------- | --------------------------------- |
+| GET    | /comments | Get all comments of a single post |
+| POST   | /comment  | Create a comment                  |
+| PUT    | /comment  | Update a comment                  |
+| PATCH  | /comment  | Like a comment                    |
+| DELETE | /comment  | Delete a comment                  |
+
+**Other routes**:
+
+| Method | Route  | Action             |
+| ------ | ------ | ------------------ |
+| GET    | /user  | Get all user posts |
+| GET    | /haiku | Get a random haiku |
+
+### Database
+
+The database for this project is MongoDB. There are three collections for this project: `users`, `posts` and `comments`. Here are the database models for each collection:
+
+**Users**:
+
+```json
+{
+    _id: ObjectId
+    email: String
+    username: String
+    pwd_hash: String
+}
+```
+
+**Posts**:
+
+```json
+{
+    _id: ObjectId
+    username: String
+    haiku: String
+    posted_at: Date
+    likes: Array
+    comments: Array
+    edited: Boolean
+}
+```
+
+Posts have a one to many relationship to Users with the `username` field as the refernce.
+
+**Comments**:
+
+```json
+    _id: ObjectId
+    post: ObjectId
+    username: String
+    comment: String
+    posted_at: Date
+    likes: Array
+    edited: Boolean
+```
+
+Comments have a one to many relationship to Posts with the `post` objectId as the reference.
 
 ## Technologies Used
 
@@ -107,3 +203,13 @@ Testing is documented in a [separate file here](./docs/testing.md).
 ## Deployment
 
 Deployment is documented in a [separate file here](./docs/deployment.md).
+
+## Credits / Acknowledgements:
+
+- Stack Overflow
+
+- All the doc sites: [svelte.dev](https://svelte.dev/docs), [routify.dev](https://www.routify.dev/docs/helpers), [docs.mongodb.com](https://docs.mongodb.com/), [flask](https://flask.palletsprojects.com/en/2.0.x/) etc.
+
+- The Code Institute Slack community for all the great resources, tips and support
+
+- My mentor Precious Ijege for his support and feedback with the project
