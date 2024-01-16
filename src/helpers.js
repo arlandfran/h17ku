@@ -28,6 +28,6 @@ export function getElapsedTime(startTime) {
   } else if (totalHours < 25) {
     return `${totalHours}h ago`;
   } else {
-    return endTime.toDateString().slice(4, -5);
+    return startTime.toDateString().slice(4);
   }
 }
