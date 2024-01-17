@@ -2,7 +2,7 @@
 
 A web app that helps users to compose haikus.
 
-**Deployed Link:** [https://h17ku.herokuapp.com](https://h17ku.herokuapp.com)
+**Deployed Link:** [https://h17ku.onrender.com](https://h17ku.onrender.com)
 
 **Project Goals**:
 
